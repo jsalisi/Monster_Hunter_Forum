@@ -29,7 +29,7 @@
   position: absolute;
   margin: auto;
   color: white;
-  font-size: 100%;
+  font-size:30px;
 }
 
 #loginInput {
@@ -297,8 +297,8 @@ a.threadTitle:hover, a.threadTitle:active {
 
 .Thread {
   height: auto;
-  width: 99.7%;
-  margin: 0.2%;
+  width: 99.6%;
+  margin: 0.25%;
   background-color: darkslategrey;
   color: white;
   display: inline-block;
@@ -306,21 +306,25 @@ a.threadTitle:hover, a.threadTitle:active {
 
 .threadContainer {
   width: 75%;
+  height:40px;  
   padding-left: 0.5%;
   color: white;
   display: inline-block;
 }
 
 .countContainer {
-  width: 10%;
+  width: 23.75%;
   display: inline-block;
   color: white;
+  border:2.2px solid darkseagreen;
 }
 
 .recentContainer {
-  width: 13.6%;
+  width: 23%;
   display: inline-block;
   color: white;
+  position: relative;
+  border:2px solid darkseagreen;
 }
 
 .threadInfo {
@@ -366,4 +370,7 @@ a.threadTitle:hover, a.threadTitle:active {
   position: fixed;
   right: 3.5%;
   bottom: 0%;
+}
+#username, #password {
+  height:70%;
 }
