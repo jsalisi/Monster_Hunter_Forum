@@ -96,6 +96,10 @@ var createPost = (post_id, thread_id, username, datetime, post) => {
   });
 }
 
+/**
+ * Increments the most recent thread number for use
+ * in the next new thread.
+ */
 var getNextThreadID = () => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
