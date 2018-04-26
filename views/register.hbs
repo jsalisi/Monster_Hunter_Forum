@@ -1,0 +1,53 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Register</title>
+        <link rel="icon" href="/img/Monster_Hunter_Logo.png">
+        <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
+    </head>
+
+    <body>
+        <div id='bodybg'></div>
+
+        <div id='bodyWrapper'>
+            {{> (getBanner)}}
+
+            <div id='discussSelect'>
+               <div id='monhun' class='topic'>
+
+                   <div class='topicTitle'>
+                       <b>New User Registration</b>
+                   </div>
+
+                   <form class="regContainer" action='/postReg' method='POST'>
+
+                       <p style="color: red;">{{getDupe}}</p>
+
+                       <br>
+                       <label>Username:</label>
+                       <input id='new_user' name='new_user' required="required" type="text">
+                       <br>
+
+                       <br>
+                       <label>Password:</label>
+                       <input id='new_pass' name='new_pass' required="required" type="password" onchange="get_var()">
+                       <br>
+
+                       <br>
+                       <label>Confirm Password:</label>
+                       <input id='confirm_pass' name='confirm_pass' required="required" type="password" onchange="get_var()">
+                       <br>
+
+                       <br>
+                       <input id="gogo" type="submit">
+
+                       <p hidden id="dupeCheck">{{setBrowserDupe}}</p>
+                   </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>
