@@ -1,0 +1,47 @@
+<!Doctype html>
+<html>
+
+<head>
+  <title>Forum Home</title>
+  <link rel="icon" href="/img/Monster_Hunter_Logo.png">
+  <link href='css/style.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+  <div id='bodybg'></div>
+
+  <div id='bodyWrapper'>
+
+    {{> (getBanner)}}
+
+
+    <div id='discussSelect'>
+      <div id='monhun' class='topic'>
+        <b><a id="topicTitle" href='/postThread'>Monster Hunter</a></b> {{> topicListTemp}}
+        {{#each thread}}
+          {{> threadLinkTemp}}
+        {{/each}}
+      </div>
+      <b id="makeThreadButton"><a id="makethread" href='/postThread'>Create New Thread</a></b>
+
+    </div>
+
+    <p style="display: none;" id="dupeCheck">{{setBrowserFlag}}</p>
+    <p style="display: none;" id="loginCheck">{{setLoginCheck}}</p>
+
+  </div>
+  <script type='text/javascript'>
+    var browser_dupe = document.getElementById("dupeCheck").innerHTML;
+    var loginCheck = document.getElementById("loginCheck").innerHTML;
+
+    if (browser_dupe == 1) {
+      alert("New Account Created!")
+    }
+
+    if (loginCheck == 1) {
+      document.getElementById("makeThreadButton").style.display = 'block'
+    }
+  </script>
+</body>
+
+</html>

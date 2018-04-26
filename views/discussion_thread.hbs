@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Discussion</title>
+  <link rel="icon" href="/img/Monster_Hunter_Logo.png">
+  <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+  <div id='bodybg'></div>
+
+  <div id='bodyWrapper'>
+    {{> (getBanner)}}
+
+    <div id="post_div">
+
+      <div id='monhun' class='topic'>
+
+        <b id="topicTitle" href='/monhun'>{{topic}}</b>
+
+        {{#each posts}}
+          {{> threadPostTemp}}
+        {{/each}}
+
+      </div>
+
+      <b id="makePostButton"><a id="makepost" href='/newPost'>Quick Reply</a></b>
+
+    </div>
+
+  </div>
+  <p style="display: none;" id="loginCheck">{{setLoginCheck}}</p>
+  <script>
+      var loginCheck = document.getElementById("loginCheck").innerHTML;
+      if (loginCheck == 1) {
+              document.getElementById("makePostButton").style="display: block;";
+      }
+  </script>
+</body>
+
+</html>

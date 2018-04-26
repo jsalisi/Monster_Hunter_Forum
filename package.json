@@ -1,0 +1,34 @@
+{
+  "name": "forum_project",
+  "version": "1.0.0",
+  "description": "This is a project that contains the files and server scripts for a forum",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsalisi/forum_project.git"
+  },
+  "author": "Justin Salisi, Bo Cheng, Jasper Pabuaya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsalisi/forum_project/issues"
+  },
+  "homepage": "https://github.com/jsalisi/forum_project#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "google-spreadsheet": "^2.0.4",
+    "hbs": "^4.0.1",
+    "passport": "^0.4.0",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "esdoc": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0"
+  }
+}
