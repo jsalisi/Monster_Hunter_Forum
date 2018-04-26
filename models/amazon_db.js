@@ -54,14 +54,13 @@ var loadPosts = () => {
  * @param {number} thread_id - A unique thread ID
  * @param {string} thread_title - The title for the thread
  * @param {number} views - Number of times a thread has been clicked
- * @param {string} link - The link created from the thread title; used for thread redirect
  */
 var createThread = (thread_id, thread_title, views, link) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`INSERT INTO Threads (thread_id, thread_title, views, link)
-      VALUES('${thread_id}', '${thread_title}', '${views}', '${link}');`, (error, results, fields) => {
+      connection.query(`INSERT INTO Threads (thread_id, thread_title, views)
+      VALUES('${thread_id}', '${thread_title}', '${views}');`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.
@@ -115,10 +114,30 @@ var getNextThreadID = () => {
   });
 }
 
+/**
+ * Thread ID to be used to determine which thread will be posted in
+ * @param {number} thread_id - The unique thread number
+ */
+var getNextPostID = (thread_id) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      // Use the connection
+      connection.query(`SELECT post_id FROM monster_hunter_forum_DB.Posts WHERE thread_id_fk = ${thread_id} ORDER BY post_id DESC LIMIT 1;`, (error, results, fields) => {
+        // And done with the connection.
+        connection.release();
+        // Handle error after the release.
+        if (error) reject(error);
+        else resolve(results[0].post_id + 1);
+      });
+    });
+  });
+}
+
 module.exports = {
   loadThreads,
   loadPosts,
   createThread,
   createPost,
-  getNextThreadID
+  getNextThreadID,
+  getNextPostID
 }

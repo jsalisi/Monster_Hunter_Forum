@@ -7,52 +7,92 @@ var database = require('./amazon_db');
 // Static Variables                                             // thread_id:    New threads will increment from the last thread ID
 var title = "I am potato";                                      // title:        Titles will be retrieved from a from submission using request.body.topTitle
 var view_count = 0;                                             // view_count:   New threads will be initialized with a view count of 0. Link clicks will increment view count.
-var link = "/" + title.replace(/ /g, "_").substring(0, 14);     // link:         Spaces in the title are replaced with underscores; limited to 15 chars
 var init_post_id = 1;                                           // init_post_id: Initial post ID starts at 1 for every new thread
 var username = "bmalamb";                                       // username:     Retrieved from the currently logged in user
-var post = "Testing my thread id increment";                    // post:         Retrieved from form submission using request.body.topContent
+var post = "TESTING MY ADD POST FUNCTION";                      // post:         Retrieved from form submission using request.body.topContent
 
 
-// Getting last thread ID
-database.getNextThreadID().then((thread_id) => {
-    
-    // To be used in server.js
-    // Function call format for creating a new thread
-    // Threads have an initial post that accompany it on creation
-    database.createThread(thread_id, title, view_count, link).then((result) => {
-        console.log('Adding new thread...');
-        console.log(result);
+var main = (choice) => {
+    switch(choice) {
+        case 1:
+            // Getting last thread ID
+            database.getNextThreadID().then((thread_id) => {
 
-        // Initial post
-        var timestamp = new Date();
-        return database.createPost(init_post_id, thread_id, username, timestamp, post)
+                // To be used in server.js
+                // Function call format for creating a new thread
+                // Threads have an initial post that accompany it on creation
+                database.createThread(thread_id, title, view_count).then((result) => {
+                    console.log('Adding new thread...');
+                    console.log(result);
 
-    }).then((result) => {
-        console.log('Adding new post...');
-        console.log(result);
+                    // Initial post
+                    var timestamp = new Date();
+                    return database.createPost(init_post_id, thread_id, username, timestamp, post)
 
-        // Add site redirection here
+                }).then((result) => {
+                    console.log('Adding new post...');
+                    console.log(result);
 
-        // Stops connection with the database
-        // Will also stop any functions after it
-        process.exit();
-    }).catch((error) => {
-        console.log(error);
-        process.exit();
-    });
-}).catch((error) => {
-    console.log(error);    
-    process.exit();
-});
+                    // Add site redirection here
 
-// Pulling information on Threads
-// database.loadThreads().then((threads) => {
-//     console.log(threads);   
-//     process.exit(); 
-// });
+                    // Stops connection with the database
+                    // Will also stop any functions after it
+                    process.exit();
+                }).catch((error) => {
+                    console.log(error);
+                    process.exit();
+                });
+            }).catch((error) => {
+                console.log(error);
+                process.exit();
+            });
+            break;
+        case 2:
+            database.loadThreads().then((threads) => {
+                console.log(threads);
+                process.exit();
+            });
+            break;
+        case 3:
+            // Pulling information
+            database.loadPosts().then((threads) => {
+                console.log(threads);
+                process.exit();
+            });
+            break;
+        case 4:            
+            database.getNextPostID().then((post_id) => {
+                return 
+            }).catch((error) => {
+                console.log(error); 
+                process.exit();               
+            });
+            break;
+        case 5:
+            var thread_id = 1;
+            database.getNextPostID(thread_id).then((post_id) => {
+                var timestamp = new Date();
+                return database.createPost(post_id, thread_id, username, timestamp, post)
+            }).then((result) => {
+                console.log(result);
+                process.exit();                
+            }).catch((error) => {
+                console.log(error);
+                process.exit();
+            });
+            break;
+        default:
+            database.loadThreads().then((threads) => {
+                console.log(threads);
+                process.exit();
+            });
 
-// Pulling information
-// database.loadPosts().then((threads) => {
-//     console.log(threads);
-//     process.exit();
-// });
+            // Pulling information
+            database.loadPosts().then((threads) => {
+                console.log(threads);
+                process.exit();
+            });
+    }
+}
+
+//main(5);
