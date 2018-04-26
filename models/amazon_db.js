@@ -66,7 +66,7 @@ var createThread = (thread_id, thread_title, views, link) => {
         connection.release();
         // Handle error after the release.
         if (error) reject(error);
-        else resolve(thread_id);
+        else resolve(results);
       });
     });
   });

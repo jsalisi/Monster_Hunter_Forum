@@ -22,7 +22,7 @@ database.createThread(thread_id, title, view_count, link).then((result) => {
 
     // Initial post
     var timestamp = new Date();
-    return database.createPost(init_post_id, result.thread_id, username, timestamp, post)
+    return database.createPost(init_post_id, thread_id, username, timestamp, post)
 
 }).then((result) => {
     console.log('Adding new post...');
@@ -35,5 +35,17 @@ database.createThread(thread_id, title, view_count, link).then((result) => {
     process.exit();
 }).catch((error) => {
     console.log(error);
+    process.exit();
+});
+
+// Pulling information on Threads
+database.loadThreads().then((threads) => {
+    console.log(threads);   
+    process.exit(); 
+});
+
+// Pulling information
+database.loadPosts().then((threads) => {
+    console.log(threads);
     process.exit();
 });
