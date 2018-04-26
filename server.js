@@ -22,6 +22,7 @@ const port = process.env.PORT || 8080;
  * @type {object} urlencodedParser - calls on bodyParser.urlencoded{{extended:false}} for form posting
  */
 // Importing file to access the Google Spreadsheet database
+const db = require('./models/amazon_db');
 const database = require('./public/js/google-sheets-functions.js');
 const urlencodedParser = bodyParser.urlencoded({ extended: false});
 
@@ -159,16 +160,36 @@ app.get('/postThread', (request, response) => {
 
 // posting thread to gs
 app.post('/postResult', urlencodedParser, (request, response) => {
-    var datetime = new Date();
-    database.addNewThread(current_user, request.body.topTitle, request.body.topContent, datetime).then((results) => {
-      database.addNewPost(results.user, datetime, results.thread_post, results.thread_num).then((result) => {
+    // The redirect link for the new thread
+    //var link_title = request.body.topTitle.replace(/ /g, "_").substring(0, 14);
+
+    // Getting last thread ID
+    db.getNextThreadID().then((thread_id) => {
+
+      // Function call format for creating a new thread
+      // Threads have an initial post that accompany it on creation
+      db.createThread(thread_id, request.body.topTitle, 0).then((result) => {
+        console.log('Adding new thread...');
         console.log(result);
-        response.redirect(`/${results.link}`);
+
+        // Initial post
+        var timestamp = new Date();
+        return db.createPost(1, thread_id, current_user, timestamp, request.body.topContent)
+
+      }).then((result) => {
+        console.log('Adding new post...');
+        console.log(result);
+
+        // Will be changed when load threads/posts is functional
+        response.redirect(`/home`);
+
+        // Stops connection with the database
+        // Will also stop any functions after it
       }).catch((error) => {
-        response.send(error);
+        console.log(error);
       });
     }).catch((error) => {
-      response.send(error);
+      console.log(error);
     });
 });
 
