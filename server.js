@@ -213,37 +213,33 @@ app.get('/register', (request, response) => {
 });
 
 app.post('/postReg', urlencodedParser, (request, response) => {
-    var dupeflag = 0
-    database.existcheck(request.body.new_user).then((results) => {
-      dupeflag = results;
-      console.log(dupeflag)
-    }).catch((error) => {
-      console.log(error);
-    });
-
-    setTimeout (() => {
-        if (dupeflag === 'yes') {
-            dupe_comment = "Cannot Register Account! Username already taken!!"
-            response.render('register.hbs', {})
-            console.log("no accounts registered")
-        } else if (request.body.new_pass != request.body.confirm_pass) {
-            dupe_comment = "Confirmation of password does not match!!"
-            response.render('register.hbs', {})
-            console.log("no accounts registered")
-        } else if ((request.body.new_pass === request.body.confirm_pass) && (dupeflag === 'no')){
-            database.addNewUser(request.body.new_user, request.body.new_pass, 'standard').then((result) => {
-              console.log(result);
-            });
+  db.usernameExist(request.body.new_user).then((results) => {
+    if (results.length == 0) {
+      if (request.body.new_pass == request.body.confirm_pass){
+        db.regUser(request.body.new_user, request.body.new_pass).then((regResults) => {
+            console.log('registration successful!');
             browser_flag = 1
             response.redirect('/home');
             setTimeout (() => {
                 browser_flag = 0
             }, 1000);
-        } else {
+        }).catch((error) => {
+            console.log(error);
+        })
+      } else {
+        dupe_comment = "Confirmation of password does not match!!"
             response.render('register.hbs', {})
             console.log("no accounts registered")
-        }
-    }, 1000);
+      }
+    } else {
+      dupe_comment = "Cannot Register Account! Username already taken!!"
+      response.render('register.hbs', {})
+      console.log("no accounts registered")
+    }
+  }).catch((error) => {
+      console.log(error);
+      process.exit();
+  })
 });
 
 app.param('name', (request, response, next, name) => {

@@ -97,6 +97,27 @@ var main = (choice) => {
                 process.exit()
             })
             break;
+        case 7:
+            var username = 'stephen9876'
+            var password = 'abc123'
+            database.usernameExist(username).then((results) => {
+                if (results.length == 0) {
+                    database.regUser(username, password).then((regResults) => {
+                        console.log('registration successful!');
+                        process.exit();
+                    }).catch((error) => {
+                        console.log(error);
+                        process.exit();
+                    })
+                } else {
+                    console.log('Username already exists!');
+                    process.exit();
+                }
+            }).catch((error) => {
+                console.log(error);
+                process.exit();
+            })
+            break;
         default:
             database.loadThreads().then((threads) => {
                 console.log(threads);
@@ -111,4 +132,4 @@ var main = (choice) => {
     }
 }
 
-main(6);
+main(7);

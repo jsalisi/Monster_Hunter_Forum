@@ -9,10 +9,15 @@ SELECT post_id FROM monster_hunter_forum_DB.Posts WHERE thread_id_fk = 1
 INSERT INTO Threads (thread_id, thread_title, views, link)
     VALUES (10, 'Wut wut', 0, '/Wut_wut');
 
+INSERT INTO Users (username, password)
+    VALUES ('stephen999', 'abc');
+
 /* Add post to thread */
 INSERT INTO Posts (post_id, username, post_date, post, thread_id_fk) VALUES(1, 'bmalamb', NOW(), 'okay', 10);
 
 SELECT * FROM Users where username = 'stephen' and password = 'abc123';
+
+SELECT * FROM Users where username = 'stephen';
 
 /* Register new user */
 

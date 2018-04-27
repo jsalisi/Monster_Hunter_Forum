@@ -133,6 +133,11 @@ var getNextPostID = (thread_id) => {
   });
 }
 
+/**
+ * @function - used to login to the forum
+ * @param {string} username - username param from post form
+ * @param {string} password - password param from post form
+ */
 var loadUsers = (username, password) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
@@ -148,6 +153,45 @@ var loadUsers = (username, password) => {
   });
 }
 
+/**
+ * @function - used to check if username exists for regirstration. username must be unique.
+ * @param {string} username - username param to check if it exist for registration
+ */
+var usernameExist = (username) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      // Use the connection
+      connection.query(`SELECT * FROM Users where username = '${username}';`, (error, results, fields) => {
+        // And done with the connection.
+        connection.release();
+        // Handle error after the release.
+        if (error) reject(error);
+        else resolve(results);
+      });
+    });
+  });
+}
+
+/**
+ * @function - used to add this user to db
+ * @param {string} username - param set for regirstration after exist check passes
+ * @param {string} password - param set for regirstration password
+ */
+var regUser = (username, password) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      // Use the connection
+      connection.query(`INSERT INTO Users (username, password)
+      VALUES ('${username}', '${password}');`, (error, results, fields) => {
+        // And done with the connection.
+        connection.release();
+        // Handle error after the release.
+        if (error) reject(error);
+        else resolve(results);
+      });
+    });
+  });
+}
 
 module.exports = {
   loadThreads,
@@ -156,5 +200,7 @@ module.exports = {
   createPost,
   getNextThreadID,
   getNextPostID,
-  loadUsers
+  loadUsers,
+  usernameExist,
+  regUser
 }
