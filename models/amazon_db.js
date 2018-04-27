@@ -19,12 +19,26 @@ var loadThreads = () => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`SELECT * FROM monster_hunter_forum_DB.Threads;`, (error, results, fields) => {
+      connection.query(`SELECT * FROM monster_hunter_forum_DB.Threads as a JOIN monster_hunter_forum_DB.Posts as b ON a.thread_id=b.thread_id_fk;`, (error, results, fields) => {
+        // process the result so its easier to pass to hbs
+        var tempdb = {};
+
+        for (var x in results) {
+          // if thread title not in tempdb, create entry with format "title": {id: int, etc}
+          if (!(results[x].thread_title in tempdb)) {
+            tempdb[`${results[x].thread_title}`] = { id: results[x].thread_id, views: results[x].views, replies: 0, started_by: results[x].username, post_date: results[x].post_date, last_poster: results[x].username, last_post_date: results[x].post_date, topic_link: results[x].thread_title.replace(/ /g,"_")};
+          } else {
+            // else if in tempdb, update last_poster, last_post_date, and replies
+            tempdb[`${results[x].thread_title}`]['last_poster'] = results[x].username;
+            tempdb[`${results[x].thread_title}`]['last_post_date'] = results[x].post_date;
+            tempdb[`${results[x].thread_title}`]['replies'] += 1;
+          }
+        }
         // And done with the connection.
         connection.release();
         // Handle error after the release.
         if (error) reject(error);
-        else resolve(results);
+        else resolve(tempdb);
       });
     });
   });
