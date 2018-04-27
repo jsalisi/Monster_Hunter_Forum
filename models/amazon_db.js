@@ -26,7 +26,7 @@ var loadThreads = () => {
         for (var x in results) {
           // if thread title not in tempdb, create entry with format "title": {id: int, etc}
           if (!(results[x].thread_title in tempdb)) {
-            tempdb[`${results[x].thread_title}`] = { id: results[x].thread_id, views: results[x].views, replies: 0, started_by: results[x].username, post_date: results[x].post_date, last_poster: results[x].username, last_post_date: results[x].post_date, topic_link: results[x].thread_title.replace(/ /g,"_")};
+            tempdb[`${results[x].thread_title}`] = { id: results[x].thread_id, views: results[x].views, replies: 0, started_by: results[x].username, post_date: results[x].post_date, last_poster: results[x].username, last_post_date: results[x].post_date, topic_link: results[x].thread_id+'='+results[x].thread_title.replace(/ /g,"_")};
           } else {
             // else if in tempdb, update last_poster, last_post_date, and replies
             tempdb[`${results[x].thread_title}`]['last_poster'] = results[x].username;
@@ -48,11 +48,11 @@ var loadThreads = () => {
  * Loads all posts from the database
  * Query can be adjusted to select posts for a specific thread
  */
-var loadPosts = () => {
+var loadPosts = (thread_id) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`SELECT * FROM monster_hunter_forum_DB.Posts;`, (error, results, fields) => {
+      connection.query(`SELECT * FROM monster_hunter_forum_DB.Posts WHERE thread_id_fk = "${thread_id}";`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.
