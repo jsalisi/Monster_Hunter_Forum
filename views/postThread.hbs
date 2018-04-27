@@ -1,0 +1,43 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Create Thread</title>
+        <link rel="icon" href="/img/Monster_Hunter_Logo.png">
+        <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
+    </head>
+
+    <body>
+        <div id='bodybg'></div>
+
+        <div id='bodyWrapper'>
+            {{> (getBanner)}}
+
+            <div id='discussSelect'>
+               <div id='monhun' class='topic'>
+
+                   <div class='topicTitle'>
+                       <b>Create New Thread</b>
+                   </div>
+
+                   <form class="textContainer" action='/postResult' method='POST'>
+
+                       <label>Topic:</label>
+                       <input class="Title" id='topTitle' required="required" name='topTitle' type="text" maxlength="70">
+                       <br>
+
+                       <br>
+                       <label>Content:</label>
+                       <textarea class="Text" id='topPost' required="required" name='topContent' rows="6" col="100" maxlength="600"></textarea>
+
+                       <br>
+                       <input id="thread_submit" type="submit">
+                   </form>
+                </div>
+            </div>
+
+        </div>
+
+        <script src='js/app.js'></script>
+
+    </body>
+</html>
