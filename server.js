@@ -22,7 +22,7 @@ const port = process.env.PORT || 8080;
  * @type {object} urlencodedParser - calls on bodyParser.urlencoded{{extended:false}} for form posting
  */
 // Importing file to access the Google Spreadsheet database
-const db = require('./models/amazon_db');
+const db = require('./models/amazon_db.js');
 const database = require('./public/js/google-sheets-functions.js');
 const urlencodedParser = bodyParser.urlencoded({ extended: false});
 
@@ -130,8 +130,8 @@ app.get('/relog', (request, response) => {
 });
 
 app.post('/checkCred', urlencodedParser, (request, response) => {
-    database.login(request.body.user, request.body.pass).then((results) => {
-      if (results === 'yes') {
+    db.loadUsers(request.body.user, request.body.pass).then((results) => {
+      if (results.length > 0) {
           current_user = request.body.user
           login_flag = 1
           //if (request.body.remember === 'True'){

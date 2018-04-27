@@ -81,6 +81,22 @@ var main = (choice) => {
                 process.exit();
             });
             break;
+        case 6:
+            var username = 'stephen'
+            var password = 'abc123'
+            database.loadUsers(username, password).then((results) => {
+                if (results.length > 0) {
+                    console.log('login successful')
+                    process.exit()
+                } else {
+                    console.log('login failed.')
+                    process.exit()
+                }
+            }).catch((error) => {
+                console.log(error);
+                process.exit()
+            })
+            break;
         default:
             database.loadThreads().then((threads) => {
                 console.log(threads);
@@ -95,4 +111,4 @@ var main = (choice) => {
     }
 }
 
-//main(5);
+main(6);

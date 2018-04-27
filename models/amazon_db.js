@@ -133,11 +133,28 @@ var getNextPostID = (thread_id) => {
   });
 }
 
+var loadUsers = (username, password) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      // Use the connection
+      connection.query(`SELECT * FROM Users where username = '${username}' and password = '${password}';`, (error, results, fields) => {
+        // And done with the connection.
+        connection.release();
+        // Handle error after the release.
+        if (error) reject(error);
+        else resolve(results);
+      });
+    });
+  });
+}
+
+
 module.exports = {
   loadThreads,
   loadPosts,
   createThread,
   createPost,
   getNextThreadID,
-  getNextPostID
+  getNextPostID,
+  loadUsers
 }

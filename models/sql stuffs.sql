@@ -12,6 +12,8 @@ INSERT INTO Threads (thread_id, thread_title, views, link)
 /* Add post to thread */
 INSERT INTO Posts (post_id, username, post_date, post, thread_id_fk) VALUES(1, 'bmalamb', NOW(), 'okay', 10);
 
+SELECT * FROM Users where username = 'stephen' and password = 'abc123';
+
 /* Register new user */
 
 /* Login check */
