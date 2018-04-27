@@ -66,7 +66,7 @@ var createThread = (thread_id, thread_title, views, link) => {
         connection.release();
         // Handle error after the release.
         if (error) reject(error);
-        else resolve(thread_id);
+        else resolve(results);
       });
     });
   });
@@ -96,9 +96,29 @@ var createPost = (post_id, thread_id, username, datetime, post) => {
   });
 }
 
+/**
+ * Increments the most recent thread number for use
+ * in the next new thread.
+ */
+var getNextThreadID = () => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      // Use the connection
+      connection.query(`SELECT thread_id FROM monster_hunter_forum_DB.Threads ORDER BY thread_id DESC LIMIT 1;`, (error, results, fields) => {
+        // And done with the connection.
+        connection.release();
+        // Handle error after the release.
+        if (error) reject(error);
+        else resolve(results[0].thread_id + 1);
+      });
+    });
+  });
+}
+
 module.exports = {
   loadThreads,
   loadPosts,
   createThread,
-  createPost
+  createPost,
+  getNextThreadID
 }
