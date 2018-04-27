@@ -120,7 +120,7 @@ app.get('/', (request, response) => {
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
 app.get('/home', (request, response) => {
-  database.loadPosts(2).then((post) => {
+  db.loadThreads().then((post) => {
     console.log('Loading posts...');
 
 
