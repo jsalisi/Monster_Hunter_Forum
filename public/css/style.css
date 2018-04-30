@@ -29,7 +29,7 @@
   position: absolute;
   margin: auto;
   color: white;
-  font-size: 100%;
+  font-size:30px;
 }
 
 #loginInput {
@@ -305,31 +305,41 @@ a.threadTitle:hover, a.threadTitle:active {
 /* Topics Styling */
 
 .Thread {
-  height: auto;
-  width: 99.7%;
-  margin: 0.2%;
-  background-color: darkslategrey;
+  width: 99.6%;
+  height:auto;
+  margin: 0.25%;
+  background-color:darkslategrey;
   color: white;
   display: inline-block;
 }
 
 .threadContainer {
+  font-size:110%;
   width: 75%;
+  height:50px;  
   padding-left: 0.5%;
   color: white;
   display: inline-block;
 }
 
 .countContainer {
-  width: 10%;
+  width: 10vw;
   display: inline-block;
   color: white;
+  border:2.2px solid darkseagreen;
+  position: relative;
+  bottom:-3px;
 }
 
 .recentContainer {
-  width: 13.6%;
+  width: 12vw;
   display: inline-block;
   color: white;
+  position: relative;
+  border:2px solid darkseagreen;
+  left:50%;
+  bottom:43.5px;
+  margin:auto;
 }
 
 .threadInfo {
@@ -377,4 +387,6 @@ a.threadTitle:hover, a.threadTitle:active {
   bottom: 0%;
 }
 
-
+#username, #password {
+  height:70%;
+}
