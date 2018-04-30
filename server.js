@@ -170,6 +170,7 @@ app.post('/logOut', urlencodedParser, (request, response) => {
       return 0
     });
     response.redirect('/home')
+    console.log(users_list)
 });
 
 // rendering post topic list page
