@@ -306,7 +306,7 @@
 }
 .post_info {
   position: relative;
-  width:10%;
+  width:15%;
   height:auto;
 }
 
@@ -366,3 +366,17 @@ pre {
   right: 3.5%;
   bottom: 0%;
 }
+
+#confirm_pass {
+  left:-29px;
+  position: relative;
+}
+#conf_text {
+  left:-29px;
+  position: relative;
+}
+#gogo {
+  left:30px;
+  position: relative;
+}
+
