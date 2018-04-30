@@ -269,8 +269,9 @@ app.post('/postReg', urlencodedParser, (request, response) => {
 });
 
 app.param('name', (request, response, next, name) => {
-  var topic_title = name.replace(/_/g, ' ');
+  var topic_title = name.split('=');
   request.name = topic_title;
+  db.updateView(topic_title[0]);
   next();
 });
 
@@ -279,23 +280,13 @@ app.param('name', (request, response, next, name) => {
 //      only username and post is used so far.
 //      refer to loadPosts() in google-sheets-functions.js
 app.get('/:name', (request, response) => {
-  var threadname;
-  database.loadPosts(2).then((threadlist) => { //get the sheetnumber using param
-    for (var x in threadlist) {
-      if (threadlist[x].topic_link == response.req.params.name) {
-        threadname = threadlist[x].thread_name;
-        return threadlist[x].sheet_num; //returns sheet number
-      }
-    }
-  }).then((sheet_number) => {
-    return database.loadPosts(sheet_number) //gets the sheet and return
-  }).then((post_sheet) => {
+  db.loadPosts(Number(request.name[0])).then((post_list) => {
     response.render('discussion_thread.hbs', {
-      topic: threadname,
-      posts: post_sheet});
-    current_sheet = post_sheet[0].sheet_num;
-    redir_page = response.req.url;
-    database.updatePostView(current_sheet);
+      topic: request.name[1],
+      posts: post_list});
+    // TODO: create function to update view count
+    // redir_page = response.req.url;
+    // database.updatePostView(current_sheet);
   }).catch((error) => {
     response.send(error);
   });
