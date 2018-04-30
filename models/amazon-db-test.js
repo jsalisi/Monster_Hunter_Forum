@@ -55,7 +55,7 @@ var main = (choice) => {
             break;
         case 3:
             // Pulling information
-            database.loadPosts().then((threads) => {
+            database.loadPosts(1).then((threads) => {
                 console.log(threads);
                 process.exit();
             });
@@ -132,4 +132,4 @@ var main = (choice) => {
     }
 }
 
-main(7);
+main(3);
