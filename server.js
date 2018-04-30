@@ -245,6 +245,7 @@ app.post('/postReg', urlencodedParser, (request, response) => {
 app.param('name', (request, response, next, name) => {
   var topic_title = name.split('=');
   request.name = topic_title;
+  db.updateView(topic_title[0]);
   next();
 });
 

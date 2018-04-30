@@ -26,12 +26,12 @@ var loadThreads = () => {
         for (var x in results) {
           // if thread title not in tempdb, create entry with format "title": {id: int, etc}
           if (!(results[x].thread_title in tempdb)) {
-            tempdb[`${results[x].thread_title}`] = { id: results[x].thread_id, views: results[x].views, replies: 0, started_by: results[x].username, post_date: results[x].post_date, last_poster: results[x].username, last_post_date: results[x].post_date, topic_link: results[x].thread_id+'='+results[x].thread_title.replace(/ /g,"_")};
+            tempdb[`${results[x].thread_id}`] = { title: results[x].thread_title, views: results[x].views, replies: 0, started_by: results[x].username, post_date: results[x].post_date, last_poster: results[x].username, last_post_date: results[x].post_date, topic_link: results[x].thread_id+'='+results[x].thread_title.replace(/ /g,"_")};
           } else {
             // else if in tempdb, update last_poster, last_post_date, and replies
-            tempdb[`${results[x].thread_title}`]['last_poster'] = results[x].username;
-            tempdb[`${results[x].thread_title}`]['last_post_date'] = results[x].post_date;
-            tempdb[`${results[x].thread_title}`]['replies'] += 1;
+            tempdb[`${results[x].thread_id}`]['last_poster'] = results[x].username;
+            tempdb[`${results[x].thread_id}`]['last_post_date'] = results[x].post_date;
+            tempdb[`${results[x].thread_id}`]['replies'] += 1;
           }
         }
         // And done with the connection.
@@ -207,6 +207,14 @@ var regUser = (username, password) => {
   });
 }
 
+var updateView = (thread_id) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      connection.query(`UPDATE monster_hunter_forum_DB.Threads SET views = views + 1 WHERE thread_id=${Number(thread_id)};`)
+    })
+  })
+}
+
 module.exports = {
   loadThreads,
   loadPosts,
@@ -216,5 +224,6 @@ module.exports = {
   getNextPostID,
   loadUsers,
   usernameExist,
-  regUser
+  regUser,
+  updateView
 }
