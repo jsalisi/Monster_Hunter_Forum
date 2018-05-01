@@ -75,20 +75,6 @@ var redir_page = '';
 
 var users_list = [];
 
-hbs.registerHelper('getBanner', () => {
-  if (users_list.length > 0) {
-    for (var i=0; i<users_list.length; i++) {
-      if (users_list[i].login_flag == 1) {
-        return 'logBanner';
-      } else {
-        return 'topBanner';
-      }
-    }
-  } else {
-    return 'topBanner';
-  }
-});
-
 hbs.registerHelper('setBrowserFlag', () => {
     return browser_flag;
 });
@@ -98,11 +84,21 @@ hbs.registerHelper('setBrowserFlag', () => {
 var user_index = (username) => {
   var user_index = 0;
   for (var i=0; i<users_list.length; i++) {
-    if (users_list[i].username = username) {
+    if (users_list[i].username == username) {
       user_index = i;
     }
   }
   return user_index
+}
+
+var get_banner = (status) => {
+  hbs.registerHelper('getBanner', () => {
+    if (status == 0) {
+      return 'topBanner';
+    } else {  
+      return 'logBanner';
+    }
+  });
 }
 
 //*********************************Rendering*******************************//
@@ -121,11 +117,20 @@ app.get('/', (request, response) => {
 // refer to google-sheets-functions.js for .loadPosts()
 app.get('/home', (request, response) => {
   db.loadThreads().then((post) => {
-    console.log('Loading posts...');
-
-
+    get_banner(0)
     response.render('index.hbs', {
-        thread: post
+      thread: post
+    });
+  }).catch((error) => {
+    response.send(error);
+  });
+});
+
+app.get('/welcome', (request, response) => {
+  db.loadThreads().then((post) => {
+    get_banner(1)
+    response.render('index.hbs', {
+      thread: post
     });
   }).catch((error) => {
     response.send(error);
@@ -140,9 +145,11 @@ app.get('/relog', (request, response) => {
 app.post('/checkCred', urlencodedParser, (request, response) => {
     db.loadUsers(request.body.user, request.body.pass).then((results) => {
       if (results.length > 0) {
+          var username = request.body.user
+
           users_list.push(new user_db.User(request.body.user))
           
-          users_list[user_index(request.body.user)].login_flag = 1
+          users_list[user_index(username)].login_flag = 1
 
           hbs.registerHelper('getUser', () => {
             return request.body.user
@@ -153,7 +160,7 @@ app.post('/checkCred', urlencodedParser, (request, response) => {
           });
 
           console.log(users_list)
-          response.redirect('/home')
+          response.redirect('/welcome')
       } else {
           response.redirect('/relog')
       }
@@ -201,7 +208,7 @@ app.post('/postResult', urlencodedParser, (request, response) => {
         console.log(result);
 
         // Will be changed when load threads/posts is functional
-        response.redirect(`/home`);
+        response.redirect('/home');
 
         // Stops connection with the database
         // Will also stop any functions after it
