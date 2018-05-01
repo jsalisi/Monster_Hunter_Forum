@@ -11,6 +11,8 @@
 </head>
 
 <body>
+   {{> quick_tab}}
+  
   <div id='bodybg'></div>
 
   <div id='bodyWrapper'>
@@ -34,6 +36,8 @@
 
   </div>
   <p style="display: none;" id="loginCheck">{{setLoginCheck}}</p>
+
+  <script src='js/index.js'></script>
   <script>
       var loginCheck = document.getElementById("loginCheck").innerHTML;
       if (loginCheck == 1) {
