@@ -1,3 +1,8 @@
+/**
+ * These functions are now deprecated
+ */
+
+
 // This is a database test for the forum
 
 // Importing Google Spreadheet API

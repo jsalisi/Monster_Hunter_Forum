@@ -82,8 +82,6 @@
   font-size: 1vw;
 }
 
-/*TODO: adjust images to fit different screen sizes*/
-
 /* banner */
 
 #banner {
@@ -115,8 +113,6 @@
 }
 
 /*body background*/
-
-/*TODO: make bg static on the back while page scrolls*/
 
 #bodybg {
   left: 0;

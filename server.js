@@ -21,11 +21,14 @@ const port = process.env.PORT || 8080;
  * @type {object} database - requires from google-sheets-functions.js to setup database
  * @type {object} urlencodedParser - calls on bodyParser.urlencoded{{extended:false}} for form posting
  */
-// Importing file to access the Google Spreadsheet database
+// Importing file to access the Amazon database
 const db = require('./models/amazon_db.js');
-const database = require('./public/js/google-sheets-functions.js');
-const urlencodedParser = bodyParser.urlencoded({ extended: false});
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const user_db = require('./models/classes/users.js')
+
+// ** DEPRECATED **
+// const database = require('./public/js/google-sheets-functions.js');
+
 
 /**
  * @type {type} app - sets app to call on express() initialization
@@ -231,7 +234,6 @@ app.post('/postResult', urlencodedParser, (request, response) => {
     });
 });
 
-// TODO: Post to thread
 app.get('/newPost', (request, response) => {
     response.render('createPost.hbs', {})
 });
@@ -287,6 +289,10 @@ app.post('/postReg', urlencodedParser, (request, response) => {
   })
 });
 
+/**
+ * Processes the name of the thread to be used as the url extension of
+ * the webpage
+ */
 app.param('name', (request, response, next, name) => {
   var topic_title = name.split('=');
   request.name = topic_title;
@@ -295,9 +301,9 @@ app.param('name', (request, response, next, name) => {
 });
 
 
-//NOTE: post_sheet has other data on it that can be used to show posts.
-//      only username and post is used so far.
-//      refer to loadPosts() in google-sheets-functions.js
+/**
+ * Creates a webpage based on the title of the thread
+ */
 app.get('/:name', (request, response) => {
   db.loadPosts(Number(request.name[0])).then((post_list) => {
     response.render('discussion_thread.hbs', {
