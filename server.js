@@ -105,6 +105,10 @@ app.get('/', (request, response) => {
   response.redirect('/home');
 });
 
+app.get('/test', (request, response) => {
+  response.render('Homepage.hbs');
+});
+
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
 app.get('/home', (request, response) => {
