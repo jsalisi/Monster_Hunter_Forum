@@ -9,6 +9,9 @@
 </head>
 
 <body>
+
+  {{> quick_tab}}
+
   <div id='bodybg'></div>
 
   <div id='bodyWrapper'>
@@ -31,14 +34,12 @@
     <p style="display: none;" id="loginCheck">{{setLoginCheck}}</p>
 
   </div>
+  
+  <script src='js/index.js'></script>
 
   <script type='text/javascript'>
     var browser_dupe = document.getElementById("dupeCheck").innerHTML;
     var loginCheck = document.getElementById("loginCheck").innerHTML;
-
-    window.onload = function(){
-      document.forms['status_check'].submit();
-    }
 
     if (browser_dupe == 1) {
       alert("New Account Created!")

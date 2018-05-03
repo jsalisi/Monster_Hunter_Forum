@@ -69,20 +69,12 @@ hbs.registerPartials(__dirname + '/views/partials/communityPartials');
  * @param {string} redir_page - sets varable for redirect after login
  */
 
-var browser_flag = 0;
-var current_sheet = '';
-var redir_page = '';
-
 var users_list = [];
-
-hbs.registerHelper('setBrowserFlag', () => {
-    return browser_flag;
-});
 
 
 //*********************************static functions***********************************//
 var user_index = (username) => {
-  var user_index = 0;
+  var user_index = null;
   for (var i=0; i<users_list.length; i++) {
     if (users_list[i].username == username) {
       user_index = i;
@@ -144,19 +136,30 @@ app.get('/relog', (request, response) => {
 
 app.post('/checkCred', urlencodedParser, (request, response) => {
     db.loadUsers(request.body.user, request.body.pass).then((results) => {
-      if (results.length > 0) {
-          var username = request.body.user
-
-          users_list.push(new user_db.User(request.body.user))
+      var username = request.body.user
+      if ((results.length > 0) && (user_index(username) == null)) {
+          users_list.push(new user_db.User(username))
           
           users_list[user_index(username)].login_flag = 1
 
           hbs.registerHelper('getUser', () => {
-            return request.body.user
+            return username
           });
 
           hbs.registerHelper('setLoginCheck', () => {
-            return users_list[user_index(request.body.user)].login_flag
+            return users_list[user_index(username)].login_flag
+          });
+
+          console.log(users_list)
+          response.redirect('/welcome')
+      } else if (results.length > 0) {
+
+          hbs.registerHelper('getUser', () => {
+            return username
+          });
+
+          hbs.registerHelper('setLoginCheck', () => {
+            return users_list[user_index(username)].login_flag
           });
 
           console.log(users_list)
@@ -248,27 +251,23 @@ app.get('/register', (request, response) => {
 
 app.post('/postReg', urlencodedParser, (request, response) => {
   var dupe_comment;
+  var brower_flag = 0;
+  
   db.usernameExist(request.body.new_user).then((results) => {
     if (results.length == 0) {
-      if (request.body.new_pass == request.body.confirm_pass){
-        db.regUser(request.body.new_user, request.body.new_pass).then((regResults) => {
-            console.log('registration successful!');
-            browser_flag = 1
-            response.redirect('/home');
-            setTimeout (() => {
-                browser_flag = 0
-            }, 1000);
-        }).catch((error) => {
-            console.log(error);
-        })
-      } else {
-        dupe_comment = "Confirmation of password does not match!!"
-        hbs.registerHelper('getDupe', () => {
-          return dupe_comment;
-        });
-            response.render('register.hbs', {})
-            console.log("no accounts registered")
-      }
+      db.regUser(request.body.new_user, request.body.new_pass).then((regResults) => {
+          console.log('registration successful!');
+          browser_flag = 1
+          hbs.registerHelper('setBrowserFlag', () => {
+            return browser_flag;
+          });
+          response.redirect('/home');
+          setTimeout (() => {
+              browser_flag = 0
+          }, 1000);
+      }).catch((error) => {
+          console.log(error);
+      })
     } else {
       dupe_comment = "Cannot Register Account! Username already taken!!"
       hbs.registerHelper('getDupe', () => {
