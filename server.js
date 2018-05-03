@@ -210,8 +210,7 @@ app.post('/postResult', urlencodedParser, (request, response) => {
         tid = thread_id;
         
         // Initial post
-        var timestamp = new Date();
-        return db.createPost(thread_id, 1, currentUser, timestamp, request.body.topContent);
+        return db.createPost(thread_id, 1, currentUser, request.body.topContent);
 
       }).then((result) => {
         console.log('Adding new post...');
@@ -235,9 +234,8 @@ app.get('/newPost', (request, response) => {
 app.post('/newPostResult', urlencodedParser, (request, response) => {
   var link = request.body.link.split('=');
   var currentUser = request.body.currentUser;
-  var datetime = new Date();
   db.getNextPostID(link[0]).then((result) => {
-    db.createPost(link[0], result, currentUser, datetime, request.body.topContent);
+    db.createPost(link[0], result, currentUser, request.body.topContent);
   }).then((result) => {
     response.redirect(`/${request.body.link}`);
   }).catch((error) => {
