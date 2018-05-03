@@ -82,7 +82,7 @@ hbs.registerHelper('setBrowserFlag', () => {
 
 //*********************************static functions***********************************//
 var user_index = (username) => {
-  var user_index = 0;
+  var user_index = null;
   for (var i=0; i<users_list.length; i++) {
     if (users_list[i].username == username) {
       user_index = i;
@@ -144,19 +144,30 @@ app.get('/relog', (request, response) => {
 
 app.post('/checkCred', urlencodedParser, (request, response) => {
     db.loadUsers(request.body.user, request.body.pass).then((results) => {
-      if (results.length > 0) {
-          var username = request.body.user
-
-          users_list.push(new user_db.User(request.body.user))
+      var username = request.body.user
+      if ((results.length > 0) && (user_index(username) == null)) {
+          users_list.push(new user_db.User(username))
           
           users_list[user_index(username)].login_flag = 1
 
           hbs.registerHelper('getUser', () => {
-            return request.body.user
+            return username
           });
 
           hbs.registerHelper('setLoginCheck', () => {
-            return users_list[user_index(request.body.user)].login_flag
+            return users_list[user_index(username)].login_flag
+          });
+
+          console.log(users_list)
+          response.redirect('/welcome')
+      } else if (results.length > 0) {
+
+          hbs.registerHelper('getUser', () => {
+            return username
+          });
+
+          hbs.registerHelper('setLoginCheck', () => {
+            return users_list[user_index(username)].login_flag
           });
 
           console.log(users_list)
