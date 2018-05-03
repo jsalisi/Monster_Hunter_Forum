@@ -105,6 +105,10 @@ app.get('/', (request, response) => {
   response.redirect('/home');
 });
 
+app.get('/test', (request, response) => {
+  response.render('Homepage.hbs');
+});
+
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
 app.get('/home', (request, response) => {
@@ -280,29 +284,37 @@ app.post('/postReg', urlencodedParser, (request, response) => {
   })
 });
 
-app.param('name', (request, response, next, name) => {
-  var topic_title = name.split('=');
-  request.name = topic_title;
-  db.updateView(topic_title[0]);
-  next();
-});
+app.get('/testingstuff', (req, res) => {
+  res.send('hello')
+})
+
+app.get('/verifyTest', (req, res) => {
+  res.render('testpage.hbs', {})
+})
+
+// app.param('name', (request, response, next, name) => {
+//   var topic_title = name.split('=');
+//   request.name = topic_title;
+//   db.updateView(topic_title[0]);
+//   next();
+// });
 
 
-//NOTE: post_sheet has other data on it that can be used to show posts.
-//      only username and post is used so far.
-//      refer to loadPosts() in google-sheets-functions.js
-app.get('/:name', (request, response) => {
-  db.loadPosts(Number(request.name[0])).then((post_list) => {
-    response.render('discussion_thread.hbs', {
-      topic: request.name[1],
-      posts: post_list});
-    // TODO: create function to update view count
-    // redir_page = response.req.url;
-    // database.updatePostView(current_sheet);
-  }).catch((error) => {
-    response.send(error);
-  });
-});
+// //NOTE: post_sheet has other data on it that can be used to show posts.
+// //      only username and post is used so far.
+// //      refer to loadPosts() in google-sheets-functions.js
+// app.get('/:name', (request, response) => {
+//   db.loadPosts(Number(request.name[0])).then((post_list) => {
+//     response.render('discussion_thread.hbs', {
+//       topic: request.name[1],
+//       posts: post_list});
+//     // TODO: create function to update view count
+//     // redir_page = response.req.url;
+//     // database.updatePostView(current_sheet);
+//   }).catch((error) => {
+//     response.send(error);
+//   });
+// });
 
 //****************************Server***************************************//
 app.listen(port, () => {
