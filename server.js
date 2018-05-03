@@ -190,53 +190,60 @@ app.get('/postThread', (request, response) => {
 
 // posting thread to gs
 app.post('/postResult', urlencodedParser, (request, response) => {
+  var tid;
+  var currentUser = request.body.currentUser;
     // The redirect link for the new thread
     //var link_title = request.body.topTitle.replace(/ /g, "_").substring(0, 14);
 
     // Getting last thread ID
-    db.getNextThreadID().then((thread_id) => {
+    // db.getNextThreadID().then((thread_id) => {
 
       // Function call format for creating a new thread
       // Threads have an initial post that accompany it on creation
-      db.createThread(thread_id, request.body.topTitle, 0).then((result) => {
+      db.createThread(request.body.topTitle).then((result) => {
         console.log('Adding new thread...');
         console.log(result);
-
+        return db.getNextThreadID();
+      
+      }).then((thread_id) => {
+        console.log(thread_id);
+        tid = thread_id;
+        
         // Initial post
         var timestamp = new Date();
-        return db.createPost(1, thread_id, current_user, timestamp, request.body.topContent)
+        return db.createPost(thread_id, 1, currentUser, timestamp, request.body.topContent);
 
       }).then((result) => {
         console.log('Adding new post...');
         console.log(result);
 
         // Will be changed when load threads/posts is functional
-        response.redirect('/home');
+        response.redirect(`/${tid}=${request.body.topTitle.replace(/ /g, "_")}`);
 
         // Stops connection with the database
         // Will also stop any functions after it
       }).catch((error) => {
         console.log(error);
       });
-    }).catch((error) => {
-      console.log(error);
-    });
 });
 
 // TODO: Post to thread
 app.get('/newPost', (request, response) => {
-    response.render('createPost.hbs', {})
+  response.render('createPost.hbs', { link: response.req.headers.referer.split('/')[3]});
 });
 
 app.post('/newPostResult', urlencodedParser, (request, response) => {
+  var link = request.body.link.split('=');
+  var currentUser = request.body.currentUser;
   var datetime = new Date();
-  database.addNewPost(current_user, datetime, request.body.topContent, current_sheet).then((result) => {
-    console.log(result);
-    response.redirect(redir_page);
+  db.getNextPostID(link[0]).then((result) => {
+    db.createPost(link[0], result, currentUser, datetime, request.body.topContent);
+  }).then((result) => {
+    response.redirect(`/${request.body.link}`);
   }).catch((error) => {
     response.send(error);
   });
-})
+});
 
 app.get('/register', (request, response) => {
     response.render('register.hbs', {})
