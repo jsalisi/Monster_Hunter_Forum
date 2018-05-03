@@ -224,6 +224,39 @@
 
 /* forum type selections */
 
+#quick_tab {
+  width: 200px;
+  height: 200px;
+  left: -175px;
+  background-color: darkslategrey;
+  border-color: grey;
+  border-style: solid;
+  bottom: 25%;
+  position: fixed;
+  z-index: 10000;
+  border-radius: 25px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+#tab_title {
+  font-weight: bold;
+  font-family: 'Cinzel Decorative', cursive;
+  color: white;
+  position: relative;
+}
+
+.tab_but {
+  width: 100px;
+  margin: 3px;
+  ;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: 0px;
+  bottom: 0px;
+}
+
 #discussSelect {
   left: 0px;
   right: 0px;

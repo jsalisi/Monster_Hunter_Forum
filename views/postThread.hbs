@@ -8,6 +8,8 @@
     </head>
 
     <body>
+         {{> quick_tab}}
+        
         <div id='bodybg'></div>
 
         <div id='bodyWrapper'>
@@ -31,13 +33,13 @@
                        <textarea class="Text" id='topPost' width='50%' required="required" name='topContent' rows="6" col="100" maxlength="600"></textarea>
 
                        <br>
-                       <input id="thread_submit" type="submit">
+                       <input id="thread_submit" name='currentUser' value={{getUser}} type="submit">
                    </form>
                 </div>
             </div>
 
         </div>
-
+        <script src='js/index.js'></script>
         <script src='js/app.js'></script>
 
     </body>
