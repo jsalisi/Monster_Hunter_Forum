@@ -1,0 +1,28 @@
+<!Doctype html>
+
+<!Doctype html>
+<html>
+
+<head>
+  <title>testing things</title>
+</head>
+
+<body>
+    <div>
+        <p id='testParam'>hello</p>
+    </div>
+
+    <script>
+        fetch('/testingstuff')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(myJson) {
+                console.log(myJson);
+            });
+
+    </script>
+</body>
+
+</html>
+

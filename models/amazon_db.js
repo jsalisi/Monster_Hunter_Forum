@@ -69,12 +69,12 @@ var loadPosts = (thread_id) => {
  * @param {string} thread_title - The title for the thread
  * @param {number} views - Number of times a thread has been clicked
  */
-var createThread = (thread_id, thread_title, views, link) => {
+var createThread = (thread_title) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`INSERT INTO Threads (thread_id, thread_title, views)
-      VALUES('${thread_id}', '${thread_title}', '${views}');`, (error, results, fields) => {
+      connection.query(`INSERT INTO Threads (thread_title, views)
+      VALUES('${thread_title}', 0);`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.
@@ -93,7 +93,7 @@ var createThread = (thread_id, thread_title, views, link) => {
  * @param {string} datetime - The posts' date and time
  * @param {string} post - The contents of the post
  */
-var createPost = (post_id, thread_id, username, datetime, post) => {
+var createPost = (thread_id, post_id, username, datetime, post) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
@@ -122,7 +122,7 @@ var getNextThreadID = () => {
         connection.release();
         // Handle error after the release.
         if (error) reject(error);
-        else resolve(results[0].thread_id + 1);
+        else resolve(results[0].thread_id);
       });
     });
   });
