@@ -75,20 +75,6 @@ var redir_page = '';
 
 var users_list = [];
 
-hbs.registerHelper('getBanner', () => {
-  if (users_list.length > 0) {
-    for (var i=0; i<users_list.length; i++) {
-      if (users_list[i].login_flag == 1) {
-        return 'logBanner';
-      } else {
-        return 'topBanner';
-      }
-    }
-  } else {
-    return 'topBanner';
-  }
-});
-
 hbs.registerHelper('setBrowserFlag', () => {
     return browser_flag;
 });
@@ -98,11 +84,21 @@ hbs.registerHelper('setBrowserFlag', () => {
 var user_index = (username) => {
   var user_index = 0;
   for (var i=0; i<users_list.length; i++) {
-    if (users_list[i].username = username) {
+    if (users_list[i].username == username) {
       user_index = i;
     }
   }
   return user_index
+}
+
+var get_banner = (status) => {
+  hbs.registerHelper('getBanner', () => {
+    if (status == 0) {
+      return 'topBanner';
+    } else {  
+      return 'logBanner';
+    }
+  });
 }
 
 //*********************************Rendering*******************************//
@@ -121,11 +117,20 @@ app.get('/', (request, response) => {
 // refer to google-sheets-functions.js for .loadPosts()
 app.get('/home', (request, response) => {
   db.loadThreads().then((post) => {
-    console.log('Loading posts...');
-
-
+    get_banner(0)
     response.render('index.hbs', {
-        thread: post
+      thread: post
+    });
+  }).catch((error) => {
+    response.send(error);
+  });
+});
+
+app.get('/welcome', (request, response) => {
+  db.loadThreads().then((post) => {
+    get_banner(1)
+    response.render('index.hbs', {
+      thread: post
     });
   }).catch((error) => {
     response.send(error);
@@ -140,9 +145,11 @@ app.get('/relog', (request, response) => {
 app.post('/checkCred', urlencodedParser, (request, response) => {
     db.loadUsers(request.body.user, request.body.pass).then((results) => {
       if (results.length > 0) {
+          var username = request.body.user
+
           users_list.push(new user_db.User(request.body.user))
           
-          users_list[user_index(request.body.user)].login_flag = 1
+          users_list[user_index(username)].login_flag = 1
 
           hbs.registerHelper('getUser', () => {
             return request.body.user
@@ -153,7 +160,7 @@ app.post('/checkCred', urlencodedParser, (request, response) => {
           });
 
           console.log(users_list)
-          response.redirect('/home')
+          response.redirect('/welcome')
       } else {
           response.redirect('/relog')
       }
@@ -181,6 +188,7 @@ app.get('/postThread', (request, response) => {
 // posting thread to gs
 app.post('/postResult', urlencodedParser, (request, response) => {
   var tid;
+  var currentUser = request.body.currentUser;
     // The redirect link for the new thread
     //var link_title = request.body.topTitle.replace(/ /g, "_").substring(0, 14);
 
@@ -200,7 +208,7 @@ app.post('/postResult', urlencodedParser, (request, response) => {
         
         // Initial post
         var timestamp = new Date();
-        return db.createPost(thread_id, "stephen", timestamp, request.body.topContent);
+        return db.createPost(thread_id, 1, currentUser, timestamp, request.body.topContent);
 
       }).then((result) => {
         console.log('Adding new post...');
@@ -222,14 +230,16 @@ app.get('/newPost', (request, response) => {
 });
 
 app.post('/newPostResult', urlencodedParser, (request, response) => {
-  console.log(request.body.link);
-  // var datetime = new Date();
-  // database.addNewPost(current_user, datetime, request.body.topContent, current_sheet).then((result) => {
-  //   console.log(result);
-  //   response.redirect(redir_page);
-  // }).catch((error) => {
-  //   response.send(error);
-  // });
+  var link = request.body.link.split('=');
+  var currentUser = request.body.currentUser;
+  var datetime = new Date();
+  db.getNextPostID(link[0]).then((result) => {
+    db.createPost(link[0], result, currentUser, datetime, request.body.topContent);
+  }).then((result) => {
+    response.redirect(`/${request.body.link}`);
+  }).catch((error) => {
+    response.send(error);
+  });
 });
 
 app.get('/register', (request, response) => {

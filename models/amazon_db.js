@@ -93,12 +93,12 @@ var createThread = (thread_title) => {
  * @param {string} datetime - The posts' date and time
  * @param {string} post - The contents of the post
  */
-var createPost = (thread_id, username, datetime, post) => {
+var createPost = (thread_id, post_id, username, datetime, post) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`INSERT INTO Posts (thread_id_fk, username, post_date, post) 
-      VALUES('${thread_id}', '${username}', '${datetime}', '${post}');`, (error, results, fields) => {
+      connection.query(`INSERT INTO Posts (thread_id_fk, post_id, username, post_date, post) 
+      VALUES('${thread_id}', '${post_id}', '${username}', '${datetime}', '${post}');`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.
