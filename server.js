@@ -119,8 +119,7 @@ app.get('/test2', (request, response) => {
 
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
-app.post('/home', urlencodedParser, (request, response) => {
-  console.log(request.body.loginCheck)
+app.get('/home', (request, response) => {
   db.loadThreads().then((post) => {
     get_banner(0)
     response.render('index.hbs', {
