@@ -102,16 +102,22 @@ passport.deserializeUser(function(id, done) {
 
 // Redirecting '/' to Home Page
 app.get('/', (request, response) => {
-  response.redirect('/home');
+  response.redirect('/test2');
 });
 
 app.get('/test', (request, response) => {
   response.render('Homepage.hbs');
 });
 
+app.get('/test2', (request, response) => {
+  get_banner(0)
+  response.render('index.hbs');
+});
+
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
-app.get('/home', (request, response) => {
+app.post('/home', urlencodedParser, (request, response) => {
+  console.log(request.body.loginCheck)
   db.loadThreads().then((post) => {
     get_banner(0)
     response.render('index.hbs', {
@@ -286,37 +292,37 @@ app.post('/postReg', urlencodedParser, (request, response) => {
   })
 });
 
-app.get('/testingstuff', (req, res) => {
-  res.send('hello')
-})
+// app.get('/testingstuff', (req, res) => {
+//   res.json('yes')
+// })
 
-app.get('/verifyTest', (req, res) => {
-  res.render('testpage.hbs', {})
-})
+// app.get('/verifyTest', (req, res) => {
+//   res.render('testpage.hbs', {})
+// })
 
-// app.param('name', (request, response, next, name) => {
-//   var topic_title = name.split('=');
-//   request.name = topic_title;
-//   db.updateView(topic_title[0]);
-//   next();
-// });
+app.param('name', (request, response, next, name) => {
+  var topic_title = name.split('=');
+  request.name = topic_title;
+  db.updateView(topic_title[0]);
+  next();
+});
 
 
-// //NOTE: post_sheet has other data on it that can be used to show posts.
-// //      only username and post is used so far.
-// //      refer to loadPosts() in google-sheets-functions.js
-// app.get('/:name', (request, response) => {
-//   db.loadPosts(Number(request.name[0])).then((post_list) => {
-//     response.render('discussion_thread.hbs', {
-//       topic: request.name[1],
-//       posts: post_list});
-//     // TODO: create function to update view count
-//     // redir_page = response.req.url;
-//     // database.updatePostView(current_sheet);
-//   }).catch((error) => {
-//     response.send(error);
-//   });
-// });
+//NOTE: post_sheet has other data on it that can be used to show posts.
+//      only username and post is used so far.
+//      refer to loadPosts() in google-sheets-functions.js
+app.get('/:name', (request, response) => {
+  db.loadPosts(Number(request.name[0])).then((post_list) => {
+    response.render('discussion_thread.hbs', {
+      topic: request.name[1],
+      posts: post_list});
+    // TODO: create function to update view count
+    // redir_page = response.req.url;
+    // database.updatePostView(current_sheet);
+  }).catch((error) => {
+    response.send(error);
+  });
+});
 
 //****************************Server***************************************//
 app.listen(port, () => {
