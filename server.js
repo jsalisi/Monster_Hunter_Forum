@@ -21,11 +21,14 @@ const port = process.env.PORT || 8080;
  * @type {object} database - requires from google-sheets-functions.js to setup database
  * @type {object} urlencodedParser - calls on bodyParser.urlencoded{{extended:false}} for form posting
  */
-// Importing file to access the Google Spreadsheet database
+// Importing file to access the Amazon database
 const db = require('./models/amazon_db.js');
-const database = require('./public/js/google-sheets-functions.js');
-const urlencodedParser = bodyParser.urlencoded({ extended: false});
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const user_db = require('./models/classes/users.js')
+
+// ** DEPRECATED **
+// const database = require('./public/js/google-sheets-functions.js');
+
 
 /**
  * @type {type} app - sets app to call on express() initialization
@@ -102,11 +105,16 @@ passport.deserializeUser(function(id, done) {
 
 // Redirecting '/' to Home Page
 app.get('/', (request, response) => {
-  response.redirect('/home');
+  response.redirect('/test2');
 });
 
 app.get('/test', (request, response) => {
   response.render('Homepage.hbs');
+});
+
+app.get('/test2', (request, response) => {
+  get_banner(0)
+  response.render('index.hbs');
 });
 
 // rendering home page.
@@ -214,8 +222,7 @@ app.post('/postResult', urlencodedParser, (request, response) => {
         tid = thread_id;
         
         // Initial post
-        var timestamp = new Date();
-        return db.createPost(thread_id, 1, currentUser, timestamp, request.body.topContent);
+        return db.createPost(thread_id, 1, currentUser, request.body.topContent);
 
       }).then((result) => {
         console.log('Adding new post...');
@@ -231,7 +238,6 @@ app.post('/postResult', urlencodedParser, (request, response) => {
       });
 });
 
-// TODO: Post to thread
 app.get('/newPost', (request, response) => {
   response.render('createPost.hbs', { link: response.req.headers.referer.split('/')[3]});
 });
@@ -239,9 +245,8 @@ app.get('/newPost', (request, response) => {
 app.post('/newPostResult', urlencodedParser, (request, response) => {
   var link = request.body.link.split('=');
   var currentUser = request.body.currentUser;
-  var datetime = new Date();
   db.getNextPostID(link[0]).then((result) => {
-    db.createPost(link[0], result, currentUser, datetime, request.body.topContent);
+    db.createPost(link[0], result, currentUser, request.body.topContent);
   }).then((result) => {
     response.redirect(`/${request.body.link}`);
   }).catch((error) => {
@@ -286,37 +291,47 @@ app.post('/postReg', urlencodedParser, (request, response) => {
   })
 });
 
-app.get('/testingstuff', (req, res) => {
-  res.send('hello')
-})
 
-app.get('/verifyTest', (req, res) => {
-  res.render('testpage.hbs', {})
-})
+/**
+ * Processes the name of the thread to be used as the url extension of
+ * the webpage
+ */
+// app.get('/testingstuff', (req, res) => {
+//   res.json('yes')
+// })
 
-// app.param('name', (request, response, next, name) => {
-//   var topic_title = name.split('=');
-//   request.name = topic_title;
-//   db.updateView(topic_title[0]);
-//   next();
-// });
+// app.get('/verifyTest', (req, res) => {
+//   res.render('testpage.hbs', {})
+// })
+app.param('name', (request, response, next, name) => {
+  var topic_title = name.split('=');
+  request.name = topic_title;
+  db.updateView(topic_title[0]);
+  next();
+});
 
 
-// //NOTE: post_sheet has other data on it that can be used to show posts.
-// //      only username and post is used so far.
-// //      refer to loadPosts() in google-sheets-functions.js
-// app.get('/:name', (request, response) => {
-//   db.loadPosts(Number(request.name[0])).then((post_list) => {
-//     response.render('discussion_thread.hbs', {
-//       topic: request.name[1],
-//       posts: post_list});
-//     // TODO: create function to update view count
-//     // redir_page = response.req.url;
-//     // database.updatePostView(current_sheet);
-//   }).catch((error) => {
-//     response.send(error);
-//   });
-// });
+/**
+ * Creates a webpage based on the title of the thread
+ */
+
+
+//NOTE: post_sheet has other data on it that can be used to show posts.
+//      only username and post is used so far.
+//      refer to loadPosts() in google-sheets-functions.js
+
+app.get('/:name', (request, response) => {
+  db.loadPosts(Number(request.name[0])).then((post_list) => {
+    response.render('discussion_thread.hbs', {
+      topic: request.name[1],
+      posts: post_list});
+    // TODO: create function to update view count
+    // redir_page = response.req.url;
+    // database.updatePostView(current_sheet);
+  }).catch((error) => {
+    response.send(error);
+  });
+});
 
 //****************************Server***************************************//
 app.listen(port, () => {
