@@ -4,7 +4,7 @@
   "description": "This is a project that contains the files and server scripts for a forum",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "repository": {
@@ -29,10 +29,7 @@
     "request": "^2.85.0"
   },
   "devDependencies": {
-    "babel-jest": "^22.4.3",
     "esdoc": "^1.1.0",
-    "esdoc-standard-plugin": "^1.0.0",
-    "jest": "^22.4.3",
-    "jest-tobetype": "^1.1.0"
+    "esdoc-standard-plugin": "^1.0.0"
   }
 }

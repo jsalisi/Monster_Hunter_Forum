@@ -29,12 +29,12 @@
   position: absolute;
   margin: auto;
   color: white;
-  font-size:15px;
+  font-size:100%;
 }
 
 #loginInput {
-    top: 3%; right: 5vw;
-    height: inherit; width: 20vw;
+    top: 10%; right: 5vw;
+    height: 75%; width: 20vw;
   display: inline-block;
   position: absolute;
   margin: auto;
@@ -49,9 +49,9 @@
 }
 
 #loginCheck {
-  top: 21vh;
-  right: 5.5%;
-  height: 47%;
+  top: 3.5;
+  right: 0px;
+  height: 75%;
   width: 19%;
   display: inline-block;
   position: absolute;
@@ -74,13 +74,44 @@
 }
 
 #loginBut {
-  top: -856%;
-  right: -25%;
-  height: 3vh;
-  width: 5vw;
-  position: absolute;
   font-size: 1vw;
+  background-color: darkslategrey;
+  color: white;
+  border-color: grey;
+  border-style: solid;
+  width: 75px;
+  height: 5vh;
+  text-align: center;
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  right: 0px;
+  top: 0px;
 }
+
+#logoutInput {
+  top: 0px;
+  font-size: 1vw;
+  width: 75px;
+  height: 86%;
+  text-align: center;
+  line-height: 200%;
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+}
+
+#logout_but {
+    position: absolute;
+    font-family: 'Cinzel Decorative', cursive;
+    background-color: darkslategrey;
+    color: white;
+    width: 80px;
+    height: 5vh;
+    border-style: solid;
+    border-color: grey;
+    left: 30%;
+}
+
+/*TODO: adjust images to fit different screen sizes*/
 
 /* banner */
 
@@ -112,13 +143,25 @@
   cursor: pointer;
 }
 
+#reg_but {
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  background-color: darkslategrey;
+  color: white;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
+}
+
 /*body background*/
+
+/*TODO: make bg static on the back while page scrolls*/
 
 #bodybg {
   left: 0;
   top: 0;
   height: 125vh;
-  width: 98.9vw;
+  width: 100vw;
   background-image: url('/img/MH_bg.png');
   background-position: center;
   background-size: cover;
@@ -159,16 +202,13 @@
 #forum_home:link, #forum_home:visited {
   line-height: 165%;
   height: 86%;
-  width: 27%;
+  width: 10vw;
   background-color: darkslategrey;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  padding-left: 4%;
-  padding-right: 10%;
   font-size: 1.3vw;
-  border-radius: 40px;
   border-style: solid;
   border-color: grey;
   position: absolute;
@@ -184,7 +224,7 @@
 #searchBox {
   right: 1%;
   height: 100%;
-  width: 30%;
+  width: 125px;
   position: absolute;
 }
 
@@ -217,18 +257,19 @@
 /* forum type selections */
 
 #quick_tab {
-  width: 200px;
-  height: 200px;
-  left: -175px;
-  background-color: darkslategrey;
+  height: 250px;
+  width: 10vw;
+  left: 1%;
+  background-color: #D3D3D4;
   border-color: grey;
   border-style: solid;
-  bottom: 25%;
+  top: -100px;
   position: fixed;
   z-index: 10000;
   border-radius: 25px;
   text-align: center;
   transition: 0.2s;
+  z-index: 1;
 }
 
 #tab_title {
@@ -239,13 +280,22 @@
 }
 
 .tab_but {
-  width: 100px;
-  margin: 3px;;
+  left: 0px;
+  right: 0px;
+  margin: 1%;
+  width: 8vw;
   font-weight: bold;
   text-align: center;
+  display: inline-block;
   position: relative;
-  top: 0px;
+  font-size: 110%;
+  top: 65px;
   bottom: 0px;
+  color: white;
+  background-color: darkslategrey;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
 }
 
 #discussSelect {
