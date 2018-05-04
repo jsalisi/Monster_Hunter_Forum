@@ -280,7 +280,7 @@
 
 #thread_submit {
   position: absolute;
-  bottom: 10%;
+  top: 85%;
   left: 34.7%;
 }
 
@@ -323,8 +323,13 @@
   margin-top: 5%;
 }
 
-.Title {
-  width: 99%;
+#topTitle {
+  position:absolute;
+  width: 500px;
+  top: 35%;
+  left: 0px;
+  right: 0px;
+  margin: auto;
 }
 
 .Text {
@@ -381,12 +386,13 @@
 }
 
 #topPost {
+  top: 50%;
   left: 0px;
   right: 0px;
   position: absolute;
   margin: auto;
-  width: 30%;
-  height: 35%;
+  width: 500px;
+  height: 30%;
 }
 
 .post_info {
