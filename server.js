@@ -21,14 +21,11 @@ const port = process.env.PORT || 8080;
  * @type {object} database - requires from google-sheets-functions.js to setup database
  * @type {object} urlencodedParser - calls on bodyParser.urlencoded{{extended:false}} for form posting
  */
-// Importing file to access the Amazon database
+// Importing file to access the Google Spreadsheet database
 const db = require('./models/amazon_db.js');
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const database = require('./public/js/google-sheets-functions.js');
+const urlencodedParser = bodyParser.urlencoded({ extended: false});
 const user_db = require('./models/classes/users.js')
-
-// ** DEPRECATED **
-// const database = require('./public/js/google-sheets-functions.js');
-
 
 /**
  * @type {type} app - sets app to call on express() initialization
@@ -72,28 +69,40 @@ hbs.registerPartials(__dirname + '/views/partials/communityPartials');
  * @param {string} redir_page - sets varable for redirect after login
  */
 
+var browser_flag = 0;
+var current_sheet = '';
+var redir_page = '';
+
 var users_list = [];
+
+hbs.registerHelper('getBanner', () => {
+  if (users_list.length > 0) {
+    for (var i=0; i<users_list.length; i++) {
+      if (users_list[i].login_flag == 1) {
+        return 'logBanner';
+      } else {
+        return 'topBanner';
+      }
+    }
+  } else {
+    return 'topBanner';
+  }
+});
+
+hbs.registerHelper('setBrowserFlag', () => {
+    return browser_flag;
+});
 
 
 //*********************************static functions***********************************//
 var user_index = (username) => {
-  var user_index = null;
+  var user_index = 0;
   for (var i=0; i<users_list.length; i++) {
-    if (users_list[i].username == username) {
+    if (users_list[i].username = username) {
       user_index = i;
     }
   }
   return user_index
-}
-
-var get_banner = (status) => {
-  hbs.registerHelper('getBanner', () => {
-    if (status == 0) {
-      return 'topBanner';
-    } else {  
-      return 'logBanner';
-    }
-  });
 }
 
 //*********************************Rendering*******************************//
@@ -144,20 +153,20 @@ app.get('/relog', (request, response) => {
 
 app.post('/checkCred', urlencodedParser, (request, response) => {
     db.loadUsers(request.body.user, request.body.pass).then((results) => {
-      var username = request.body.user
-      if ((results.length > 0) && (user_index(username) == null)) {
-          users_list.push(new user_db.User(username))
+      if (results.length > 0) {
+          users_list.push(new user_db.User(request.body.user))
           
-          users_list[user_index(username)].login_flag = 1
+          users_list[user_index(request.body.user)].login_flag = 1
 
           hbs.registerHelper('getUser', () => {
-            return username
+            return request.body.user
           });
 
           hbs.registerHelper('setLoginCheck', () => {
-            return users_list[user_index(username)].login_flag
+            return users_list[user_index(request.body.user)].login_flag
           });
           console.log(users_list)
+        
           response.render('logging.hbs')
       } else if (results.length > 0) {
 
@@ -171,6 +180,7 @@ app.post('/checkCred', urlencodedParser, (request, response) => {
 
           console.log(users_list)
           response.redirect('/login')
+
       } else {
           response.redirect('/relog')
       }
@@ -201,57 +211,53 @@ app.get('/postThread', (request, response) => {
 
 // posting thread to gs
 app.post('/postResult', urlencodedParser, (request, response) => {
-  var tid;
-  var currentUser = request.body.currentUser;
     // The redirect link for the new thread
     //var link_title = request.body.topTitle.replace(/ /g, "_").substring(0, 14);
 
     // Getting last thread ID
-    // db.getNextThreadID().then((thread_id) => {
+    db.getNextThreadID().then((thread_id) => {
 
       // Function call format for creating a new thread
       // Threads have an initial post that accompany it on creation
-      db.createThread(request.body.topTitle).then((result) => {
+      db.createThread(thread_id, request.body.topTitle, 0).then((result) => {
         console.log('Adding new thread...');
         console.log(result);
-        return db.getNextThreadID();
-      
-      }).then((thread_id) => {
-        console.log(thread_id);
-        tid = thread_id;
-        
+
         // Initial post
-        return db.createPost(thread_id, 1, currentUser, request.body.topContent);
+        var timestamp = new Date();
+        return db.createPost(1, thread_id, current_user, timestamp, request.body.topContent)
 
       }).then((result) => {
         console.log('Adding new post...');
         console.log(result);
 
         // Will be changed when load threads/posts is functional
-        response.redirect(`/${tid}=${request.body.topTitle.replace(/ /g, "_")}`);
+        response.redirect(`/home`);
 
         // Stops connection with the database
         // Will also stop any functions after it
       }).catch((error) => {
         console.log(error);
       });
+    }).catch((error) => {
+      console.log(error);
+    });
 });
 
+// TODO: Post to thread
 app.get('/newPost', (request, response) => {
-  response.render('createPost.hbs', { link: response.req.headers.referer.split('/')[3]});
+    response.render('createPost.hbs', {})
 });
 
 app.post('/newPostResult', urlencodedParser, (request, response) => {
-  var link = request.body.link.split('=');
-  var currentUser = request.body.currentUser;
-  db.getNextPostID(link[0]).then((result) => {
-    db.createPost(link[0], result, currentUser, request.body.topContent);
-  }).then((result) => {
-    response.redirect(`/${request.body.link}`);
+  var datetime = new Date();
+  database.addNewPost(current_user, datetime, request.body.topContent, current_sheet).then((result) => {
+    console.log(result);
+    response.redirect(redir_page);
   }).catch((error) => {
     response.send(error);
   });
-});
+})
 
 app.get('/register', (request, response) => {
     response.render('register.hbs', {})
@@ -259,23 +265,27 @@ app.get('/register', (request, response) => {
 
 app.post('/postReg', urlencodedParser, (request, response) => {
   var dupe_comment;
-  var brower_flag = 0;
-  
   db.usernameExist(request.body.new_user).then((results) => {
     if (results.length == 0) {
-      db.regUser(request.body.new_user, request.body.new_pass).then((regResults) => {
-          console.log('registration successful!');
-          browser_flag = 1
-          hbs.registerHelper('setBrowserFlag', () => {
-            return browser_flag;
-          });
-          response.redirect('/home');
-          setTimeout (() => {
-              browser_flag = 0
-          }, 1000);
-      }).catch((error) => {
-          console.log(error);
-      })
+      if (request.body.new_pass == request.body.confirm_pass){
+        db.regUser(request.body.new_user, request.body.new_pass).then((regResults) => {
+            console.log('registration successful!');
+            browser_flag = 1
+            response.redirect('/home');
+            setTimeout (() => {
+                browser_flag = 0
+            }, 1000);
+        }).catch((error) => {
+            console.log(error);
+        })
+      } else {
+        dupe_comment = "Confirmation of password does not match!!"
+        hbs.registerHelper('getDupe', () => {
+          return dupe_comment;
+        });
+            response.render('register.hbs', {})
+            console.log("no accounts registered")
+      }
     } else {
       dupe_comment = "Cannot Register Account! Username already taken!!"
       hbs.registerHelper('getDupe', () => {
@@ -315,15 +325,9 @@ app.param('name', (request, response, next, name) => {
 });
 
 
-/**
- * Creates a webpage based on the title of the thread
- */
-
-
 //NOTE: post_sheet has other data on it that can be used to show posts.
 //      only username and post is used so far.
 //      refer to loadPosts() in google-sheets-functions.js
-
 app.get('/:name', (request, response) => {
   db.loadPosts(Number(request.name[0])).then((post_list) => {
     response.render('discussion_thread.hbs', {

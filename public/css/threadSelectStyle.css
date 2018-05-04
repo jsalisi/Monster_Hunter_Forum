@@ -33,9 +33,9 @@
 }
 
 #loginInput {
-  top: 3%;
+  top: 10%;
   right: 5vw;
-  height: inherit;
+  height: 75%;
   width: 20vw;
   display: inline-block;
   position: absolute;
@@ -92,6 +92,8 @@
   margin: auto;
 }
 
+/*TODO: adjust images to fit different screen sizes*/
+
 /* banner */
 
 #banner {
@@ -123,6 +125,8 @@
 }
 
 /*body background*/
+
+/*TODO: make bg static on the back while page scrolls*/
 
 #bodybg {
   left: 0;
@@ -163,20 +167,18 @@
 #forum_home:link, #forum_home:visited {
   line-height: 165%;
   height: 86%;
-  width: 27%;
+  width: 10vw;
   background-color: darkslategrey;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  padding-left: 4%;
-  padding-right: 10%;
   font-size: 1.3vw;
-  border-radius: 40px;
   border-style: solid;
   border-color: grey;
   position: absolute;
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'Cinzel Decorative',
+  cursive;
 }
 
 #forum_home:hover, #forum_home:active {
@@ -221,18 +223,19 @@
 /* forum type selections */
 
 #quick_tab {
-  width: 200px;
-  height: 200px;
-  left: -175px;
-  background-color: darkslategrey;
+  height: 250px;
+  width: 10vw;
+  left: 1%;
+  background-color: #D3D3D4;
   border-color: grey;
   border-style: solid;
-  bottom: 25%;
+  top: -100px;
   position: fixed;
   z-index: 10000;
   border-radius: 25px;
   text-align: center;
   transition: 0.2s;
+  z-index: 1;
 }
 
 #tab_title {
@@ -243,14 +246,22 @@
 }
 
 .tab_but {
-  width: 100px;
-  margin: 3px;
-  ;
+  left: 0px;
+  right: 0px;
+  margin: 1%;
+  width: 8vw;
   font-weight: bold;
   text-align: center;
+  display: inline-block;
   position: relative;
-  top: 0px;
+  font-size: 20px;
+  top: 65px;
   bottom: 0px;
+  color: white;
+  background-color: darkslategrey;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
 }
 
 #discussSelect {
@@ -269,7 +280,7 @@
 
 #thread_submit {
   position: absolute;
-  bottom: 10%;
+  top: 85%;
   left: 34.7%;
 }
 
@@ -280,9 +291,9 @@
 }
 
 .topicTitle {
-  height: 8%;
+  height: 0px;;
   text-align: center;
-  padding: 2%;
+  padding: 5%;
   margin: 0.2%;
   color:white;
   font-size: 200%;
@@ -312,8 +323,13 @@
   margin-top: 5%;
 }
 
-.Title {
-  width: 99%;
+#topTitle {
+  position:absolute;
+  width: 500px;
+  top: 35%;
+  left: 0px;
+  right: 0px;
+  margin: auto;
 }
 
 .Text {
@@ -342,9 +358,12 @@
 /* Thread post template styling*/
 
 #topicTitle {
-  color: lightblue;
+  color: white;
   text-decoration: none;
   font-size: 150%;
+  border-style: solid;
+  border-color: grey;
+  background-color: darkslategrey;
 }
 
 #post_div {
@@ -367,12 +386,13 @@
 }
 
 #topPost {
+  top: 50%;
   left: 0px;
   right: 0px;
   position: absolute;
   margin: auto;
-  width: 30%;
-  height: 35%;
+  width: 500px;
+  height: 30%;
 }
 
 .post_info {
@@ -398,10 +418,10 @@
   margin-top: 2%;
   margin-bottom: 2%;
   border-style: solid;
-  border-color: aliceblue;
-  color: aliceblue;
+  border-color: grey;
+  color: white;
   word-break: break-all;
-  background-color:black;
+  background-color:darkslategrey;
 }
 
 pre {
@@ -447,16 +467,17 @@ pre {
 }
 
 #confirm_pass {
-  left:-42px;
+  left:-29px;
   position: relative;
-  display:inline-block; 
 }
 #conf_text {
-  left:-42px;
+  left:-29px;
   position: relative;
 }
 #gogo {
-  left:30px;
+  left:0px;
+  right:0px;
+  margin:auto;
   position: relative;
 }
 
