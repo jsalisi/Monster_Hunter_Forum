@@ -481,3 +481,39 @@ pre {
   position: relative;
 }
 
+#user_checkmark {
+  top:6px;
+  display: inline-block;  
+  position: relative;
+  background-image: url("/img/checkmark.png");
+  background-size:100% 100%;
+  background-repeat: no-repeat;
+  width: 1.5%;
+  height: 5%;
+  opacity:0;
+}
+
+#pass_checkmark {
+  top: 6px;
+  display: inline-block;
+  position: relative;
+  background-image: url("/img/checkmark.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 1.5%;
+  height: 5%;
+  opacity: 0;
+}
+
+#conf_checkmark {
+  top: 6px;
+  display: inline-block;
+  position: relative;
+  background-image: url("/img/checkmark.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 1.5%;
+  height: 5%;
+  left:-42px;
+  opacity:0;
+}

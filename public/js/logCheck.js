@@ -1,11 +1,10 @@
 var currentUser;
-try{
-    currentUser = document.getElementById('currentUser')
-} catch (error) {}
-finally {
-    currentUser = ''
-}
+
+currentUser = document.getElementById('currentUser').innerHTML
 
 console.log(currentUser)
+
 var check = localStorage.getItem(currentUser)
-console.log(check)
+
+document.getElementById('logger').value = check;
+document.getElementById('checkForm').submit();
