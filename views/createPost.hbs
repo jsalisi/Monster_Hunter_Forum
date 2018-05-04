@@ -7,8 +7,9 @@
         <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
     </head>
 
-    <body>       
+    <body>
          {{> quick_tab}}
+        
         <div id='bodybg'></div>
 
         <div id='bodyWrapper'>
@@ -22,12 +23,14 @@
                    </div>
 
                    <form class="textContainer" action='/newPostResult' method='POST'>
+                       <textarea style="display: none" name="link">{{link}}</textarea> 
                        <br>
                        <label id='quick_reply' >Quick Reply:</label>
                        <textarea class="Text" id='topPost' required="required" name='topContent' rows="6" cols="100" maxlength="600"></textarea>
 
                        <br>
-                       <input id="thread_submit" type="submit">
+                       {{!-- <input id="thread_submit" type="submit"> --}}
+                        <button id="thread_submit" type="submit" name='currentUser' value={{getUser}}>Confirm</button>
                    </form>
                 </div>
             </div>

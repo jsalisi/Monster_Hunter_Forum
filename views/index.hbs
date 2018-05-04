@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
   {{> quick_tab}}
 
   <div id='bodybg'></div>
@@ -33,6 +34,9 @@
     <p style="display: none;" id="loginCheck">{{setLoginCheck}}</p>
 
   </div>
+  
+  <script src='js/index.js'></script>
+  
   <script src='js/index.js'></script>
   <script type='text/javascript'>
     var browser_dupe = document.getElementById("dupeCheck").innerHTML;
@@ -43,7 +47,7 @@
     }
 
     if (loginCheck == 1) {
-      document.getElementById("makeThreadButton").style.display = 'block'
+      document.getElementById("makeThreadButton").style.display = 'block';
     }
   </script>
 </body>
