@@ -1,0 +1,19 @@
+<head>
+  <title></title>
+</head>
+
+<body>
+    <div style="display: none;">
+        {{> logBanner}}
+    </div>
+
+    <form id="redirect" style="display: none;" action='/login' method='post'>
+    </form>
+
+    <script>
+        localStorage.removeItem(`{{getUser}}`);
+        document.getElementById('redirect').submit();
+    </script>
+</body>
+
+</html>
