@@ -1,0 +1,20 @@
+<head>
+  <title></title>
+</head>
+
+<body>
+    <div style="display: none;">
+        {{> logBanner}}
+    </div>
+
+    <form id="redirect" style="display: none;" action='/login' method='get'>
+        <input name='currentUser' value={{getUser}} name='flag'>
+    </form>
+
+    <script>
+        localStorage.setItem(`{{getUser}}`, {{setLoginCheck}})
+        document.getElementById('redirect').submit();
+    </script>
+</body>
+
+</html>
