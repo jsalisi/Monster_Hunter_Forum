@@ -102,12 +102,22 @@ passport.deserializeUser(function(id, done) {
 
 // Redirecting '/' to Home Page
 app.get('/', (request, response) => {
-  response.redirect('/home');
+  response.redirect('/test2');
+});
+
+app.get('/test', (request, response) => {
+  response.render('Homepage.hbs');
+});
+
+app.get('/test2', (request, response) => {
+  get_banner(0)
+  response.render('index.hbs');
 });
 
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
-app.get('/home', (request, response) => {
+app.post('/home', urlencodedParser, (request, response) => {
+  console.log(request.body.loginCheck)
   db.loadThreads().then((post) => {
     get_banner(0)
     response.render('index.hbs', {
@@ -279,6 +289,14 @@ app.post('/postReg', urlencodedParser, (request, response) => {
       process.exit();
   })
 });
+
+// app.get('/testingstuff', (req, res) => {
+//   res.json('yes')
+// })
+
+// app.get('/verifyTest', (req, res) => {
+//   res.render('testpage.hbs', {})
+// })
 
 app.param('name', (request, response, next, name) => {
   var topic_title = name.split('=');

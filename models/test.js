@@ -1,4 +1,6 @@
 var database = require('./amazon_db.js');
+var toBeType = require("jest-tobetype");
+
 
 describe('Thread data in Amazon RDS database', () => {
     test('data contains correct properties in threads', () => {
@@ -17,6 +19,24 @@ describe('Thread data in Amazon RDS database', () => {
             process.exit();
         });
     });
+
+    test('data contains correct properties in threads', () => {
+
+        database.loadThreads().then((threads) => {
+            for (var i = 0; i < threads.length; i++) {
+                expect(threads[i].title).toBeType("string");
+                expect(threads[i].views).toBeType("number");
+                expect(threads[i].replies).toBeType("number");
+                expect(threads[i].started_by).toBeType("string");
+                expect(threads[i].post_date).toBeType("string");
+                expect(threads[i].last_poster).toBeType("string");
+                expect(threads[i].last_post_date).toBeType("string");
+                expect(threads[i].topic_link).toBeType("string");
+            };
+            process.exit();
+        });
+    });
+
 });
 
 describe('Post data in Amazon RDS database', () => {
@@ -28,6 +48,19 @@ describe('Post data in Amazon RDS database', () => {
                 expect(threads[i]).toHaveProperty('username');
                 expect(threads[i]).toHaveProperty('post_date');
                 expect(threads[i]).toHaveProperty('post');
+            };
+            process.exit();
+        });
+    });
+    test('data contains correct properties in threads', () => {
+
+        database.loadThreads().then((threads) => {
+            for (var i = 0; i < threads.length; i++) {
+                expect(threads[i].thread_id_fk).toBeType("number");
+                expect(threads[i].post_id).toBeType("number");
+                expect(threads[i].username).toBeType("string");
+                expect(threads[i].post_date).toBeType("string");
+                expect(threads[i].post).toBeType("string");
             };
             process.exit();
         });
