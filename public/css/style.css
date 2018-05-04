@@ -143,6 +143,16 @@
   cursor: pointer;
 }
 
+#reg_but {
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  background-color: darkslategrey;
+  color: white;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
+}
+
 /*body background*/
 
 /*TODO: make bg static on the back while page scrolls*/

@@ -3,6 +3,15 @@ var mon_logo = document.getElementById('logo')
 var menu = document.getElementById('forum_home')
 var close_but = document.getElementById('close_but')
 var tab_but = document.getElementsByClassName('tab_but')
+var reg_but = document.getElementById('reg_but')
+
+reg_but.addEventListener("mouseover", function () {
+    reg_but.style.backgroundColor= 'lightslategray';
+});
+
+reg_but.addEventListener("mouseout", function () {
+    reg_but.style.backgroundColor = 'darkslategray';
+});
 
 menu.addEventListener("mouseover", function () {
     quick_tab.style.top='125px';

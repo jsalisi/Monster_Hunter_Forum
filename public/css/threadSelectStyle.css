@@ -44,9 +44,9 @@
 }
 
 #loginCheck {
-  top: 21vh;
-  right: 5.5%;
-  height: 47%;
+  top: 3.5;
+  right: 0px;
+  height: 75%;
   width: 19%;
   display: inline-block;
   position: absolute;
@@ -55,12 +55,15 @@
   z-index: 0;
 }
 #logoutInput {
-    top: 30%;
-    right: 2%;
-    position: absolute;
-    display: inline-block;
-    margin: auto;
-    font-size: 100%;
+  top: 0px;
+  right: 2%;
+  font-size: 1vw;
+  width: 75px;
+  height: 86%;
+  text-align: center;
+  line-height: 200%;
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
 }
 .credField {
   margin: 1%;
@@ -76,12 +79,19 @@
 }
 
 #loginBut {
-  top: -856%;
-  right: -25%;
-  height: 3vh;
-  width: 5vw;
-  position: absolute;
   font-size: 1vw;
+  background-color: darkslategrey;
+  color: white;
+  border-color: grey;
+  border-style: solid;
+  width: 75px;
+  height: 5vh;
+  text-align: center;
+  position: absolute;
+  font-family: 'Cinzel Decorative',
+  cursive;
+  right: 0px;
+  top: 0px;
 }
 
 #loginerror {
@@ -90,6 +100,18 @@
   left: 0px;
   right: 0px;
   margin: auto;
+}
+
+#logout_but {
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  background-color: darkslategrey;
+  color: white;
+  width: 80px;
+  height: 5vh;
+  border-style: solid;
+  border-color: grey;
+  left: 30%;
 }
 
 /*TODO: adjust images to fit different screen sizes*/
@@ -122,6 +144,16 @@
 
 #logo:hover {
   cursor: pointer;
+}
+
+#reg_but {
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  background-color: darkslategrey;
+  color: white;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
 }
 
 /*body background*/
