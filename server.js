@@ -105,37 +105,36 @@ passport.deserializeUser(function(id, done) {
 
 // Redirecting '/' to Home Page
 app.get('/', (request, response) => {
-  response.redirect('/test2');
+  response.redirect('/login');
 });
 
-app.get('/test', (request, response) => {
-  response.render('Homepage.hbs');
+app.get('/login', (request, response) => {
+  response.render('sort.hbs', {})
 });
 
-app.get('/test2', (request, response) => {
-  get_banner(0)
-  response.render('index.hbs');
-});
-
+app.get('/home', (request, response) => {
+  response.redirect('/login');
+})
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
-app.get('/home', (request, response) => {
+app.post('/welcome', urlencodedParser, (request, response) => {
   db.loadThreads().then((post) => {
-    get_banner(0)
-    response.render('index.hbs', {
-      thread: post
-    });
-  }).catch((error) => {
-    response.send(error);
-  });
-});
-
-app.get('/welcome', (request, response) => {
-  db.loadThreads().then((post) => {
-    get_banner(1)
-    response.render('index.hbs', {
-      thread: post
-    });
+      if(request.body.loginCheck == 1) {
+        get_banner(1)
+        response.render('index.hbs', {
+          thread: post
+        });
+        console.log('loggged')
+      } else if (request.body.loginCheck == '') {
+        get_banner(0)
+        response.render('index.hbs', {
+          thread: post
+        });
+        console.log('out')
+      } else {
+        console.log('neither')
+        response.redirect('/login')
+      }
   }).catch((error) => {
     response.send(error);
   });
@@ -161,9 +160,8 @@ app.post('/checkCred', urlencodedParser, (request, response) => {
           hbs.registerHelper('setLoginCheck', () => {
             return users_list[user_index(username)].login_flag
           });
-
           console.log(users_list)
-          response.redirect('/welcome')
+          response.render('logging.hbs')
       } else if (results.length > 0) {
 
           hbs.registerHelper('getUser', () => {
@@ -175,7 +173,7 @@ app.post('/checkCred', urlencodedParser, (request, response) => {
           });
 
           console.log(users_list)
-          response.redirect('/welcome')
+          response.redirect('/login')
       } else {
           response.redirect('/relog')
       }
@@ -191,8 +189,12 @@ app.post('/logOut', urlencodedParser, (request, response) => {
     hbs.registerHelper('setLoginCheck', () => {
       return 0
     });
-    response.redirect('/home')
+
+    hbs.registerHelper('getUser', () => {
+      return request.body.currentUser
+    });
     console.log(users_list)
+    response.render('logOut.hbs', {})
 });
 
 // rendering post topic list page
@@ -296,9 +298,14 @@ app.post('/postReg', urlencodedParser, (request, response) => {
  * Processes the name of the thread to be used as the url extension of
  * the webpage
  */
-// app.get('/testingstuff', (req, res) => {
-//   res.json('yes')
-// })
+app.get('/testingstuff', (req, res) => {
+  res.json('no')
+})
+
+app.get('/testing', (req, res) => {
+  res.render('testpage.hbs', {})
+})
+
 
 // app.get('/verifyTest', (req, res) => {
 //   res.render('testpage.hbs', {})
