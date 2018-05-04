@@ -447,11 +447,12 @@ pre {
 }
 
 #confirm_pass {
-  left:-29px;
+  left:-42px;
   position: relative;
+  display:inline-block; 
 }
 #conf_text {
-  left:-29px;
+  left:-42px;
   position: relative;
 }
 #gogo {
@@ -459,3 +460,36 @@ pre {
   position: relative;
 }
 
+#user_checkmark {
+  top:6px;
+  display: inline-block;  
+  position: relative;
+  background-image: url("/img/checkmark.png");
+  background-size:100% 100%;
+  background-repeat: no-repeat;
+  width: 1.5%;
+  height: 5%;
+}
+
+#pass_checkmark {
+  top: 6px;
+  display: inline-block;
+  position: relative;
+  background-image: url("/img/checkmark.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 1.5%;
+  height: 5%;
+}
+
+#conf_checkmark {
+  top: 6px;
+  display: inline-block;
+  position: relative;
+  background-image: url("/img/checkmark.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 1.5%;
+  height: 5%;
+  left:-42px;
+}

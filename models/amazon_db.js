@@ -19,7 +19,7 @@ var loadThreads = () => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`SELECT * FROM monster_hunter_forum_DB.Threads as a JOIN monster_hunter_forum_DB.Posts as b ON a.thread_id=b.thread_id_fk;`, (error, results, fields) => {
+      connection.query(`SELECT *, DATE_FORMAT(b.post_date, "%W %M %e, %Y %H:%i:%s") as post_date FROM monster_hunter_forum_DB.Threads as a JOIN monster_hunter_forum_DB.Posts as b ON a.thread_id=b.thread_id_fk;`, (error, results, fields) => {
         // process the result so its easier to pass to hbs
         var tempdb = {};
 
@@ -52,7 +52,7 @@ var loadPosts = (thread_id) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`SELECT * FROM monster_hunter_forum_DB.Posts WHERE thread_id_fk = "${thread_id}";`, (error, results, fields) => {
+      connection.query(`SELECT *, DATE_FORMAT(post_date, "%a %b %e, %Y %H:%i:%s") as post_date FROM monster_hunter_forum_DB.Posts WHERE thread_id_fk = "${thread_id}";`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.
@@ -93,12 +93,12 @@ var createThread = (thread_title) => {
  * @param {string} datetime - The posts' date and time
  * @param {string} post - The contents of the post
  */
-var createPost = (thread_id, post_id, username, datetime, post) => {
+var createPost = (thread_id, post_id, username, post) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
       connection.query(`INSERT INTO Posts (thread_id_fk, post_id, username, post_date, post) 
-      VALUES('${thread_id}', '${post_id}', '${username}', '${datetime}', '${post}');`, (error, results, fields) => {
+      VALUES(${thread_id}, ${post_id}, '${username}', NOW(), '${post}');`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.
