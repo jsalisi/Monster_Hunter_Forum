@@ -270,7 +270,7 @@
 #thread_submit {
   position: absolute;
   bottom: 10%;
-  left: 34.7%;
+  left: 36.8%;
 }
 
 .topic {
@@ -367,7 +367,7 @@
 }
 
 #topPost {
-  left: 0px;
+  left: 4%;
   right: 0px;
   position: absolute;
   margin: auto;
@@ -492,4 +492,27 @@ pre {
   width: 1.5%;
   height: 5%;
   left:-42px;
+  opacity:0;
+}
+
+#topTitle {
+  width:31.5%;
+  position:relative;
+  left:31%;
+}
+
+#labelcontent {
+  font-size:25px;
+  font-family: 'cinzel decorative';
+  color:white;
+  position: relative;
+  left:26.8%; 
+}
+
+#labeltopic {
+  font-size:25px;
+  font-family: 'cinzel decorative';
+  color:white;
+  position: relative;
+  left:30%;
 }
