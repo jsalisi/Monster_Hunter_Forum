@@ -1,5 +1,6 @@
-// temporarily testing google sheets functions
-// Uncomment functions to test
+/**
+ * Deprecated
+ */
 
 var database = require('./google-sheets-functions.js')
 
