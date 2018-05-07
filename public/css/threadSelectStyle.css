@@ -33,9 +33,9 @@
 }
 
 #loginInput {
-  top: 3%;
+  top: 10%;
   right: 5vw;
-  height: inherit;
+  height: 75%;
   width: 20vw;
   display: inline-block;
   position: absolute;
@@ -44,9 +44,9 @@
 }
 
 #loginCheck {
-  top: 21vh;
-  right: 5.5%;
-  height: 47%;
+  top: 3.5;
+  right: 0px;
+  height: 75%;
   width: 19%;
   display: inline-block;
   position: absolute;
@@ -55,12 +55,15 @@
   z-index: 0;
 }
 #logoutInput {
-    top: 30%;
-    right: 2%;
-    position: absolute;
-    display: inline-block;
-    margin: auto;
-    font-size: 100%;
+  top: 0px;
+  right: 2%;
+  font-size: 1vw;
+  width: 75px;
+  height: 86%;
+  text-align: center;
+  line-height: 200%;
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
 }
 .credField {
   margin: 1%;
@@ -76,12 +79,19 @@
 }
 
 #loginBut {
-  top: -856%;
-  right: -25%;
-  height: 3vh;
-  width: 5vw;
-  position: absolute;
   font-size: 1vw;
+  background-color: darkslategrey;
+  color: white;
+  border-color: grey;
+  border-style: solid;
+  width: 75px;
+  height: 5vh;
+  text-align: center;
+  position: absolute;
+  font-family: 'Cinzel Decorative',
+  cursive;
+  right: 0px;
+  top: 0px;
 }
 
 #loginerror {
@@ -91,6 +101,20 @@
   right: 0px;
   margin: auto;
 }
+
+#logout_but {
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  background-color: darkslategrey;
+  color: white;
+  width: 80px;
+  height: 5vh;
+  border-style: solid;
+  border-color: grey;
+  left: 30%;
+}
+
+/*TODO: adjust images to fit different screen sizes*/
 
 /* banner */
 
@@ -122,7 +146,19 @@
   cursor: pointer;
 }
 
+#reg_but {
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  background-color: darkslategrey;
+  color: white;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
+}
+
 /*body background*/
+
+/*TODO: make bg static on the back while page scrolls*/
 
 #bodybg {
   left: 0;
@@ -163,20 +199,18 @@
 #forum_home:link, #forum_home:visited {
   line-height: 165%;
   height: 86%;
-  width: 27%;
+  width: 10vw;
   background-color: darkslategrey;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  padding-left: 4%;
-  padding-right: 10%;
   font-size: 1.3vw;
-  border-radius: 40px;
   border-style: solid;
   border-color: grey;
   position: absolute;
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'Cinzel Decorative',
+  cursive;
 }
 
 #forum_home:hover, #forum_home:active {
@@ -221,18 +255,19 @@
 /* forum type selections */
 
 #quick_tab {
-  width: 200px;
-  height: 200px;
-  left: -175px;
-  background-color: darkslategrey;
+  height: 250px;
+  width: 10vw;
+  left: 1%;
+  background-color: #D3D3D4;
   border-color: grey;
   border-style: solid;
-  bottom: 25%;
+  top: -100px;
   position: fixed;
   z-index: 10000;
   border-radius: 25px;
   text-align: center;
   transition: 0.2s;
+  z-index: 1;
 }
 
 #tab_title {
@@ -243,14 +278,22 @@
 }
 
 .tab_but {
-  width: 100px;
-  margin: 3px;
-  ;
+  left: 0px;
+  right: 0px;
+  margin: 1%;
+  width: 8vw;
   font-weight: bold;
   text-align: center;
+  display: inline-block;
   position: relative;
-  top: 0px;
+  font-size: 20px;
+  top: 65px;
   bottom: 0px;
+  color: white;
+  background-color: darkslategrey;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
 }
 
 #discussSelect {
@@ -269,8 +312,9 @@
 
 #thread_submit {
   position: absolute;
-  bottom: 10%;
+  top: 85%;
   left: 34.7%;
+
 }
 
 .topic {
@@ -280,9 +324,9 @@
 }
 
 .topicTitle {
-  height: 8%;
+  height: 0px;;
   text-align: center;
-  padding: 2%;
+  padding: 5%;
   margin: 0.2%;
   color:white;
   font-size: 200%;
@@ -312,8 +356,13 @@
   margin-top: 5%;
 }
 
-.Title {
-  width: 99%;
+#topTitle {
+  position:absolute;
+  width: 500px;
+  top: 35%;
+  left: 0px;
+  right: 0px;
+  margin: auto;
 }
 
 .Text {
@@ -342,9 +391,12 @@
 /* Thread post template styling*/
 
 #topicTitle {
-  color: lightblue;
+  color: white;
   text-decoration: none;
   font-size: 150%;
+  border-style: solid;
+  border-color: grey;
+  background-color: darkslategrey;
 }
 
 #post_div {
@@ -367,12 +419,13 @@
 }
 
 #topPost {
+  top: 50%;
   left: 0px;
   right: 0px;
   position: absolute;
   margin: auto;
-  width: 30%;
-  height: 35%;
+  width: 500px;
+  height: 30%;
 }
 
 .post_info {
@@ -398,10 +451,10 @@
   margin-top: 2%;
   margin-bottom: 2%;
   border-style: solid;
-  border-color: aliceblue;
-  color: aliceblue;
+  border-color: grey;
+  color: white;
   word-break: break-all;
-  background-color:black;
+  background-color:darkslategrey;
 }
 
 pre {
@@ -447,29 +500,20 @@ pre {
 }
 
 #confirm_pass {
-  left:-42px;
+  left:-29px;
   position: relative;
-  display:inline-block; 
 }
 #conf_text {
-  left:-42px;
+  left:-29px;
   position: relative;
 }
 #gogo {
-  left:30px;
+  left:0px;
+  right:0px;
+  margin:auto;
   position: relative;
 }
 
-#user_checkmark {
-  top:6px;
-  display: inline-block;  
-  position: relative;
-  background-image: url("/img/checkmark.png");
-  background-size:100% 100%;
-  background-repeat: no-repeat;
-  width: 1.5%;
-  height: 5%;
-}
 
 #pass_checkmark {
   top: 6px;
@@ -492,4 +536,27 @@ pre {
   width: 1.5%;
   height: 5%;
   left:-42px;
+  opacity:0;
+}
+
+#topTitle {
+  width:31.5%;
+  position:relative;
+  left:31%;
+}
+
+#labelcontent {
+  font-size:25px;
+  font-family: 'cinzel decorative';
+  color:white;
+  position: relative;
+  left:26.8%; 
+}
+
+#labeltopic {
+  font-size:25px;
+  font-family: 'cinzel decorative';
+  color:white;
+  position: relative;
+  left:30%;
 }

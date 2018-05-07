@@ -4,18 +4,16 @@
     </div>
     
     <form id='logoutInput' action="/logOut" method="post">
-        <button type="submit" name='username' value={{getUser}}>Log Out</button>
+        <button id="logout_but" type="submit" name='username' value={{getUser}}>Log Out</button>
     </form>
 </div>
 
 <div id='banner'>
-  <div id="logo" onclick="window.location='/welcome';"></div>
+  <div id="logo" onclick="window.location='/home';"></div>
 </div>
 
 <div id='searchBar'>
     <div id='searchMenu'>
-          <b><a id="forum_home" href='/welcome'>Home</a></b>
+        <b><a id="forum_home" href='/home'>Menu</a></b>
     </div>
 </div>
-
-<p style="display: none;" id="currentUser" >{{getUser}}</p>

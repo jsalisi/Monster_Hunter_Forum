@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
   {{> quick_tab}}
 
   <div id='bodybg'></div>
@@ -34,15 +33,7 @@
     <p style="display: none;" id="loginCheck">{{setLoginCheck}}</p>
 
   </div>
-  
   <script src='js/index.js'></script>
-
-  <form style="display: none;" action='/home' method='POST'>
-    <button  id='loginCheck' value='' name='loginCheck' type="submit"></button>
-  </form>
-  
-  <script src='js/index.js'></script>
-  <script src="js/logCheck.js"></script>
   <script type='text/javascript'>
     var browser_dupe = document.getElementById("dupeCheck").innerHTML;
     var loginCheck = document.getElementById("loginCheck").innerHTML;
@@ -52,7 +43,7 @@
     }
 
     if (loginCheck == 1) {
-      document.getElementById("makeThreadButton").style.display = 'block';
+      document.getElementById("makeThreadButton").style.display = 'block'
     }
   </script>
 </body>
