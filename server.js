@@ -218,14 +218,17 @@ app.post('/postResult', urlencodedParser, (request, response) => {
       // Function call format for creating a new thread
       // Threads have an initial post that accompany it on creation
       db.createThread(request.body.topTitle).then((result) => {
-        console.log('Adding new thread...');
-        console.log(result);
-        return db.getNextThreadID();
-      
+        if (result == true) {
+          console.log('Adding new thread...');
+          console.log(result);
+          return db.getNextThreadID();
+        } else if (result == false) {
+          throw error;
+        }
       }).then((thread_id) => {
         console.log(thread_id);
         tid = thread_id;
-        
+
         // Initial post
         return db.createPost(thread_id, 1, currentUser, request.body.topContent);
 
