@@ -17,9 +17,11 @@
         var currentUser;
 
         for (var key in localStorage) {
-            currentUser = key;
+            if ((key != 'length')&&( key != 'key') && (key != 'getItem') && (key != 'setItem') && (key != 'clear') && (key != 'removeItem')) {
+                currentUser = key
+            }
         }
-
+        
         document.getElementById('welcomeMsg').innerHTML = `Welcome Back ${currentUser}!`
         console.log(document.getElementById('welcomeMsg').innerHTML)
     </script>

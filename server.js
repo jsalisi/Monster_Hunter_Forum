@@ -154,6 +154,7 @@ app.get('/relog', (request, response) => {
 app.post('/checkCred', urlencodedParser, (request, response) => {
     db.loadUsers(request.body.user, request.body.pass).then((results) => {
       var username = request.body.user
+      console.log(username)
       if ((results.length > 0) && (user_index(username) == null)) {
           users_list.push(new user_db.User(username))
           
