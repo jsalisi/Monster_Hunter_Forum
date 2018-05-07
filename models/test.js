@@ -66,3 +66,30 @@ describe('Post data in Amazon RDS database', () => {
         });
     });
 })
+
+describe('Get the next Post ID', () => {
+    test('Post ID is correct type', () => {
+        database.getNextPostID(14).then((numbr) => {
+            expect(typeof numbr).toBe("number");
+            process.exit();
+        });
+    });
+});
+
+describe('Thread posting test', () => {
+    test('Input empty is false', () => {
+        database.createThread('').then((result) => {
+            expect(result).toBeFalsy();
+        });
+    });
+    test('Input space only is false', () => {
+        database.createThread(' ').then((result) => {
+            expect(result).toBeFalsy();
+        });
+    });
+    test('Input is valid', () => {
+        database.createThread('Heya heya').then((result) => {
+            expect(result).toBeTruthy();
+        });
+    });
+});
