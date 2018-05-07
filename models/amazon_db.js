@@ -19,12 +19,26 @@ var loadThreads = () => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`SELECT * FROM monster_hunter_forum_DB.Threads;`, (error, results, fields) => {
+      connection.query(`SELECT *, DATE_FORMAT(b.post_date, "%W %M %e, %Y %H:%i:%s") as post_date FROM monster_hunter_forum_DB.Threads as a JOIN monster_hunter_forum_DB.Posts as b ON a.thread_id=b.thread_id_fk;`, (error, results, fields) => {
+        // process the result so its easier to pass to hbs
+        var tempdb = {};
+
+        for (var x in results) {
+          // if thread title not in tempdb, create entry with format "title": {id: int, etc}
+          if (!(results[x].thread_title in tempdb)) {
+            tempdb[`${results[x].thread_id}`] = { title: results[x].thread_title, views: results[x].views, replies: 0, started_by: results[x].username, post_date: results[x].post_date, last_poster: results[x].username, last_post_date: results[x].post_date, topic_link: results[x].thread_id+'='+results[x].thread_title.replace(/ /g,"_")};
+          } else {
+            // else if in tempdb, update last_poster, last_post_date, and replies
+            tempdb[`${results[x].thread_id}`]['last_poster'] = results[x].username;
+            tempdb[`${results[x].thread_id}`]['last_post_date'] = results[x].post_date;
+            tempdb[`${results[x].thread_id}`]['replies'] += 1;
+          }
+        }
         // And done with the connection.
         connection.release();
         // Handle error after the release.
         if (error) reject(error);
-        else resolve(results);
+        else resolve(tempdb);
       });
     });
   });
@@ -34,11 +48,11 @@ var loadThreads = () => {
  * Loads all posts from the database
  * Query can be adjusted to select posts for a specific thread
  */
-var loadPosts = () => {
+var loadPosts = (thread_id) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`SELECT * FROM monster_hunter_forum_DB.Posts;`, (error, results, fields) => {
+      connection.query(`SELECT *, DATE_FORMAT(post_date, "%a %b %e, %Y %H:%i:%s") as post_date FROM monster_hunter_forum_DB.Posts WHERE thread_id_fk = "${thread_id}";`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.
@@ -55,19 +69,23 @@ var loadPosts = () => {
  * @param {string} thread_title - The title for the thread
  * @param {number} views - Number of times a thread has been clicked
  */
-var createThread = (thread_id, thread_title, views, link) => {
+var createThread = (thread_title) => {
   return new Promise((resolve, reject) => {
-    pool.getConnection((err, connection) => {
-      // Use the connection
-      connection.query(`INSERT INTO Threads (thread_id, thread_title, views)
-      VALUES('${thread_id}', '${thread_title}', '${views}');`, (error, results, fields) => {
-        // And done with the connection.
-        connection.release();
-        // Handle error after the release.
-        if (error) reject(error);
-        else resolve(results);
+    if (thread_title != '' && thread_title != ' ') {
+      pool.getConnection((err, connection) => {
+        // Use the connection
+        connection.query(`INSERT INTO Threads (thread_title, views)
+        VALUES('${thread_title}', 0);`, (error, results, fields) => {
+          // And done with the connection.
+          connection.release();
+          // Handle error after the release.
+          if (error) reject(error);
+          else resolve(true);
+        });
       });
-    });
+    } else {
+      resolve(false);
+    };
   });
 }
 
@@ -79,12 +97,12 @@ var createThread = (thread_id, thread_title, views, link) => {
  * @param {string} datetime - The posts' date and time
  * @param {string} post - The contents of the post
  */
-var createPost = (post_id, thread_id, username, datetime, post) => {
+var createPost = (thread_id, post_id, username, post) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
       connection.query(`INSERT INTO Posts (thread_id_fk, post_id, username, post_date, post) 
-      VALUES('${thread_id}', '${post_id}', '${username}', '${datetime}', '${post}');`, (error, results, fields) => {
+      VALUES(${thread_id}, ${post_id}, '${username}', NOW(), '${post}');`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.
@@ -108,7 +126,7 @@ var getNextThreadID = () => {
         connection.release();
         // Handle error after the release.
         if (error) reject(error);
-        else resolve(results[0].thread_id + 1);
+        else resolve(results[0].thread_id);
       });
     });
   });
@@ -193,6 +211,14 @@ var regUser = (username, password) => {
   });
 }
 
+var updateView = (thread_id) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      connection.query(`UPDATE monster_hunter_forum_DB.Threads SET views = views + 1 WHERE thread_id=${Number(thread_id)};`)
+    })
+  })
+}
+
 module.exports = {
   loadThreads,
   loadPosts,
@@ -202,5 +228,6 @@ module.exports = {
   getNextPostID,
   loadUsers,
   usernameExist,
-  regUser
+  regUser,
+  updateView
 }

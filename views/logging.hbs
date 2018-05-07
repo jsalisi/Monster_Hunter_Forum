@@ -1,0 +1,30 @@
+<head>
+  <title></title>
+</head>
+
+<body>
+    <div style="display: none;">
+        {{> logBanner}}
+    </div>
+
+    <form id="redirect" style="display: none;" action='/login' method='get'>
+        <input name='currentUser' value={{getUser}} name='flag'>
+    </form>
+
+    <script>
+        localStorage.setItem(`{{getUser}}`, {{setLoginCheck}})
+        document.getElementById('redirect').submit();
+        var currentUser;
+
+        for (var key in localStorage) {
+            if ((key != 'length')&&( key != 'key') && (key != 'getItem') && (key != 'setItem') && (key != 'clear') && (key != 'removeItem')) {
+                currentUser = key
+            }
+        }
+        
+        document.getElementById('welcomeMsg').innerHTML = `Welcome Back ${currentUser}!`
+        console.log(document.getElementById('welcomeMsg').innerHTML)
+    </script>
+</body>
+
+</html>

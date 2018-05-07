@@ -5,9 +5,12 @@
   <title>Forum Home</title>
   <link rel="icon" href="/img/Monster_Hunter_Logo.png">
   <link href='css/style.css' rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
 </head>
 
 <body>
+  {{> quick_tab}}
+
   <div id='bodybg'></div>
 
   <div id='bodyWrapper'>
@@ -22,7 +25,11 @@
           {{> threadLinkTemp}}
         {{/each}}
       </div>
-      <b id="makeThreadButton"><a id="makethread" href='/postThread'>Create New Thread</a></b>
+
+      <form id='goThread' action='/postThread' method="POST">
+        <b id="makeThreadButton"><a id="makethread" onclick="document.getElementById('goThread').submit()" href='#'>Create New Thread</a></b>
+        <input style='display: none;' value={{getUser}} name='username'></input>
+      </form>
 
     </div>
 
@@ -30,6 +37,7 @@
     <p style="display: none;" id="loginCheck">{{setLoginCheck}}</p>
 
   </div>
+  <script src='js/index.js'></script>
   <script type='text/javascript'>
     var browser_dupe = document.getElementById("dupeCheck").innerHTML;
     var loginCheck = document.getElementById("loginCheck").innerHTML;

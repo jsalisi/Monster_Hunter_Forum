@@ -6,9 +6,13 @@
   <title>Discussion</title>
   <link rel="icon" href="/img/Monster_Hunter_Logo.png">
   <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+    
 </head>
 
 <body>
+   {{> quick_tab}}
+  
   <div id='bodybg'></div>
 
   <div id='bodyWrapper'>
@@ -32,6 +36,8 @@
 
   </div>
   <p style="display: none;" id="loginCheck">{{setLoginCheck}}</p>
+
+  <script src='js/index.js'></script>
   <script>
       var loginCheck = document.getElementById("loginCheck").innerHTML;
       if (loginCheck == 1) {

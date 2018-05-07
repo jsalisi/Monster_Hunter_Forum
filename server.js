@@ -21,10 +21,14 @@ const port = process.env.PORT || 8080;
  * @type {object} database - requires from google-sheets-functions.js to setup database
  * @type {object} urlencodedParser - calls on bodyParser.urlencoded{{extended:false}} for form posting
  */
-// Importing file to access the Google Spreadsheet database
+// Importing file to access the Amazon database
 const db = require('./models/amazon_db.js');
-const database = require('./public/js/google-sheets-functions.js');
-const urlencodedParser = bodyParser.urlencoded({ extended: false});
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const user_db = require('./models/classes/users.js')
+
+// ** DEPRECATED **
+// const database = require('./public/js/google-sheets-functions.js');
+
 
 /**
  * @type {type} app - sets app to call on express() initialization
@@ -67,37 +71,30 @@ hbs.registerPartials(__dirname + '/views/partials/communityPartials');
  * @param {string} current_sheet - sets the current google spreadsheet for thread link
  * @param {string} redir_page - sets varable for redirect after login
  */
-var current_user = '';
-var login_flag = 0;
-var browser_flag = 0;
-var dupe_comment = '';
-var current_sheet = '';
-var redir_page = '';
 
-hbs.registerHelper('getBanner', () => {
-    if (login_flag === 0) {
-        return 'topBanner'
-    } else {
-        return 'logBanner'
+var users_list = [];
+
+
+//*********************************static functions***********************************//
+var user_index = (username) => {
+  var user_index = null;
+  for (var i=0; i<users_list.length; i++) {
+    if (users_list[i].username == username) {
+      user_index = i;
     }
-});
+  }
+  return user_index
+}
 
-hbs.registerHelper('setLoginCheck', () => {
-    return login_flag;
-});
-
-hbs.registerHelper('getUser', () => {
-    return current_user;
-});
-
-hbs.registerHelper('getDupe', () => {
-    return dupe_comment;
-});
-
-hbs.registerHelper('setBrowserFlag', () => {
-    return browser_flag;
-});
-
+var get_banner = (status) => {
+  hbs.registerHelper('getBanner', () => {
+    if (status == 0) {
+      return 'topBanner';
+    } else {  
+      return 'logBanner';
+    }
+  });
+}
 
 //*********************************Rendering*******************************//
 
@@ -108,17 +105,42 @@ passport.deserializeUser(function(id, done) {
 
 // Redirecting '/' to Home Page
 app.get('/', (request, response) => {
-  response.redirect('/home');
+  response.redirect('/login');
 });
 
+app.get('/login', (request, response) => {
+  response.render('sort.hbs', {})
+});
+
+app.get('/home', (request, response) => {
+  response.redirect('/login');
+})
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
-app.get('/home', (request, response) => {
-  database.loadPosts(2).then((post) => {
-    console.log('Loading posts...');
-    response.render('index.hbs', {
-        thread: post
-    });
+app.post('/welcome', urlencodedParser, (request, response) => {
+  db.loadThreads().then((post) => {
+      if(request.body.loginCheck == 1) {
+        hbs.registerHelper('getUser', () => {
+          return request.body.userNow
+        });
+        get_banner(1)
+        hbs.registerHelper('setLoginCheck', () => {
+          return 1
+        });
+        response.render('index.hbs', {
+          thread: post
+        });
+        console.log('loggged')
+      } else if (request.body.loginCheck == '') {
+        get_banner(0)
+        response.render('index.hbs', {
+          thread: post
+        });
+        console.log('out')
+      } else {
+        console.log('neither')
+        response.redirect('/login')
+      }
   }).catch((error) => {
     response.send(error);
   });
@@ -131,12 +153,34 @@ app.get('/relog', (request, response) => {
 
 app.post('/checkCred', urlencodedParser, (request, response) => {
     db.loadUsers(request.body.user, request.body.pass).then((results) => {
-      if (results.length > 0) {
-          current_user = request.body.user
-          login_flag = 1
-          //if (request.body.remember === 'True'){
-          //}
-          response.redirect('/home')
+      var username = request.body.user
+      console.log(username)
+      if ((results.length > 0) && (user_index(username) == null)) {
+          users_list.push(new user_db.User(username))
+          
+          users_list[user_index(username)].login_flag = 1
+
+          hbs.registerHelper('getUser', () => {
+            return username
+          });
+
+          hbs.registerHelper('setLoginCheck', () => {
+            return users_list[user_index(username)].login_flag
+          });
+          console.log(users_list)
+          response.render('logging.hbs')
+      } else if (results.length > 0) {
+
+          hbs.registerHelper('getUser', () => {
+            return username
+          });
+
+          hbs.registerHelper('setLoginCheck', () => {
+            return users_list[user_index(username)].login_flag
+          });
+
+          console.log(users_list)
+          response.redirect('/login')
       } else {
           response.redirect('/relog')
       }
@@ -148,91 +192,111 @@ app.post('/checkCred', urlencodedParser, (request, response) => {
 
 // logout
 app.post('/logOut', urlencodedParser, (request, response) => {
-    current_user = ''
-    login_flag = 0
-    response.redirect('/home')
+    users_list.splice(user_index(request.body.username), 1)
+    hbs.registerHelper('setLoginCheck', () => {
+      return 0
+    });
+
+    hbs.registerHelper('getUser', () => {
+      return request.body.username
+    });
+
+    response.render('logOut.hbs', {})
 });
 
 // rendering post topic list page
-app.get('/postThread', (request, response) => {
-    response.render('postThread.hbs', {})
+app.post('/postThread', urlencodedParser, (request, response) => {
+  hbs.registerHelper('getUser', () => {
+    return request.body.username
+  });
+  response.render('postThread.hbs', {})
 });
 
 // posting thread to gs
 app.post('/postResult', urlencodedParser, (request, response) => {
+  var tid;
+  var currentUser = request.body.currentUser;
     // The redirect link for the new thread
     //var link_title = request.body.topTitle.replace(/ /g, "_").substring(0, 14);
 
     // Getting last thread ID
-    db.getNextThreadID().then((thread_id) => {
+    // db.getNextThreadID().then((thread_id) => {
 
       // Function call format for creating a new thread
       // Threads have an initial post that accompany it on creation
-      db.createThread(thread_id, request.body.topTitle, 0).then((result) => {
-        console.log('Adding new thread...');
-        console.log(result);
+      db.createThread(request.body.topTitle).then((result) => {
+        if (result == true) {
+          console.log('Adding new thread...');
+          console.log(result);
+          return db.getNextThreadID();
+        } else if (result == false) {
+          throw error;
+        }
+      }).then((thread_id) => {
+        console.log(thread_id);
+        tid = thread_id;
 
         // Initial post
-        var timestamp = new Date();
-        return db.createPost(1, thread_id, current_user, timestamp, request.body.topContent)
+        return db.createPost(thread_id, 1, currentUser, request.body.topContent);
 
       }).then((result) => {
         console.log('Adding new post...');
         console.log(result);
 
         // Will be changed when load threads/posts is functional
-        response.redirect(`/home`);
+        response.redirect(`/${tid}=${request.body.topTitle.replace(/ /g, "_")}`);
 
         // Stops connection with the database
         // Will also stop any functions after it
       }).catch((error) => {
         console.log(error);
       });
-    }).catch((error) => {
-      console.log(error);
-    });
 });
 
-// TODO: Post to thread
 app.get('/newPost', (request, response) => {
-    response.render('createPost.hbs', {})
+  response.render('createPost.hbs', { link: response.req.headers.referer.split('/')[3]});
 });
 
 app.post('/newPostResult', urlencodedParser, (request, response) => {
-  var datetime = new Date();
-  database.addNewPost(current_user, datetime, request.body.topContent, current_sheet).then((result) => {
-    console.log(result);
-    response.redirect(redir_page);
+  var link = request.body.link.split('=');
+  var currentUser = request.body.currentUser;
+  db.getNextPostID(link[0]).then((result) => {
+    db.createPost(link[0], result, currentUser, request.body.topContent);
+  }).then((result) => {
+    response.redirect(`/${request.body.link}`);
   }).catch((error) => {
     response.send(error);
   });
-})
+});
 
 app.get('/register', (request, response) => {
     response.render('register.hbs', {})
 });
 
 app.post('/postReg', urlencodedParser, (request, response) => {
+  var dupe_comment;
+  var brower_flag = 0;
+  
   db.usernameExist(request.body.new_user).then((results) => {
     if (results.length == 0) {
-      if (request.body.new_pass == request.body.confirm_pass){
-        db.regUser(request.body.new_user, request.body.new_pass).then((regResults) => {
-            console.log('registration successful!');
-            browser_flag = 1
-            response.redirect('/home');
-            setTimeout (() => {
-                browser_flag = 0
-            }, 1000);
-        }).catch((error) => {
-            console.log(error);
-        })
-      } else {
-        dupe_comment = "Confirmation of password does not match!!"
-            response.render('register.hbs', {})
-            console.log("no accounts registered")
-      }
+      db.regUser(request.body.new_user, request.body.new_pass).then((regResults) => {
+          console.log('registration successful!');
+          browser_flag = 1
+          hbs.registerHelper('setBrowserFlag', () => {
+            return browser_flag;
+          });
+          response.redirect('/home');
+          setTimeout (() => {
+              browser_flag = 0
+          }, 1000);
+      }).catch((error) => {
+          console.log(error);
+      })
     } else {
       dupe_comment = "Cannot Register Account! Username already taken!!"
+      hbs.registerHelper('getDupe', () => {
+        return dupe_comment;
+      });
       response.render('register.hbs', {})
       console.log("no accounts registered")
     }
@@ -242,34 +306,48 @@ app.post('/postReg', urlencodedParser, (request, response) => {
   })
 });
 
+
+/**
+ * Processes the name of the thread to be used as the url extension of
+ * the webpage
+ */
+app.get('/testingstuff', (req, res) => {
+  res.json('no')
+})
+
+app.get('/testing', (req, res) => {
+  res.render('testpage.hbs', {})
+})
+
+
+// app.get('/verifyTest', (req, res) => {
+//   res.render('testpage.hbs', {})
+// })
 app.param('name', (request, response, next, name) => {
-  var topic_title = name.replace(/_/g, ' ');
+  var topic_title = name.split('=');
   request.name = topic_title;
+  db.updateView(topic_title[0]);
   next();
 });
+
+
+/**
+ * Creates a webpage based on the title of the thread
+ */
 
 
 //NOTE: post_sheet has other data on it that can be used to show posts.
 //      only username and post is used so far.
 //      refer to loadPosts() in google-sheets-functions.js
+
 app.get('/:name', (request, response) => {
-  var threadname;
-  database.loadPosts(2).then((threadlist) => { //get the sheetnumber using param
-    for (var x in threadlist) {
-      if (threadlist[x].topic_link == response.req.params.name) {
-        threadname = threadlist[x].thread_name;
-        return threadlist[x].sheet_num; //returns sheet number
-      }
-    }
-  }).then((sheet_number) => {
-    return database.loadPosts(sheet_number) //gets the sheet and return
-  }).then((post_sheet) => {
+  db.loadPosts(Number(request.name[0])).then((post_list) => {
     response.render('discussion_thread.hbs', {
-      topic: threadname,
-      posts: post_sheet});
-    current_sheet = post_sheet[0].sheet_num;
-    redir_page = response.req.url;
-    database.updatePostView(current_sheet);
+      topic: request.name[1],
+      posts: post_list});
+    // TODO: create function to update view count
+    // redir_page = response.req.url;
+    // database.updatePostView(current_sheet);
   }).catch((error) => {
     response.send(error);
   });

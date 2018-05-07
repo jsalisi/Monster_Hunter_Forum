@@ -4,13 +4,16 @@
         <title>Create Thread</title>
         <link rel="icon" href="/img/Monster_Hunter_Logo.png">
         <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
+        <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
     </head>
 
     <body>
+         {{> quick_tab}}
+        
         <div id='bodybg'></div>
 
         <div id='bodyWrapper'>
-            {{> (getBanner)}}
+            {{> logBanner}}
 
             <div id='discussSelect'>
                <div id='monhun' class='topic'>
@@ -27,17 +30,20 @@
 
                        <br>
                        <label>Content:</label>
-                       <textarea class="Text" id='topPost' required="required" name='topContent' rows="6" col="100" maxlength="600"></textarea>
+                       <textarea class="Text" id='topPost' width='50%' required="required" name='topContent' rows="6" col="100" maxlength="600"></textarea>
 
                        <br>
-                       <input id="thread_submit" type="submit">
+                        <button id="thread_submit" type="submit" name='currentUser' value={{getUser}}>Confirm</button>
+                       {{!-- <input id="thread_submit" name='currentUser' value={{getUser}} type="submit"> --}}
                    </form>
                 </div>
             </div>
 
         </div>
-
-        <script src='js/app.js'></script>
+        <script src='js/index.js'></script>
+        <script>
+            console.log(`getUser`)
+        </script>
 
     </body>
 </html>

@@ -4,9 +4,12 @@
         <title>Re-Login</title>
         <link rel="icon" href="/img/Monster_Hunter_Logo.png">
         <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
+        <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
     </head>
 
     <body>
+         {{> quick_tab}}
+        
         <div id='bodybg'></div>
 
         <div id='bodyWrapper'>
@@ -22,7 +25,7 @@
                    <form class="regContainer" action='/checkCred' method='POST'>
 
                        <br>
-                       <p style="color: red;">Authentication not successful! Please re-enter Login information!</p>
+                       <p id='loginerror' >Authentication not successful! Please re-enter Login information!</p>
                        <br>
 
                        <label>Username:</label>
@@ -42,7 +45,7 @@
             </div>
 
         </div>
-
+        <script src='js/index.js'></script>
         <script src='js/app.js'></script>
 
     </body>

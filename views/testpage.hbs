@@ -1,0 +1,35 @@
+<!Doctype html>
+
+<!Doctype html>
+<html>
+
+<head>
+  <title>testing things</title>
+</head>
+
+<body>
+    <div>
+        <p id='testParam'>hello</p>
+    </div>
+
+    <script>
+        fetch('/testingstuff')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(myJson) {
+            if (myJson === 'yes') {
+                console.log('yes')
+            } else (
+                console.log('no')
+            )
+        });
+
+        localStorage.setItem('yoyoyoyoyo', '1')
+        console.log(localStorage.getItem('item1'))
+
+    </script>
+</body>
+
+</html>
+
