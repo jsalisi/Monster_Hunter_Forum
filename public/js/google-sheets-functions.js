@@ -1,9 +1,18 @@
+/**
+ * These functions are now deprecated
+ */
+
+
 // This is a database test for the forum
 
 // Importing Google Spreadheet API
 // https://www.npmjs.com/package/google-spreadsheet
 const GoogleSpreadsheet = require('google-spreadsheet');
-const creds = require('./json/client_secret.json'); // API Key
+
+// API Key
+// Generated automatically
+// Refer to Google Sheets to download your credentials
+const creds = require('./json/client_secret.json');
 
 // Spreadsheet ID
 const doc = new GoogleSpreadsheet('1cwmWMqAoqzYHhla1vpE_qiV5uQzRfuJ4HoPsfeH6LVk');

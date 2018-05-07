@@ -8,7 +8,8 @@
     </head>
 
     <body>
-        {{> quick_tab}}
+         {{> quick_tab}}
+        
         <div id='bodybg'></div>
 
         <div id='bodyWrapper'>
@@ -21,27 +22,38 @@
                        <b>New User Registration</b>
                    </div>
 
-                   <form class="regContainer" action='/postReg' method='POST'>
+                   <form id='regContainer' class="regContainer" action='/postReg' method='POST'>
 
-                       <p style="color: red;">{{getDupe}}</p>
+                       <p id="errorMsg" style="color: red;">{{getDupe}}</p>
 
                        <br>
-                       <label>Username:</label>
+                       <label id="user_text">Username:</label>
                        <input id='new_user' name='new_user' required="required" type="text">
+                       <div id="user_checkmark"></div>
                        <br>
 
+                        <label id="user_error" style="color: red;"></label><br>
+
                        <br>
-                       <label>Password:</label>
-                       <input id='new_pass' name='new_pass' required="required" type="password" onchange="get_var()">
+                       <label id="pass_text">Password:</label>
+                       <input id='new_pass' name='new_pass' required="required" type="password">
+                       <div id="pass_checkmark"></div>
                        <br>
+
+                        <label id="pass_error" style="color: red;"></label><br>
 
                        <br>
                        <label id="conf_text">Confirm Password:</label>
-                       <input id='confirm_pass' name='confirm_pass' required="required" type="password" onchange="get_var()">
-                       <br>
+                       <input id='confirm_pass' name='confirm_pass' required="required" type="password">
+
+                       <div id="conf_checkmark"></div>
 
                        <br>
-                       <input id="gogo" type="submit">
+
+                        <label id="conf_error" style="color: red;"></label><br>
+
+                       <br>
+                       <input id="gogo" type="button" value='Submit'>
 
                        <p hidden id="dupeCheck">{{setBrowserDupe}}</p>
                    </form>
@@ -51,5 +63,6 @@
 
         </div>
         <script src='js/index.js'></script>
+        <script src='js/register.js'></script>
     </body>
 </html>

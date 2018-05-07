@@ -1,19 +1,21 @@
 <div id='credentials'>
     <div id='welcome'>
-        <strong><i>Welcome Back {{getUser}}!</i></strong>
+        <strong id="welcomeMsg"><i>Welcome Back {{getUser}}!</i></strong>
     </div>
     
     <form id='logoutInput' action="/logOut" method="post">
-        <button id="logout_but" type="submit" name='username' value={{getUser}}>Log Out</button>
+        <button type="submit" name='username' value={{getUser}}>Log Out</button>
     </form>
 </div>
 
 <div id='banner'>
-  <div id="logo" onclick="window.location='/home';"></div>
+  <div id="logo" onclick="window.location='/login';"></div>
 </div>
 
 <div id='searchBar'>
     <div id='searchMenu'>
-        <b><a id="forum_home" href='/home'>Menu</a></b>
+          <b><a id="forum_home" href='/login'>Home</a></b>
     </div>
 </div>
+
+<p style="display: none;" id="currentUser" >{{getUser}}</p>

@@ -8,7 +8,8 @@
     </head>
 
     <body>
-        {{> quick_tab}}
+         {{> quick_tab}}
+        
         <div id='bodybg'></div>
 
         <div id='bodyWrapper'>
@@ -23,20 +24,17 @@
 
                    <form class="textContainer" action='/postResult' method='POST'>
 
-                       <input placeholder="Write your topic" class="Title" id='topTitle' required="required" name='topTitle' type="text" maxlength="70">
-                       <br>
-
-                       <br>
-                       <textarea placeholder='Write your post' class="Text" id='topPost' width='50%' required="required" name='topContent' rows="6" col="100" maxlength="600"></textarea>
-                       <label id="labeltopic">Topic:</label>
+                       <label>Topic:</label>
                        <input class="Title" id='topTitle' required="required" name='topTitle' type="text" maxlength="70">
                        <br>
 
                        <br>
-                       <label id="labelcontent">Content:</label>
+                       <label>Content:</label>
                        <textarea class="Text" id='topPost' width='50%' required="required" name='topContent' rows="6" col="100" maxlength="600"></textarea>
+
                        <br>
-                       <input id="thread_submit" type="submit">
+                        <button id="thread_submit" type="submit" name='currentUser' value={{getUser}}>Confirm</button>
+                       {{!-- <input id="thread_submit" name='currentUser' value={{getUser}} type="submit"> --}}
                    </form>
                 </div>
             </div>
