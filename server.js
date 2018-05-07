@@ -124,6 +124,9 @@ app.post('/welcome', urlencodedParser, (request, response) => {
           return request.body.userNow
         });
         get_banner(1)
+        hbs.registerHelper('setLoginCheck', () => {
+          return 1
+        });
         response.render('index.hbs', {
           thread: post
         });
@@ -194,15 +197,18 @@ app.post('/logOut', urlencodedParser, (request, response) => {
     });
 
     hbs.registerHelper('getUser', () => {
-      return request.body.currentUser
+      return request.body.username
     });
-    console.log(users_list)
+
     response.render('logOut.hbs', {})
 });
 
 // rendering post topic list page
-app.get('/postThread', (request, response) => {
-    response.render('postThread.hbs', {})
+app.post('/postThread', urlencodedParser, (request, response) => {
+  hbs.registerHelper('getUser', () => {
+    return request.body.username
+  });
+  response.render('postThread.hbs', {})
 });
 
 // posting thread to gs

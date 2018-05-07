@@ -25,7 +25,11 @@
           {{> threadLinkTemp}}
         {{/each}}
       </div>
-      <b id="makeThreadButton"><a id="makethread" href='/postThread'>Create New Thread</a></b>
+
+      <form id='goThread' action='/postThread' method="POST">
+        <b id="makeThreadButton"><a id="makethread" onclick="document.getElementById('goThread').submit()" href='#'>Create New Thread</a></b>
+        <input style='display: none;' value={{getUser}} name='username'></input>
+      </form>
 
     </div>
 

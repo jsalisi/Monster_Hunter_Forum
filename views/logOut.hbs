@@ -11,7 +11,8 @@
     </form>
 
     <script>
-        localStorage.removeItem(`{{getUser}}`);
+        console.log(document.getElementById('currentUser').innerHTML)
+        localStorage.removeItem(document.getElementById('currentUser').innerHTML);
         document.getElementById('redirect').submit();
     </script>
 </body>
