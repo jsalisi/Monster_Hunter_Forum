@@ -3,6 +3,8 @@ Project: Forum
 Author(s): Bo Cheng
            Jasper Pabuaya
            Justin Salisi
+           Alexander Jones
+           Raziq Khan
 
 Description:
 
