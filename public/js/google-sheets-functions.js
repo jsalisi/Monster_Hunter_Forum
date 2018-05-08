@@ -3,8 +3,6 @@
  */
 
 
-// This is a database test for the forum
-
 // Importing Google Spreadheet API
 // https://www.npmjs.com/package/google-spreadsheet
 const GoogleSpreadsheet = require('google-spreadsheet');

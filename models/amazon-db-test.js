@@ -8,7 +8,7 @@ var database = require('./amazon_db');
 var title = "I am potato";                                      // title:        Titles will be retrieved from a from submission using request.body.topTitle
 var view_count = 0;                                             // view_count:   New threads will be initialized with a view count of 0. Link clicks will increment view count.
 var init_post_id = 1;                                           // init_post_id: Initial post ID starts at 1 for every new thread
-var username = "bmalamb";                                       // username:     Retrieved from the currently logged in user
+var username = "stephen";                                       // username:     Retrieved from the currently logged in user
 var post = "TESTING MY ADD POST FUNCTION";                      // post:         Retrieved from form submission using request.body.topContent
 
 
@@ -55,24 +55,24 @@ var main = (choice) => {
             break;
         case 3:
             // Pulling information
-            database.loadPosts(1).then((threads) => {
+            database.loadPosts(14).then((threads) => {
                 console.log(threads);
                 process.exit();
             });
             break;
         case 4:            
-            database.getNextPostID().then((post_id) => {
-                return 
+            database.getNextPostID(14).then((post_id) => {
+                console.log(post_id);
+                 process.exit();
             }).catch((error) => {
                 console.log(error); 
                 process.exit();               
             });
             break;
         case 5:
-            var thread_id = 1;
+            var thread_id = 14;
             database.getNextPostID(thread_id).then((post_id) => {
-                var timestamp = new Date();
-                return database.createPost(post_id, thread_id, username, timestamp, post)
+                return database.createPost(thread_id, post_id, username, post)
             }).then((result) => {
                 console.log(result);
                 process.exit();                
@@ -132,4 +132,4 @@ var main = (choice) => {
     }
 }
 
-main(3);
+main(2);

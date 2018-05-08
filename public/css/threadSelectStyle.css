@@ -92,6 +92,18 @@
   margin: auto;
 }
 
+#logout_but {
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  background-color: darkslategrey;
+  color: white;
+  width: 80px;
+  height: 5vh;
+  border-style: solid;
+  border-color: grey;
+  left: 30%;
+}
+
 /* banner */
 
 #banner {
@@ -120,6 +132,16 @@
 
 #logo:hover {
   cursor: pointer;
+}
+
+#reg_but {
+  position: absolute;
+  font-family: 'Cinzel Decorative', cursive;
+  background-color: darkslategrey;
+  color: white;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
 }
 
 /*body background*/
@@ -163,20 +185,18 @@
 #forum_home:link, #forum_home:visited {
   line-height: 165%;
   height: 86%;
-  width: 27%;
+  width: 10vw;
   background-color: darkslategrey;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  padding-left: 4%;
-  padding-right: 10%;
   font-size: 1.3vw;
-  border-radius: 40px;
   border-style: solid;
   border-color: grey;
   position: absolute;
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'Cinzel Decorative',
+  cursive;
 }
 
 #forum_home:hover, #forum_home:active {
@@ -221,18 +241,19 @@
 /* forum type selections */
 
 #quick_tab {
-  width: 200px;
-  height: 200px;
-  left: -175px;
-  background-color: darkslategrey;
+  height: 250px;
+  width: 10vw;
+  left: 1%;
+  background-color: #D3D3D4;
   border-color: grey;
   border-style: solid;
-  bottom: 25%;
+  top: -100px;
   position: fixed;
   z-index: 10000;
   border-radius: 25px;
   text-align: center;
   transition: 0.2s;
+  z-index: 1;
 }
 
 #tab_title {
@@ -243,14 +264,22 @@
 }
 
 .tab_but {
-  width: 100px;
-  margin: 3px;
-  ;
+  left: 0px;
+  right: 0px;
+  margin: 1%;
+  width: 8vw;
   font-weight: bold;
   text-align: center;
+  display: inline-block;
   position: relative;
-  top: 0px;
+  font-size: 20px;
+  top: 65px;
   bottom: 0px;
+  color: white;
+  background-color: darkslategrey;
+  border-style: solid;
+  border-color: grey;
+  border-radius: 25px;
 }
 
 #discussSelect {
@@ -469,6 +498,7 @@ pre {
   background-repeat: no-repeat;
   width: 1.5%;
   height: 5%;
+  opacity:0;
 }
 
 #pass_checkmark {
@@ -480,6 +510,7 @@ pre {
   background-repeat: no-repeat;
   width: 1.5%;
   height: 5%;
+  opacity:0;
 }
 
 #conf_checkmark {
@@ -492,4 +523,5 @@ pre {
   width: 1.5%;
   height: 5%;
   left:-42px;
+  opacity:0;
 }
