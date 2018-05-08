@@ -359,9 +359,11 @@ app.get('/:name', (request, response) => {
         posts: post_list
       });
     } else {
+      // Throw error when web page does not exist
       throw new Error('Failed to get thread posts... maybe you are on welcome page');
     }
   }).catch((error) => {
+    // Log error and redirect to error page
     console.log(error);
     response.redirect('/404');
   });
