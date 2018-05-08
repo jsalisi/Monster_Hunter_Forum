@@ -102,6 +102,7 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
 });
 
+// Renders error page if an error occurs
 app.get('/404', (req, res) => {
   res.render('error_page.hbs');
 });
