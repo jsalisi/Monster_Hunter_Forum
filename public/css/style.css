@@ -292,7 +292,7 @@
   height: auto;
   position: absolute;
   margin: auto;
-  background-color: aliceblue;
+  background-color: #D3D3D4;
 }
 
 #monhun {
@@ -375,6 +375,10 @@ a.threadTitle:hover, a.threadTitle:active {
   background-color:darkslategrey;
   color: white;
   display: inline-block;
+}
+
+.Thread:nth-of-type(odd) {
+  background-color: rgb(37, 61, 61);
 }
 
 .threadContainer {

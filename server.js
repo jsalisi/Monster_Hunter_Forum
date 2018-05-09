@@ -371,5 +371,5 @@ app.get('/:name', (request, response) => {
 
 //****************************Server***************************************//
 app.listen(port, () => {
-  console.log('Server is up on the port 8080');
+  console.log(`Server is up on http://localhost:${port}`);
 });
