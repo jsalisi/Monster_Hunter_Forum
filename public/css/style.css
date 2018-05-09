@@ -312,6 +312,11 @@
   font-size: 150%;
 }
 
+.threadTitle {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 125%;
+}
+
 a.threadTitle:link {
   color: white;
   text-decoration: none;
@@ -336,34 +341,41 @@ a.threadTitle:hover, a.threadTitle:active {
 }
 
 .topicBanner {
-  width: 99.7%;
+  padding-left: 0.5%;
+  width: 99.1%;
   height: 2%;
-  margin: 0.2%;
   background-color: dimgrey;
   color: white;
-  margin: 0.1%;
+  margin-bottom: 0.1%;
   display: inline-block;
 }
 
 .topicContainer {
-  width: 75%;
-  padding-left: 0.5%;
+  width: 17vw;
+  padding-left: 1%;
   background-color: black;
   display: inline-block;
 }
 
 .statsContainer {
-  width: 10%;
-  background-color: white;
+  padding-left: 0.5%;
+  width: 7vw;
+  background-color: black;
   display: inline-block;
-  color: black
+}
+
+.firstContainer {
+  padding-left: 0.5%;
+  width: 17vw;
+  background-color: black;
+  display: inline-block;
 }
 
 .latestContainer {
-  width: 13.6%;
-  background-color: white;
+  padding-left: 0.5%;
+  width: 17vw;
+  background-color: black;
   display: inline-block;
-  color: black
 }
 
 /* Topics Styling */
@@ -371,7 +383,6 @@ a.threadTitle:hover, a.threadTitle:active {
 .Thread {
   width: 99.6%;
   height:auto;
-  margin: 0.25%;
   background-color:darkslategrey;
   color: white;
   display: inline-block;
@@ -381,17 +392,26 @@ a.threadTitle:hover, a.threadTitle:active {
   background-color: rgb(37, 61, 61);
 }
 
+.titleContainer {
+  font-size:100%;
+  width: 17vw;
+  height:50px;  
+  padding-left: 1%;
+  color: white;
+  display: inline-block;
+}
+
 .threadContainer {
   font-size:110%;
-  width: 75%;
+  width: 17vw;
   height:50px;  
-  padding-left: 0.5%;
+  padding-left: 1%;
   color: white;
   display: inline-block;
 }
 
 .countContainer {
-  width: 10vw;
+  width: 5vw;
   display: inline-block;
   color: white;
   position: relative;
@@ -399,16 +419,17 @@ a.threadTitle:hover, a.threadTitle:active {
 }
 
 .recentContainer {
-  width: 12vw;
-  display: inline-block;
+  font-size:110%;
+  width: 17vw;
+  height:50px;  
+  padding-left: 1%;
   color: white;
-  position: relative;
-  left:50%;
-  bottom:43.5px;
-  margin:auto;
+  display: inline-block;
 }
 
 .threadInfo {
+  padding-top: 2%;
+  padding-left: 2%;
   display: block;
 }
 

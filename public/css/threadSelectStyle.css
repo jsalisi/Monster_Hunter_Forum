@@ -393,7 +393,6 @@
   width: 65vw;
   height: auto;
   position: absolute;
-  margin: auto;
   background-color: #D3D3D4;  
 }
 
@@ -436,7 +435,6 @@
   position: relative;
   width: 100%;
   height: auto;
-  border-top:4px solid #D3D3D4;
   color: aliceblue;
   word-break: break-all;
   background-color:darkslategray;
