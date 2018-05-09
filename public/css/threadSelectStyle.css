@@ -296,6 +296,12 @@
   background-position: center;
 }
 
+#monhun {
+  padding: 1%;
+  margin: 1%;
+  border: 1px solid black;
+}
+
 #thread_submit {
   position: absolute;
   bottom: 10%;
@@ -418,6 +424,7 @@
   position: relative;
   width:15%;
   height:auto;
+  padding-left: 2%;
 }
 
 .post_text {
@@ -438,11 +445,11 @@
   color: aliceblue;
   word-break: break-all;
   background-color:darkslategray;
-  padding-left: 2.1%;
-  padding-right: 2.1%;
   padding-top: 1%;
   left: -2.1%;
   margin-top: 0.5%;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 .userpost:nth-of-type(odd) {
