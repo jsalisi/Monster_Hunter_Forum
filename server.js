@@ -12,9 +12,6 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
-const session = require('express-session');
-const passport = require('passport');
-const cookieParser = require('cookie-parser');
 const port = process.env.PORT || 8080;
 
 /**
@@ -97,10 +94,6 @@ var get_banner = (status) => {
 }
 
 //*********************************Rendering*******************************//
-
-passport.deserializeUser(function(id, done) {
-    done(err, user);
-});
 
 // Renders error page if an error occurs
 app.get('/404', (req, res) => {
