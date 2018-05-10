@@ -3,9 +3,6 @@
  * @type {object} request - requires request module
  * @type {object} bodyParser - requires bodyParser module
  * @type {object} hbs - requires hbs module
- * @type {object} session - requires session module
- * @type {object} passport - requires passport module
- * @type {object} cookieParser - requires cookieParser module
  * @type {object} port - sets listening port to 8080
  */
 const express = require('express');
