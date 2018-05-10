@@ -102,6 +102,7 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
 });
 
+// Renders error page if an error occurs
 app.get('/404', (req, res) => {
   res.render('error_page.hbs');
 });
@@ -358,9 +359,11 @@ app.get('/:name', (request, response) => {
         posts: post_list
       });
     } else {
+      // Throw error when web page does not exist
       throw new Error('Failed to get thread posts... maybe you are on welcome page');
     }
   }).catch((error) => {
+    // Log error and redirect to error page
     console.log(error);
     response.redirect('/404');
   });
@@ -368,5 +371,5 @@ app.get('/:name', (request, response) => {
 
 //****************************Server***************************************//
 app.listen(port, () => {
-  console.log('Server is up on the port 8080');
+  console.log(`Server is up on http://localhost:${port}`);
 });

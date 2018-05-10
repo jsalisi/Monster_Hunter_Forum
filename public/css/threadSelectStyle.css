@@ -296,6 +296,12 @@
   background-position: center;
 }
 
+#monhun {
+  padding: 1%;
+  margin: 1%;
+  border: 1px solid black;
+}
+
 #thread_submit {
   position: absolute;
   bottom: 10%;
@@ -370,20 +376,30 @@
 
 /* Thread post template styling*/
 
+#title_div {
+  position: relative;
+  width: 100%;
+  background-color: D3D3D4;
+  padding-left: 2%;
+  padding-right: 2%;
+  left: -2%;
+  margin-bottom: 2%;
+}
+
 #topicTitle {
-  color: lightblue;
+  color: darkslategray;
   text-decoration: none;
   font-size: 150%;
+  font-family: 'Cinzel Decorative', cursive;
 }
 
 #post_div {
   left: 16.5%;
   top: 27vh;
-  width: 65%;
-  height: 90%;
+  width: 65vw;
+  height: auto;
   position: absolute;
-  margin: auto;
-  padding: 1%;
+  background-color: #D3D3D4;  
 }
 
 #quick_reply {
@@ -408,6 +424,7 @@
   position: relative;
   width:15%;
   height:auto;
+  padding-left: 2%;
 }
 
 .post_text {
@@ -423,14 +440,20 @@
 
 .userpost {
   position: relative;
+  width: 100%;
   height: auto;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  border-style: solid;
-  border-color: aliceblue;
   color: aliceblue;
   word-break: break-all;
-  background-color:black;
+  background-color:darkslategray;
+  padding-top: 1%;
+  left: -2.1%;
+  margin-top: 0.5%;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.userpost:nth-of-type(odd) {
+  background-color:rgb(37, 61, 61);
 }
 
 pre {
