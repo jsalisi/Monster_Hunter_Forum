@@ -1,7 +1,7 @@
 {
-  "name": "forum_project",
+  "name": "monster_hunter_forum",
   "version": "1.0.0",
-  "description": "This is a project that contains the files and server scripts for a forum",
+  "description": "Monster Hunter Forum for BCIT project term 2018",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,27 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jsalisi/forum_project.git"
+    "url": "git+https://github.com/jsalisi/Monster_Hunter_Forum.git"
   },
-  "author": "Justin Salisi, Bo Cheng, Jasper Pabuaya",
+  "author": "Justin Salisi, Bo Wei Cheng, Jasper Pabuaya, Raziq Khan, Alexander Jones",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jsalisi/forum_project/issues"
+    "url": "https://github.com/jsalisi/Monster_Hunter_Forum/issues"
   },
-  "homepage": "https://github.com/jsalisi/forum_project#readme",
+  "homepage": "https://github.com/jsalisi/Monster_Hunter_Forum#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "google-spreadsheet": "^2.0.4",
     "hbs": "^4.0.1",
     "mysql": "^2.15.0",
-    "passport": "^0.4.0",
     "request": "^2.85.0"
-  },
-  "devDependencies": {
-    "esdoc": "^1.1.0",
-    "esdoc-standard-plugin": "^1.0.0"
   }
 }
