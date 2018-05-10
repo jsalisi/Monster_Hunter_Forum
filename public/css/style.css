@@ -424,10 +424,6 @@ a.threadTitle:hover, a.threadTitle:active {
   height:50px;  
   padding-left: 1%;
   color: white;
-  position: relative;
-  left:50%;
-  bottom:43.5px;
-  margin:auto;
   display: inline-block;
 }
 
