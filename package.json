@@ -4,7 +4,7 @@
   "description": "Monster Hunter Forum for BCIT project term 2018",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "repository": {
@@ -21,6 +21,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "hbs": "^4.0.1",
+    "jest": "^22.4.3",
     "mysql": "^2.15.0",
     "request": "^2.85.0"
   }
