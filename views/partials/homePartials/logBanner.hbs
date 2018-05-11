@@ -1,10 +1,12 @@
+<div id='welcome'>
+    <strong id="welcomeMsg">
+        <i>Welcome Back {{getUser}}!</i>
+    </strong>
+</div>
+
 <div id='credentials'>
-    <div id='welcome'>
-        <strong id="welcomeMsg"><i>Welcome Back {{getUser}}!</i></strong>
-    </div>
-    
     <form id='logoutInput' action="/logOut" method="post">
-        <button type="submit" name='username' value={{getUser}}>Log Out</button>
+        <button id="logout_but" type="submit" name='username' value={{getUser}}>Log Out</button>
     </form>
 </div>
 
@@ -14,7 +16,7 @@
 
 <div id='searchBar'>
     <div id='searchMenu'>
-          <b><a id="forum_home" href='/login'>Menu</a></b>
+          <div id="forum_home">Menu</div>
     </div>
 </div>
 
