@@ -5,7 +5,7 @@
     position: absolute;
     left:0px;
     right:0px;
-    top:50%;
+    top:27%;
     margin:auto;
     border:3px solid green;
     padding:5px;
@@ -46,16 +46,18 @@
 }
 
 #catepost{
-    width:99%;
+    width:92.6%;
     height:20%;
+    left:3.25%;
     border-bottom:2px solid rgba(0, 0, 0, .4);
     position: relative;
     top:3%;
     border:3px solid black;
 }
 #homebanner {
+    left:3.2%;
     top:3.3%;
-    width:99.55%;
+    width:93.1%;
     background-color:black;
     color:white;
     text-align:center;
