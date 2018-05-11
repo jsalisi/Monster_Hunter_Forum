@@ -3,9 +3,6 @@
  * @type {object} request - requires request module
  * @type {object} bodyParser - requires bodyParser module
  * @type {object} hbs - requires hbs module
- * @type {object} session - requires session module
- * @type {object} passport - requires passport module
- * @type {object} cookieParser - requires cookieParser module
  * @type {object} port - sets listening port to 8080
  */
 const express = require('express');
@@ -60,14 +57,6 @@ hbs.registerPartials(__dirname + '/views/partials/homePartials');
 hbs.registerPartials(__dirname + '/views/partials/monhunPartials');
 hbs.registerPartials(__dirname + '/views/partials/communityPartials');
 
-/**
- * @param {string} current_user - current user flag
- * @param {number} login_flag - flags for login status will be removed later
- * @param {number} brower_flag - flags for browser status used for partial swaps
- * @param {string} dupe_comment - comment for error if dupe user detected when trying to register a new user
- * @param {string} current_sheet - sets the current google spreadsheet for thread link
- * @param {string} redir_page - sets varable for redirect after login
- */
 
 var users_list = [];
 
@@ -94,45 +83,101 @@ var get_banner = (status) => {
 }
 
 //*********************************Rendering*******************************//
-
 // Renders error page if an error occurs
+/**
+ * @param {string} '/404' - routing url of error page
+ */
 app.get('/404', (req, res) => {
+  /**
+   * @param {string} 'error_page.hbs' - name of .hbs for render
+   */
   res.render('error_page.hbs');
 });
 
 // Redirecting '/' to Home Page
+/**
+ * @param {string} '/' - default route for no url input
+ */
 app.get('/', (request, response) => {
+  /**
+   * @param {string} '/login' - route for redirect when getting to '/'
+   */
   response.redirect('/login');
 });
 
+/**
+ * @param {string} '/login' -  route for url param
+ */
 app.get('/login', (request, response) => {
+  /**
+   * @param {string} 'sort.hbs' - the .hbs file for render
+   */
   response.render('sort.hbs', {})
 });
 
+/**
+ * @param {string} '/home' - url for app.get routing
+ */
 app.get('/home', (request, response) => {
+  /**
+   * @param {string} '/login' - route for redirect
+   */
   response.redirect('/login');
 })
 
+/**
+ * @param {string} '/homepage' - url for app.get
+ */
 app.get('/homepage', (request, response) => {
+  /**
+   * @function get_banner - used to select banner for homepage.hbs
+   */
   get_banner(0)
+  /**
+   * @param {string} 'Homepage.hbs' - .hbs file for rendering
+   */
   response.render('Homepage.hbs');
 })
+
+/**
+ * @param {string} '/welcome' - url for app.post action
+ */
 // rendering home page.
 // refer to google-sheets-functions.js for .loadPosts()
 app.post('/welcome', urlencodedParser, (request, response) => {
+  /**
+   * @function db.loadThread - loads the threads from db to welcome page
+   * @constant post - call back the posts
+   */
   db.loadThreads().then((post) => {
+    /**
+     * @constant request.body.loginCheck - data sent back from client for checkin flag
+     */
       if(request.body.loginCheck == 1) {
+        /**
+         * @function getUser - grabs the current logged in user and returns it in a registerHelper function
+         * @param {string} request.body.userNow - returns the current user from the submit post data from http
+         */
         hbs.registerHelper('getUser', () => {
           return request.body.userNow
         });
         get_banner(1)
+
+        /**
+         * @function setLoginCheck - sets and returns the login flag for client side
+         * @param {integer} return 1 - returns int 0 or 1
+         */
         hbs.registerHelper('setLoginCheck', () => {
           return 1
         });
+
+        /**
+         * param {string} 'index.hbs' - .hbs for render
+         */
         response.render('index.hbs', {
           thread: post
         });
-        console.log('loggged')
+
       } else if (request.body.loginCheck == '') {
         get_banner(0)
         response.render('index.hbs', {
