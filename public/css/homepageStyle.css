@@ -1,11 +1,11 @@
 #Homeforum {
     width:70vw;
-    height:75vh;
+    height:70vh;
     background-color:darkslategray;
     position: absolute;
     left:0px;
     right:0px;
-    bottom:0px;
+    top:50%;
     margin:auto;
     border:3px solid green;
     padding:5px;
@@ -47,7 +47,7 @@
 
 #catepost{
     width:99%;
-    height:15%;
+    height:20%;
     border-bottom:2px solid rgba(0, 0, 0, .4);
     position: relative;
     top:3%;
@@ -71,4 +71,103 @@
     text-align:left;
     top:20%;
     position: relative;
+}
+.grid-container {
+    position: absolute;
+    width: 65.25vw;
+    height: 40vh;
+    top:25%;
+    left:0%;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 1vw;
+    padding: 2.5vw;
+}
+
+.item1 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto auto;
+    border:3px solid black;
+}
+
+.item2 {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto auto;
+    border:3px solid black;
+}
+
+.item3 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto auto;
+    border:3px solid black;
+}
+
+.item4 {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end:2;
+    background-color: white;
+    display: grid;
+    grid-template-columns: auto auto;
+    border:3px solid black;
+}
+
+.itemimg1 {
+    grid-column-start:1;
+    grid-column-end:1;
+    grid-row-start: 1;
+    grid-row-end:1;
+    background-image:url("/img/categoryimage.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.itemtext1 {
+    grid-column-start:2;
+    grid-column-end:4;
+    grid-row-start: 1;
+    grid-row-end:1;
+    background-color: #106853;
+    text-align: center;
+    position: relative;
+    width:100%;
+}
+
+.textbox1 {
+    position: absolute;
+    top:25%;
+    bottom:0px;
+    right:0px;
+    left:0px;
+    font-size:400%;
+    font-family:"cinzel decorative";
+    color: white;
+}
+
+#img2 {
+    background-image:url("/img/categoryimage2.jpg");
+}
+
+#img3 {
+    background-image: url("/img/categoryimage3.jpg");
+}
+
+#img4 {
+    background-image: url("/img/categoryimage4.jpg");
 }

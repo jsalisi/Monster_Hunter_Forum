@@ -1,31 +1,60 @@
 <!Doctype html>
 <html>
-    <head>
-        <title>Create Post</title>
-        <link rel="icon" href="/img/Monster_Hunter_Logo.png">
-        <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
-        <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
-        <link href='css/homepageStyle.css' rel='stylesheet' type='text/css' />
-    </head>
-    
-    <body>
-        <div id='bodybg'></div>
-    
-        <div id='bodyWrapper'>
-            
-            
-        </div>
-        <div id="Homeforum">
-            <div id="homebanner">News & Annoucements</div>
-            <div id = "catepost">
-                <div id="Homeavatar" class="category">
-                    <div id="imgavatar"></div>
-                </div>
-                <div id="Homecategory">
-                    <div id="catetext">ANNOUNCEMENTS  yes yes yes yes yes yes yes yes yes yes yes yes yes yes yes yes </div>
-                </div>
-                </div>
+
+<head>
+    <title>Create Post</title>
+    <link rel="icon" href="/img/Monster_Hunter_Logo.png">
+    <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+    <link href='css/homepageStyle.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div id='bodybg'></div>
+
+    <div id='bodyWrapper'>
+        {{> (getBanner)}}
+
+    </div>
+    <div id="Homeforum">
+        <div id="homebanner">News & Annoucements</div>
+        <div id="catepost">
+            <div id="Homeavatar" class="category">
+                <div id="imgavatar"></div>
+            </div>
+            <div id="Homecategory">
+                <div id="catetext">ANNOUNCEMENTS yes yes yes yes yes yes yes yes yes yes yes yes yes yes yes yes </div>
             </div>
         </div>
-    </body>
+        <div id="gridcont" class="grid-container">
+            <div class="item1">
+                <div class="itemimg1"></div>
+                <div class="itemtext1">
+                    <div class="textbox1">GamePlay</div>
+                </div>
+            </div>
+            <div class="item2">
+                <div class="itemimg1" id="img2"></div>
+                <div class="itemtext1">
+                    <div class="textbox1">GamePlay</div>
+                </div>
+            </div>
+            <div class="item3">
+                <div class="itemimg1" id="img3"></div>
+                <div class="itemtext1">
+                    <div class="textbox1">GamePlay</div>
+                </div>
+            </div>
+            <div class="item4">
+                <div class="itemimg1" id="img4"></div>
+                <div class="itemtext1">
+                    <div class="textbox1">General</div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    </div>
+</body>
+
 </html>
