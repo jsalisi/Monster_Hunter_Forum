@@ -1,11 +1,14 @@
+<div id='welcome'>
+    <span>
+        Hello and welcome to our forum.
+        <strong>
+            <i>Is this your first visit?</i>
+        </strong>
+    </span>
+    <input id="reg_but" type=button value="Register" onclick="window.location.href='/register'" />
+</div>
+
 <form id='credentials' action="/checkCred" method="POST">
-    <div id='welcome'>
-        <span>
-            Hello and welcome to our forum.
-            <strong><i>Is this your first visit?</i></strong>
-        </span>
-        <input type=button value = "Register" onclick="window.location.href='/register'"/>
-    </div>
     <div id='loginInput'>
         <input id='username' type='text' class='credField' placeholder='Username' name="user"/>
         <input id='password' type='password' class='credField' placeholder='Password' name="pass" />
@@ -23,6 +26,6 @@
 
 <div id='searchBar'>
     <div id='searchMenu'>
-          <b><a id="forum_home" href='/login'>Menu</a></b>
+          <div id="forum_home">Menu</div>
     </div>
 </div>

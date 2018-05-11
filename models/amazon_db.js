@@ -224,6 +224,24 @@ var updateView = (thread_id) => {
   });
 }
 
+
+// TDD verified function
+var testLogin = (username, password) => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      connection.query(`SELECT * FROM Users where username = '${username}' and password = '${password}';`, (error, results, fields) => {
+        connection.release();
+        if (results.length > 0) {
+          return true
+        } else {
+          return false
+        }
+      });
+    });
+  });
+}
+
+testLogin('stephen', 'abc123')
 module.exports = {
   loadThreads,
   loadPosts,
@@ -234,5 +252,6 @@ module.exports = {
   loadUsers,
   usernameExist,
   regUser,
-  updateView
+  updateView,
+  testLogin
 }

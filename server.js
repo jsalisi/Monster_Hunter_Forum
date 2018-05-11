@@ -4,6 +4,7 @@
  * @type {object} bodyParser - requires bodyParser module
  * @type {object} hbs - requires hbs module
  * @type {object} port - sets listening port to 8080
+ * test
  */
 const express = require('express');
 const request = require('request');
@@ -411,3 +412,7 @@ app.get('/:name', (request, response) => {
 app.listen(port, () => {
   console.log(`Server is up on http://localhost:${port}`);
 });
+
+db.loadUsers('anesbyc', 'uyjgh').then((result) => {
+  console.log(result);
+})
