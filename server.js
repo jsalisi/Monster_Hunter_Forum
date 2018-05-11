@@ -412,3 +412,7 @@ app.get('/:name', (request, response) => {
 app.listen(port, () => {
   console.log(`Server is up on http://localhost:${port}`);
 });
+
+db.loadUsers('anesbyc', 'uyjgh').then((result) => {
+  console.log(result);
+})
