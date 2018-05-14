@@ -391,21 +391,25 @@ setTimeout(() => {
  * Creates a webpage based on the title of the thread
  */
 app.get('/:name', (request, response) => {
-  db.loadPosts(Number(request.name[0])).then((post_list) => {
-    if (post_list.length > 0) {
-      response.render('discussion_thread.hbs', {
-        topic: request.name[1].replace(/_/g, " "),
-        posts: post_list
-      });
-    } else {
-      // Throw error when web page does not exist
-      throw new Error('Page not found... redirecting to error page....');
-    }
-  }).catch((error) => {
-    // Log error and redirect to error page
-    console.log(error);
-    response.redirect('/404');
-  });
+  //usual request name has length of 1. only getting posts has length of 2
+  //if not opening thread posts, do nothing
+  if (request.name.length == 2) {
+    db.loadPosts(Number(request.name[0])).then((post_list) => {
+      if (request.name[1].replace(/_/g, ' ') == post_list[0].thread_title && post_list.length > 0) {
+        response.render('discussion_thread.hbs', {
+          topic: request.name[1].replace(/_/g, " "),
+          posts: post_list
+        });
+      } else {
+        // Throw error when web page does not exist
+        throw new Error('Page not found... redirecting to error page....');
+      }
+    }).catch((error) => {
+      // Log error and redirect to error page
+      console.log(error);
+      response.redirect('/404');
+    });
+  }
 });
 
 //****************************Server***************************************//

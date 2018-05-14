@@ -52,7 +52,7 @@ var loadPosts = (thread_id) => {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
       // Use the connection
-      connection.query(`SELECT *, DATE_FORMAT(post_date, "%a %b %e, %Y %H:%i:%s") as post_date FROM monster_hunter_forum_DB.Posts WHERE thread_id_fk = "${thread_id}";`, (error, results, fields) => {
+      connection.query(`SELECT *, DATE_FORMAT(b.post_date, "%a %b %e, %Y %H:%i:%s") as post_date FROM monster_hunter_forum_DB.Threads as a JOIN monster_hunter_forum_DB.Posts as b ON a.thread_id=b.thread_id_fk AND b.thread_id_fk=${thread_id};`, (error, results, fields) => {
         // And done with the connection.
         connection.release();
         // Handle error after the release.

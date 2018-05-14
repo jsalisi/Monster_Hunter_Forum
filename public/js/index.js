@@ -7,13 +7,7 @@ var logout_but = document.getElementById('logout_but')
 var loginBut = document.getElementById('loginBut')
 var reg_but = document.getElementById('reg_but')
 
-reg_but.addEventListener("mouseover", function () {
-    document.getElementById('reg_but').style.backgroundColor = 'slategrey';
-});
 
-reg_but.addEventListener("mouseout", function () {
-    document.getElementById('reg_but').style.backgroundColor = 'darkslategrey';
-});
 
 menu.addEventListener("mouseover", function () {
     quick_tab.style.top = '17vh';
@@ -89,4 +83,12 @@ document.getElementById('close_but').addEventListener("mouseover", function () {
 
 document.getElementById('close_but').addEventListener("mouseout", function () {
     document.getElementById('close_but').style.backgroundColor = 'darkslategrey';
+});
+
+reg_but.addEventListener("mouseover", function () {
+    document.getElementById('reg_but').style.backgroundColor = 'slategrey';
+});
+
+reg_but.addEventListener("mouseout", function () {
+    document.getElementById('reg_but').style.backgroundColor = 'darkslategrey';
 });
