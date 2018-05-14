@@ -21,8 +21,13 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "hbs": "^4.0.1",
-    "jest": "^22.4.3",
     "mysql": "^2.15.0",
-    "request": "^2.85.0"
+    "npm": "^6.0.1",
+    "request": "^2.85.0",
+    "save-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-jest": "^22.4.3",
+    "jest": "^22.4.3"
   }
 }
