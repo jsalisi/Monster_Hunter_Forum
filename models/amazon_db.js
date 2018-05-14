@@ -224,6 +224,7 @@ var updateView = (thread_id) => {
   });
 }
 
+
 module.exports = {
   loadThreads,
   loadPosts,
@@ -234,5 +235,5 @@ module.exports = {
   loadUsers,
   usernameExist,
   regUser,
-  updateView
+  updateView,
 }

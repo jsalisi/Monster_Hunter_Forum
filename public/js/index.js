@@ -7,6 +7,19 @@ var logout_but = document.getElementById('logout_but')
 var loginBut = document.getElementById('loginBut')
 var reg_but = document.getElementById('reg_but')
 
+for (var key in localStorage) {
+    if ((key != 'length')&&( key != 'key') && (key != 'getItem') && (key != 'setItem') && (key != 'clear') && (key != 'removeItem')) {
+        document.getElementById('welcomeMsg').innerHTML = `Welcome Back ${key}`
+    }
+}
+
+reg_but.addEventListener("mouseover", function () {
+    document.getElementById('reg_but').style.backgroundColor = 'slategrey';
+});
+
+reg_but.addEventListener("mouseout", function () {
+    document.getElementById('reg_but').style.backgroundColor = 'darkslategrey';
+});
 
 menu.addEventListener("mouseover", function () {
     quick_tab.style.top = '18vh';
