@@ -1,7 +1,7 @@
-var database = require('./amazon_db.js');
+var database = require('./amazon-db-test.js');
 
 
-// it('data contains correct properties in threads', () => {
+// it('data contains correct properties in threads in Amazon RDS database', () => {
 //     return database.loadThreads().then((threads) => {
 //         for (var key in threads) {
 //             expect(threads[`${key}`]).toHaveProperty('title');
@@ -16,7 +16,7 @@ var database = require('./amazon_db.js');
 //     });
 // });
 
-// it('data contains correct properties in threads', () => {
+// it('data contains correct property types in threads in Amazon RDS database', () => {
 //     return database.loadThreads().then((threads) => {
 //         for (var i = 0; i < threads.length; i++) {
 //             expect(typeof threads[i].title).toBe(string);
@@ -31,7 +31,7 @@ var database = require('./amazon_db.js');
 //     });
 // });
 
-// it('Post data in Amazon RDS database', async () => {
+// it('data contains correct post data properties in Amazon RDS database', async () => {
 //     return database.loadPosts(14).then((data) => {
 //         for (var i=0; i < data.length; i++) {
 //             expect(data[i]).toHaveProperty("thread_id_fk")
@@ -74,14 +74,14 @@ var database = require('./amazon_db.js');
 describe('testing login functionality', () => {
     test('Input is valid', () => {
         database.testLogin('stephen', 'abc123').then((result) => {
-            expect(result.length).toBeTruthy
+            expect(result).toBeTruthy
         });
     });
-    test('Input is valid', () => {
-        database.createThread('stephe', 'abc234').then((result) => {
-            expect(result.length).toBeFalsy
-        });
-    });
+    // test('Input is valid', () => {
+    //     database.createThread('stephe', 'abc234').then((result) => {
+    //         expect(result.length).toBeFalsy
+    //     });
+    // });
 });
 
 // describe('Login Input Test', () => {
