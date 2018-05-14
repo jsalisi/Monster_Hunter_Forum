@@ -204,6 +204,7 @@
   border-color: grey;
   position: absolute;
   font-family: 'Cinzel Decorative', cursive;
+  cursor: pointer;
 }
 
 #forum_home:link, #forum_home:visited {
@@ -325,6 +326,14 @@
   margin: 1%;
 }
 
+#topTitle {
+  position: absolute;
+  width: 30vw;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
 #disc_div {
   padding: 1%;
   margin: 1%;
@@ -333,8 +342,8 @@
 
 #thread_submit {
   position: absolute;
-  bottom: 10%;
-  left: 34.7%;
+  bottom: 7%;
+  left: 30vw;
 }
 
 .topic {
@@ -445,7 +454,7 @@
   right: 0px;
   position: absolute;
   margin: auto;
-  width: 30%;
+  width: 30vw;
   height: 35%;
 }
 
