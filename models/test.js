@@ -70,7 +70,6 @@ var database = require('./amazon-db-test.js');
 //     });
 // });
 
-
 describe('testing login functionality', () => {
     test('Input is valid', () => {
         database.testLogin('stephen', 'abc123').then((result) => {
