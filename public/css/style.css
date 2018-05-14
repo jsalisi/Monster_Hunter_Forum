@@ -194,6 +194,7 @@
   position: absolute;
   font-family: 'Cinzel Decorative',
   cursive;
+  cursor: pointer;
 }
 
 #recent {
@@ -300,6 +301,7 @@
   border-style: solid;
   border-color: grey;
   border-radius: 25px;
+  cursor: pointer;
 }
 
 #discussSelect {
