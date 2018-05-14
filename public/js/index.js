@@ -4,8 +4,8 @@ var menu = document.getElementById('forum_home')
 var close_but = document.getElementById('close_but')
 var tab_but = document.getElementsByClassName('tab_but')
 var logout_but = document.getElementById('logout_but')
-var loginBut = document.getElementById('loginBut')
-var reg_but = document.getElementById('reg_but')
+// var loginBut = document.getElementById('loginBut')
+// var reg_but = document.getElementById('reg_but')
 
 for (var key in localStorage) {
     if ((key != 'length')&&( key != 'key') && (key != 'getItem') && (key != 'setItem') && (key != 'clear') && (key != 'removeItem')) {
@@ -13,13 +13,13 @@ for (var key in localStorage) {
     }
 }
 
-reg_but.addEventListener("mouseover", function () {
-    document.getElementById('reg_but').style.backgroundColor = 'slategrey';
-});
+// reg_but.addEventListener("mouseover", function () {
+//     document.getElementById('reg_but').style.backgroundColor = 'slategrey';
+// });
 
-reg_but.addEventListener("mouseout", function () {
-    document.getElementById('reg_but').style.backgroundColor = 'darkslategrey';
-});
+// reg_but.addEventListener("mouseout", function () {
+//     document.getElementById('reg_but').style.backgroundColor = 'darkslategrey';
+// });
 
 menu.addEventListener("mouseover", function () {
     quick_tab.style.top = '18vh';
