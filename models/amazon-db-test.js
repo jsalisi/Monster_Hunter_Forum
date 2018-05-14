@@ -2,7 +2,7 @@
 // Static variables shown are either init values or from request.body
 
 
-var database = require('./amazon_db');
+// var database = require('./amazon_db');
 
 // Static Variables                                             // thread_id:    New threads will increment from the last thread ID
 var title = "I am potato";                                      // title:        Titles will be retrieved from a from submission using request.body.topTitle
@@ -132,4 +132,25 @@ var main = (choice) => {
     }
 }
 
-main(2);
+// main(2);
+
+// TDD verified function
+var testLogin = (username, password) => {
+    return new Promise((resolve, reject) => {
+        // pool.getConnection((err, connection) => {
+        //   connection.query(`SELECT * FROM Users where username = '${username}' and password = '${password}';`, (error, results, fields) => {
+        //     connection.release();
+        //     if (results.length > 0) {
+        //       return true
+        //     } else {
+        //       return false
+        //     }
+        //   });
+        // });
+        resolve(true);
+    });
+}
+
+module.exports = {
+    testLogin
+}

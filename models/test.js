@@ -1,4 +1,4 @@
-var database = require('./amazon_db.js');
+var database = require('./amazon-db-test.js');
 
 
 // it('data contains correct properties in threads in Amazon RDS database', () => {
