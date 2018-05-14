@@ -145,10 +145,15 @@
     grid-column-end:4;
     grid-row-start: 1;
     grid-row-end:1;
-    background-color: #106853;
+    background-color: darkslategrey;
     text-align: center;
     position: relative;
     width:100%;
+}
+
+.itemtext1:hover, .itemtext1:active {
+    background-color: #106853;
+    cursor: pointer;
 }
 
 .textbox1 {
