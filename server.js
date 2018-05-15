@@ -152,19 +152,19 @@ app.get('/homepage', (request, response) => {
   response.render('Homepage.hbs');
 })
 
-app.get('/general', (request, response) => {
+app.get('/0=category_general', (request, response) => {
     threadsInCategory(0, response);
 });
 
-app.get('/gameplay', (request, response) => {
+app.get('/1=category_gamaplay', (request, response) => {
     threadsInCategory(1, response);
 });
 
-app.get('/FAQ', (request, response) => {
+app.get('/2=category_offtopic', (request, response) => {
     threadsInCategory(2, response);
 });
 
-app.get('/support', (request, response) => {
+app.get('/3=category_support', (request, response) => {
     threadsInCategory(3, response);
 });
 
