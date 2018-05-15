@@ -1,6 +1,6 @@
 #Homeforum {
     width:70vw;
-    height:70vh;
+    height:72vh;
     background-color:darkslategray;
     position: absolute;
     left:0px;
@@ -9,6 +9,7 @@
     margin:auto;
     border:3px solid grey;
     padding:5px;
+    background-color: #d2d3d4;
 }
 
 #Homeavatar {
@@ -42,34 +43,36 @@
     display:inline-block;
     font-family:"cinzel decorative";
     color:white;
-    ;
 }
 
 #catepost{
-    width:92.6%;
+    width:65.15vw;
     height:20%;
     left:3.25%;
     border-bottom:2px solid rgba(0, 0, 0, .4);
     position: relative;
     top:3%;
     border:3px solid black;
+    background-color: darkslategray;
 }
 #homebanner {
-    left:3.3%;
+    left:3.25%;
     top:3.3%;
-    width:93.0%;
+    width:65.15vw;
     background-color:black;
     color:white;
     text-align:center;
     position: relative;
     font-family:"cinzel decorative";
+    border-right:3px solid black;
+    border-left:3px solid black;
 }
 
 
 #catetext {
     width:75%;
     left:20%;
-    font-size:3vw;
+    font-size:2.5vw;
     text-align:left;
     top:20%;
     position: relative;
