@@ -7,12 +7,6 @@ var logout_but = document.getElementById('logout_but')
 // var loginBut = document.getElementById('loginBut')
 // var reg_but = document.getElementById('reg_but')
 
-for (var key in localStorage) {
-    if ((key != 'length')&&( key != 'key') && (key != 'getItem') && (key != 'setItem') && (key != 'clear') && (key != 'removeItem')) {
-        document.getElementById('welcomeMsg').innerHTML = `Welcome Back ${key}`
-    }
-}
-
 // reg_but.addEventListener("mouseover", function () {
 //     document.getElementById('reg_but').style.backgroundColor = 'slategrey';
 // });
@@ -22,23 +16,19 @@ for (var key in localStorage) {
 // });
 
 menu.addEventListener("mouseover", function () {
-    quick_tab.style.top = '18vh';
+    quick_tab.style.top = '17%';
 });
 
 menu.addEventListener("mouseout", function () {
-    quick_tab.style.top = '-17vh';
+    quick_tab.style.top = '-17%';
 }); 
 
 quick_tab.addEventListener("mouseover", function () {
-    quick_tab.style.top = '18vh';
+    quick_tab.style.top = '17%';
 });
 
 quick_tab.addEventListener("mouseout", function () {
-    quick_tab.style.top = '-17vh';
-});
-
-close_but.addEventListener("click", function () {
-    quick_tab.style.top = '-17vh';
+    quick_tab.style.top = '-17%';
 });
 
 mon_logo.addEventListener("mouseover", function () {
@@ -97,10 +87,8 @@ document.getElementById('close_but').addEventListener("mouseout", function () {
     document.getElementById('close_but').style.backgroundColor = 'darkslategrey';
 });
 
-reg_but.addEventListener("mouseover", function () {
-    document.getElementById('reg_but').style.backgroundColor = 'slategrey';
-});
-
-reg_but.addEventListener("mouseout", function () {
-    document.getElementById('reg_but').style.backgroundColor = 'darkslategrey';
-});
+for (var key in localStorage) {
+    if ((key != 'length')&&( key != 'key') && (key != 'getItem') && (key != 'setItem') && (key != 'clear') && (key != 'removeItem')) {
+        document.getElementById('welcomeMsg').innerHTML = `Welcome Back ${key}`
+    }
+}
