@@ -85,7 +85,6 @@ var get_banner = (status) => {
 
 var threadsInCategory = (category_id, response) => {
     db.loadThreads(category_id).then((threads) => {
-        get_banner(0)
         response.render('index.hbs', {
             thread: threads
         });
@@ -138,20 +137,6 @@ app.get('/home', (request, response) => {
   response.redirect('/login');
 })
 
-/**
- * @param {string} '/homepage' - url for app.get
- */
-app.get('/homepage', (request, response) => {
-  /**
-   * @function get_banner - used to select banner for homepage.hbs
-   */
-  get_banner(0)
-  /**
-   * @param {string} 'Homepage.hbs' - .hbs file for rendering
-   */
-  response.render('Homepage.hbs');
-})
-
 app.get('/general', (request, response) => {
     threadsInCategory(0, response);
 });
@@ -160,7 +145,7 @@ app.get('/gameplay', (request, response) => {
     threadsInCategory(1, response);
 });
 
-app.get('/FAQ', (request, response) => {
+app.get('/off_topic', (request, response) => {
     threadsInCategory(2, response);
 });
 
@@ -203,13 +188,13 @@ app.post('/welcome', urlencodedParser, (request, response) => {
         /**
          * param {string} 'index.hbs' - .hbs for render
          */
-        response.render('index.hbs', {
+        response.render('Homepage.hbs', {
           thread: post
         });
 
       } else if (request.body.loginCheck == '') {
         get_banner(0)
-        response.render('index.hbs', {
+        response.render('Homepage.hbs', {
           thread: post
         });
       } else {
