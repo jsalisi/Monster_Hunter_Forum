@@ -55,9 +55,9 @@
     border:3px solid black;
 }
 #homebanner {
-    left:3.2%;
+    left:3.3%;
     top:3.3%;
-    width:93.1%;
+    width:93.0%;
     background-color:black;
     color:white;
     text-align:center;
@@ -68,11 +68,12 @@
 
 #catetext {
     width:75%;
-    left:9%;
-    font-size:17px;
+    left:20%;
+    font-size:3vw;
     text-align:left;
     top:20%;
     position: relative;
+    color:white;
 }
 .grid-container {
     position: absolute;
@@ -138,6 +139,7 @@
     background-image:url("/img/categoryimage.jpg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    width:100%; 
 }
 
 .itemtext1 {
@@ -147,24 +149,26 @@
     grid-row-end:1;
     background-color: darkslategrey;
     text-align: center;
-    position: relative;
     width:100%;
+    position: relative;
 }
 
 .itemtext1:hover, .itemtext1:active {
     background-color: #106853;
     cursor: pointer;
+    
 }
 
 .textbox1 {
-    position: absolute;
+    position: relative;
     top:25%;
     bottom:0px;
     right:0px;
     left:0px;
-    font-size:400%;
+    font-size:2.5vw;
     font-family:"cinzel decorative";
     color: white;
+    position: absolute;
 }
 
 #img2 {
@@ -178,3 +182,4 @@
 #img4 {
     background-image: url("/img/categoryimage4.jpg");
 }
+
