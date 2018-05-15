@@ -31,6 +31,7 @@
                        <textarea class="Text" id='topPost' width='50%' required="required" name='topContent' rows="6" col="100" maxlength="600" placeholder="Content"></textarea>
 
                        <br>
+                        <textarea style="display: none" name="cat_id">{{cat_id}}</textarea>
                         <button id="thread_submit" type="submit" name='currentUser' value={{getUser}}>Confirm</button>
                        {{!-- <input id="thread_submit" name='currentUser' value={{getUser}} type="submit"> --}}
                    </form>
