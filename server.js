@@ -212,9 +212,7 @@ app.post('/welcome', urlencodedParser, (request, response) => {
         response.render('index.hbs', {
           thread: post
         });
-        console.log('out')
       } else {
-        console.log('neither')
         response.redirect('/login')
       }
   }).catch((error) => {
