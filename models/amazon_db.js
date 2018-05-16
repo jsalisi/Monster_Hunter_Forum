@@ -15,11 +15,8 @@ var pool  = mysql.createPool({
 
 var testConnection = () => {
   return new Promise((resolve, reject) => {
-    pool.getConnection((err, connection) => {
-      connection.query(`SELECT * FROM monster_hunter_forum_DB.Categories LIMIT 1000`, (error, results, fields) => {
-        resolve(results[0].category_title);
-      });
-      connection.release();
+    pool.query(`SELECT * FROM monster_hunter_forum_DB.Categories LIMIT 1000`, (error, results, fields) => {
+      resolve(results[0].category_title);
     });
   });
 }
