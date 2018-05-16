@@ -1,16 +1,20 @@
 var mysql = require('mysql');
 
 // secret.json file is required for Amazon RDS to work
-var config = require('./json/secret.json');
+// var config = require('./json/secret.json');
 
 // Creates the connection to the database
-var pool  = mysql.createPool({
-  host: config.dbhost,
-  user: config.dbuser,
-  password: config.dbpassword,
-  database: config.dbname,
-  port: config.port
-});
+// var pool  = mysql.createPool({
+//   host: config.dbhost,
+//   user: config.dbuser,
+//   password: config.dbpassword,
+//   database: config.dbname,
+//   port: config.port
+// });
+
+var testvar = () => {
+  return process.env.TESTVAR;
+}
 
 /**
  * Loads all threads from the database
@@ -236,4 +240,5 @@ module.exports = {
   usernameExist,
   regUser,
   updateView,
+  testvar
 }
