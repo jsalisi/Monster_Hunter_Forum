@@ -13,6 +13,16 @@ var pool  = mysql.createPool({
   port: process.env.DBPORT
 });
 
+var testConnection = () => {
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      connection.query(`SELECT * FROM monster_hunter_forum_DB.Categories LIMIT 1000`, (error, results, fields) => {
+        resolve(results[0].category_title);
+      });
+    });
+  });
+}
+
 /**
  * Loads all threads from the database
  */
@@ -236,5 +246,6 @@ module.exports = {
   loadUsers,
   usernameExist,
   regUser,
-  updateView
+  updateView,
+  testConnection
 }

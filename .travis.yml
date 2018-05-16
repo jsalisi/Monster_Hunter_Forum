@@ -3,8 +3,3 @@ node_js:
   - "node"
 services:
   - mysql
-mysql:
-  adapter: mysql2
-  username: root
-  encoding: utf8
-  database: node_mysql
