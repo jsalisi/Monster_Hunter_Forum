@@ -269,7 +269,7 @@ app.post('/postThread', urlencodedParser, (request, response) => {
   hbs.registerHelper('getUser', () => {
     return request.body.username
   });
-  response.render('postThread.hbs', {})
+  response.render('postThread.hbs', { cat_id: Number(request.headers.referer.split('/')[3].split('=')[0])})
 });
 
 // posting thread to gs
@@ -284,7 +284,7 @@ app.post('/postResult', urlencodedParser, (request, response) => {
 
       // Function call format for creating a new thread
       // Threads have an initial post that accompany it on creation
-  db.createThread(request.body.topTitle.replace(/'/g, '\\\'').replace(/"/g, '\\\"')).then((result) => {
+  db.createThread(request.body.topTitle.replace(/'/g, '\\\'').replace(/"/g, '\\\"'), request.body.cat_id).then((result) => {
         if (result == true) {
           console.log('Adding new thread...');
           console.log(result);
