@@ -6,7 +6,7 @@ var config = require('./json/secret.json');
 // Creates the connection to the database
 var pool  = mysql.createPool({
   host: config.dbhost,
-  user: config.dbuser,
+  user: process.env.DBNAME,
   password: config.dbpassword,
   database: config.dbname,
   port: config.port
