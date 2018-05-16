@@ -2,7 +2,7 @@ var database = require('./amazon-db-test.js');
 var db = require('./amazon_db.js');
 
 it('testing process.env from Travis-CI', () => {
-    db.testvar().toBe('123test');
+    db.testvar().toBe(process.env.TESTVAR);
 });
 
 // it('data contains correct properties in threads in Amazon RDS database', () => {
