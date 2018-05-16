@@ -4,17 +4,13 @@ var mysql = require('mysql');
 // var config = require('./json/secret.json');
 
 // Creates the connection to the database
-// var pool  = mysql.createPool({
-//   host: config.dbhost,
-//   user: config.dbuser,
-//   password: config.dbpassword,
-//   database: config.dbname,
-//   port: config.port
-// });
-
-var testvar = () => {
-  return process.env.TESTVAR;
-}
+var pool  = mysql.createPool({
+  host: process.env.DBHOST,
+  user: process.env.DBUSER,
+  password: process.env.DBPASSWORD,
+  database: process.env.DBNAME,
+  port: process.env.DBPORT
+});
 
 /**
  * Loads all threads from the database

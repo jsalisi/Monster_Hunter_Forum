@@ -1,24 +1,20 @@
-var database = require('./amazon-db-test.js');
-var db = require('./amazon_db.js');
+var db = require('./amazon-db-test.js');
+var database = require('./amazon_db.js');
 
-it('testing process.env from Travis-CI', () => {
-    expect(db.testvar()).toBe('123test');
+it('data contains correct properties in threads in Amazon RDS database', () => {
+    return database.loadThreads(0).then((threads) => {
+        for (var key in threads) {
+            expect(threads[`${key}`]).toHaveProperty('title');
+            expect(threads[`${key}`]).toHaveProperty('views');
+            expect(threads[`${key}`]).toHaveProperty('replies');
+            expect(threads[`${key}`]).toHaveProperty('started_by');
+            expect(threads[`${key}`]).toHaveProperty('post_date');
+            expect(threads[`${key}`]).toHaveProperty('last_poster');
+            expect(threads[`${key}`]).toHaveProperty('last_post_date');
+            expect(threads[`${key}`]).toHaveProperty('topic_link');
+        }
+    });
 });
-
-// it('data contains correct properties in threads in Amazon RDS database', () => {
-//     return database.loadThreads().then((threads) => {
-//         for (var key in threads) {
-//             expect(threads[`${key}`]).toHaveProperty('title');
-//             expect(threads[`${key}`]).toHaveProperty('views');
-//             expect(threads[`${key}`]).toHaveProperty('replies');
-//             expect(threads[`${key}`]).toHaveProperty('started_by');
-//             expect(threads[`${key}`]).toHaveProperty('post_date');
-//             expect(threads[`${key}`]).toHaveProperty('last_poster');
-//             expect(threads[`${key}`]).toHaveProperty('last_post_date');
-//             expect(threads[`${key}`]).toHaveProperty('topic_link');
-//         }
-//     });
-// });
 
 // it('data contains correct property types in threads in Amazon RDS database', () => {
 //     return database.loadThreads().then((threads) => {
@@ -77,7 +73,7 @@ it('testing process.env from Travis-CI', () => {
 
 describe('testing login functionality', () => {
     test('Input is valid', () => {
-        database.testLogin('stephen', 'abc123').then((result) => {
+        db.testLogin('stephen', 'abc123').then((result) => {
             expect(result).toBeTruthy
         });
     });
