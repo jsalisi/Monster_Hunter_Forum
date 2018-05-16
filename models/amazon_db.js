@@ -1,3 +1,4 @@
+require('dotenv').config();
 var mysql = require('mysql');
 
 // secret.json file is required for Amazon RDS to work
