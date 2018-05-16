@@ -15,6 +15,8 @@ describe('Thread tests from Amazon RDS database', () => {
                 expect(threads[`${key}`]).toHaveProperty('topic_link');
             }
             process.exit();
+        }).catch((error) => {
+            console.log(error);            
         });
     });
 
@@ -31,6 +33,8 @@ describe('Thread tests from Amazon RDS database', () => {
                 expect(typeof threads[i].topic_link).toBe(string);
             }
             process.exit();
+        }).catch((error) => {
+            console.log(error);
         });
     });
 });
@@ -46,6 +50,8 @@ describe('Post tests from Amazon RDS database', async () => {
                 expect(data[i]).toHaveProperty("post")
             }
             process.exit();
+        }).catch((error) => {
+            console.log(error);
         });
     });
 })
@@ -55,6 +61,8 @@ describe('Get the next Post ID', () => {
         database.getNextPostID(14).then((numbr) => {
             expect(typeof numbr).toBe("number");
             process.exit();
+        }).catch((error) => {
+            console.log(error);
         });
     });
 });
@@ -82,6 +90,8 @@ describe('testing login functionality', () => {
     test('Input is valid', () => {
         db.testLogin('stephen', 'abc123').then((result) => {
             expect(result).toBeTruthy
+        }).catch((error) => {
+            console.log(error);
         });
     });
     // test('Input is valid', () => {
