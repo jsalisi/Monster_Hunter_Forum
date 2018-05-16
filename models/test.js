@@ -1,20 +1,20 @@
 var database = require('./amazon-db-test.js');
 
 
-// it('data contains correct properties in threads in Amazon RDS database', () => {
-//     return database.loadThreads().then((threads) => {
-//         for (var key in threads) {
-//             expect(threads[`${key}`]).toHaveProperty('title');
-//             expect(threads[`${key}`]).toHaveProperty('views');
-//             expect(threads[`${key}`]).toHaveProperty('replies');
-//             expect(threads[`${key}`]).toHaveProperty('started_by');
-//             expect(threads[`${key}`]).toHaveProperty('post_date');
-//             expect(threads[`${key}`]).toHaveProperty('last_poster');
-//             expect(threads[`${key}`]).toHaveProperty('last_post_date');
-//             expect(threads[`${key}`]).toHaveProperty('topic_link');
-//         }
-//     });
-// });
+it('data contains correct properties in threads in Amazon RDS database', () => {
+    return database.loadThreads(0).then((threads) => {
+        for (var key in threads) {
+            expect(threads[`${key}`]).toHaveProperty('title');
+            expect(threads[`${key}`]).toHaveProperty('views');
+            expect(threads[`${key}`]).toHaveProperty('replies');
+            expect(threads[`${key}`]).toHaveProperty('started_by');
+            expect(threads[`${key}`]).toHaveProperty('post_date');
+            expect(threads[`${key}`]).toHaveProperty('last_poster');
+            expect(threads[`${key}`]).toHaveProperty('last_post_date');
+            expect(threads[`${key}`]).toHaveProperty('topic_link');
+        }
+    });
+});
 
 // it('data contains correct property types in threads in Amazon RDS database', () => {
 //     return database.loadThreads().then((threads) => {
