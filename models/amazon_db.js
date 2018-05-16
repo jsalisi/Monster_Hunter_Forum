@@ -15,11 +15,28 @@ var pool  = mysql.createPool({
 
 /**
  * Loads all threads from the database
+ * @param {number} cat_id - the category used to sort the type of thread
  */
 var loadThreads = (cat_id) => {
   return new Promise((resolve, reject) => {
     pool.query(`SELECT *, DATE_FORMAT(b.post_date, "%W %M %e, %Y %H:%i") as post_date FROM monster_hunter_forum_DB.Threads as a JOIN monster_hunter_forum_DB.Posts as b ON a.thread_id=b.thread_id_fk WHERE category_id = ${cat_id};`, (error, results, fields) => {
-      // process the result so its easier to pass to hbs
+      
+        processLoadQuery(results).then((tempdb) => {
+            resolve(tempdb);
+        }).catch((error) => {
+            reject(error);
+        });
+    });
+  });
+}
+
+/**
+ * processes the query into a format compatible with the threaadLinkTemp.hbs partial
+ * @param {object} results - query result from the database
+ */
+var processLoadQuery = (results) => {
+    return new Promise((resolve, reject) => {
+        // process the result so its easier to pass to hbs
       var tempdb = {};
 
       for (var x in results) {
@@ -42,11 +59,8 @@ var loadThreads = (cat_id) => {
           };
         }
       }
-      // Handle error after the release.
-      if (error) reject(error);
-      else resolve(tempdb);
+      resolve(tempdb);
     });
-  });
 }
 
 /**
