@@ -235,6 +235,5 @@ module.exports = {
   loadUsers,
   usernameExist,
   regUser,
-  updateView,
-  testvar
+  updateView
 }
