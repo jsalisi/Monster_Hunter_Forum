@@ -6,7 +6,7 @@ services:
 
 script:
    - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then npm test -- PR.test.js --coverage --forceExit; fi'
-   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm test -- test.js --coverage --forceExit; fi'
+   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then npm test -- main.test.js --coverage --forceExit; fi'
 # deploy:
 #   api_key:
 #     secure: AJQv691GgFmtrl1AERJmCQrxCZfxqT7lmY2C6eOnTMsHApMKsSgQCvwcE094HblX9Lp85bR9yq6dyXh1HJGXCDBSALsec0RemrBlgSeHun+dariRbHf8sqyW/LKE6ko/xeXMXyB8fa5a4tofjrxV12Use/ad+U6hbQfRcqLakknsFSIWtsblRzkBTRB+GlXDoa3ck4hYCuqz4V8yeRZzjO3Wb/8dttCx2nGfOjL1/fcR3CUgnVYsJbTjZHYINHspJOX4gcbz34EtL9cBSYJA3yxfQ0qj1T1XoYVCotRopEWP2ylWJTrB65D2k0K586wD8zENYyiEi60UH5W2LUbSQTa4ofvRTVVlGF3M/XjYGUKa0u8/6YdEhX32IbhYHIqzVaGhRcuVtI5CKDkoFekVjIMTQ9eorHXnY7PJXuK07yIJ47HBQ3dXXzpR3/FjqCcnh65zcuOQAGVSu4ILa7C0e2oAT/ahpTSk36QkIbSmIfTnLHniZKlbMe3Qqm3ImSdUVBg7BK8DJcJCVXrbc2vTah61iJwxShEPpH1p3aPPluUs7vX/Gebv8f5dAHUgDm7BowH44EHkxA9AabJAhdHAkgijKwzHlhOc1VTKriz9UfItyPag/4DMNtVmncksxJyoq1H3HgWOSOhm3dP+oiiWhyHwomheYYc/oPfranfBS2w=

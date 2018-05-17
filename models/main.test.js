@@ -55,6 +55,36 @@ describe('Post tests from Amazon RDS database', async () => {
     });
 });
 
+describe('Test ProcessLoadQuery', async () => {
+    test("Testing for Process Validity", () => {
+        return database.processLoadQuery('hello').then((data) => {
+            expect(data).toBeTruthy();
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+});
+
+describe('Test register users', async () => {
+    test("Testing to see if user get registered", () => {
+        return database.regUser('ALALALALALA', 'HEYYYYYYYYYY').then((data) => {
+            expect(data).toBeTruthy();
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+});
+
+describe('Test Update View', async () => {
+    test("Testing to see views are upadated to post correctly", () => {
+        return database.updateView('testing').then((data) => {
+            expect(data).toBeTruthy();
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+});
+
 describe('Get the next Post ID', async () => {
     test('Post ID is correct type', () => {
         expect.assertions(1);
@@ -94,7 +124,22 @@ describe('testing login functionality', () => {
     });
     test('Input is valid', () => {
         database.loadUsers('stephe', 'abc234').then((result) => {
-            expect(result).toBeFalsy
+            expect(result).toBeFalsy()
+        });
+    });
+});
+
+describe('testing username unique', () => {
+    test('username exists', () => {
+        database.usernameExist('stephen').then((result) => {
+            expect(result.length).toBeGreaterThan(0)
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
+    test('username no exist', () => {
+        database.usernameExist('HEYYYYYYYYYYYYYYY').then((result) => {
+            expect(result.length).toBe(0)
         });
     });
 });
