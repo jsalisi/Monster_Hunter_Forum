@@ -144,10 +144,6 @@
   top: 5%;
 }
 
-#logo:hover {
-  cursor: pointer;
-}
-
 #reg_but {
   position: absolute;
   font-family: 'Cinzel Decorative', cursive;
@@ -266,20 +262,19 @@
 /* forum type selections */
 
 #quick_tab {
-  height: 30%;
-  width: 10vw;
-  left: 1%;
+  height: 128px;
+  width: 180px;
+  left: -165px;
   background-color: #D3D3D4;
   border-color: grey;
   border-style: solid;
-  top: -17vh;
+  top: 30vh;
   position: fixed;
   z-index: 10000;
   border-radius: 25px;
   text-align: center;
   transition: 0.2s;
   z-index: 1;
-  cursor: pointer;
 }
 
 #tab_title {
@@ -290,22 +285,22 @@
 }
 
 .tab_but {
-  left: 0px;
-  right: 0px;
+  left: 5px;
   margin: 1%;
   width: 8vw;
   font-weight: bold;
   text-align: center;
   display: inline-block;
   position: relative;
-  font-size: 20px;
-  top: 65px;
+  font-size: 110%;
+  top: 5px;
   bottom: 0px;
   color: white;
   background-color: darkslategrey;
   border-style: solid;
   border-color: grey;
   border-radius: 25px;
+  cursor: pointer;
 }
 
 #discussSelect {

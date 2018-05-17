@@ -18,23 +18,11 @@
     position: relative;
     display:inline-block;
     border-right:2px solid rgba(0, 0, 0, .4);
+    background-image:url("/img/testing.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-#imgavatar {
-    width:95%;
-    height:90%;
-    position: relative;
-    background-image:url("/img/testing.jpg");
-    top:5%;
-    left:0px;
-    right:0px;
-    margin:auto;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
-    border: 1px solid black;
-    border-radius: 4px;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
 #Homecategory{
     width:80%;
     height:100%;
@@ -46,7 +34,7 @@
 }
 
 #catepost{
-    width:65.15vw;
+    width:64.8vw;
     height:20%;
     left:3.25%;
     border-bottom:2px solid rgba(0, 0, 0, .4);
@@ -58,7 +46,7 @@
 #homebanner {
     left:3.25%;
     top:3.3%;
-    width:65.15vw;
+    width:64.8vw;
     background-color:black;
     color:white;
     text-align:center;
@@ -141,8 +129,7 @@
     grid-row-end:1;
     background-image:url("/img/categoryimage.jpg");
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width:100%; 
+    background-size: cover;
 }
 
 .itemtext1 {
