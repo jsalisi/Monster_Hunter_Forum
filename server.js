@@ -342,9 +342,14 @@ app.post('/newPostResult', urlencodedParser, (request, response) => {
 /**
  * hbs page for registering a new account
  */
-app.get('/register', (request, response) => {
+try {
+  app.get('/register', (request, response) => {
     response.render('register.hbs', {})
-});
+  });
+} catch (e) {
+  console.log(e)
+  response.redirect('/404')
+}
 
 /**
  * Retrieves the user submitted to process a new account
