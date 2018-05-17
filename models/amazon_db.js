@@ -66,6 +66,7 @@ var processLoadQuery = (results) => {
 /**
  * Loads all posts from the database
  * Query can be adjusted to select posts for a specific thread
+ * @param {number} thread_id - id of the thread that the posts will be load from
  */
 var loadPosts = (thread_id) => {
   return new Promise((resolve, reject) => {
@@ -81,18 +82,21 @@ var loadPosts = (thread_id) => {
 /**
  * Creates a new thread and appends to the database
  * @param {number} thread_id - A unique thread ID
- * @param {string} thread_title - The title for the thread
- * @param {number} views - Number of times a thread has been clicked
+ * @param {number} cat_id - Category ID to post a thread into
  */
 var createThread = (thread_title, cat_id) => {
   return new Promise((resolve, reject) => {
     if (thread_title != '' && thread_title != ' ') {
-      // Use the connection
-      pool.query(`INSERT INTO Threads (thread_title, views, category_id)
+      pool.getConnection((err, connection) => {
+        // Use the connection
+        connection.query(`INSERT INTO Threads (thread_title, views, category_id)
         VALUES('${thread_title}', 0, ${cat_id});`, (error, results, fields) => {
-        // Handle error after the release.
-        if (error) reject(error);
-        else resolve(true);
+          // And done with the connection.
+          connection.release();
+          // Handle error after the release.
+          if (error) reject(error);
+          else resolve(true);
+        });
       });
     } else {
       resolve(false);
@@ -105,7 +109,6 @@ var createThread = (thread_title, cat_id) => {
  * @param {number} post_id - A post ID unique for each thread
  * @param {number} thread_id - A unique ID for each thread
  * @param {string} username - A unique username for each user
- * @param {string} datetime - The posts' date and time
  * @param {string} post - The contents of the post
  */
 var createPost = (thread_id, post_id, username, post) => {
