@@ -4,7 +4,7 @@
   "description": "Monster Hunter Forum for BCIT project term 2018",
   "main": "server.js",
   "scripts": {
-    "test": "jest --coverage --forceExit",
+    "test": "jest",
     "start": "node server.js"
   },
   "repository": {

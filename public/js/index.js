@@ -1,6 +1,5 @@
 var quick_tab = document.getElementById('quick_tab')
-var mon_logo = document.getElementById('logo')
-var menu = document.getElementById('forum_home')
+//var mon_logo = document.getElementById('logo')
 var close_but = document.getElementById('close_but')
 var tab_but = document.getElementsByClassName('tab_but')
 var logout_but = document.getElementById('logout_but')
@@ -13,31 +12,23 @@ var logout_but = document.getElementById('logout_but')
 
 // reg_but.addEventListener("mouseout", function () {
 //     document.getElementById('reg_but').style.backgroundColor = 'darkslategrey';
-// });
-
-menu.addEventListener("mouseover", function () {
-    quick_tab.style.top = '17%';
-});
-
-menu.addEventListener("mouseout", function () {
-    quick_tab.style.top = '-17%';
-}); 
+// }); aa
 
 quick_tab.addEventListener("mouseover", function () {
-    quick_tab.style.top = '17%';
+    quick_tab.style.left = '-25px';
 });
 
 quick_tab.addEventListener("mouseout", function () {
-    quick_tab.style.top = '-17%';
+    quick_tab.style.left = '-165px';
 });
 
-mon_logo.addEventListener("mouseover", function () {
-    mon_logo.style.opacity = '0.6';
-});
+//mon_logo.addEventListener("mouseover", function () {
+//    mon_logo.style.opacity = '0.6';
+//});
 
-mon_logo.addEventListener("mouseout", function () {
-    mon_logo.style.opacity = '1';
-});
+//mon_logo.addEventListener("mouseout", function () {
+//    mon_logo.style.opacity = '1';
+//});
 
 document.getElementById('but_1').addEventListener("mouseover", function () {
     document.getElementById('but_1').style.backgroundColor = 'slategrey';
