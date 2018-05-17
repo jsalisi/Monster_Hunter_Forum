@@ -3,7 +3,6 @@ node_js:
 - node
 services:
 - mysql
-sudo: enabled
 dist: precise
 # deploy:
 #   api_key:
