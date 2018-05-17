@@ -91,26 +91,15 @@ describe('Thread posting test', () => {
 
 describe('testing login functionality', () => {
     test('Input is valid', () => {
-        db.testLogin('stephen', 'abc123').then((result) => {
+        database.loadUsers('stephen', 'abc123').then((result) => {
             expect(result).toBeTruthy();
         }).catch((error) => {
             console.log(error);
         });
     });
-    // test('Input is valid', () => {
-    //     database.createThread('stephe', 'abc234').then((result) => {
-    //         expect(result.length).toBeFalsy
-    //     });
-    // });
+    test('Input is valid', () => {
+        database.createThread('stephe', 'abc234').then((result) => {
+            expect(results).toBeFalsy
+        });
+    });
 });
-
-// describe('Login Input Test', () => {
-//     test('User info is valid', () => {
-//         database.loadUsers('anesbyc', 'O4rkWZCHGk').then((result) => {
-//             for (var i=0;i < result.length; i++) {
-//                 expect(threads[i].username).toBe('username');
-//                 expect(threads[i].password).toBe('password');
-//             }
-//         });
-//     });
-// });
