@@ -122,11 +122,6 @@ describe('testing login functionality', () => {
             console.log(error);
         });
     });
-    test('Input is valid', () => {
-        database.loadUsers('stephe', 'abc234').then((result) => {
-            expect(result).toBeFalsy()
-        });
-    });
 });
 
 describe('testing username unique', () => {

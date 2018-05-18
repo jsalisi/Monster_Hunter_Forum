@@ -106,7 +106,6 @@ var createThread = (thread_title, cat_id) => {
           if (error) reject(error);
           else resolve(true);
         });
-      });
     } else {
       resolve(false);
     };
@@ -225,7 +224,7 @@ var regUser = (username, password) => {
  */
 var updateView = (thread_id) => {
   return new Promise((resolve, reject) => {
-    if (username == 'testing') {
+    if (thread_id == 'testing') {
       resolve(true)
     } else {
     /* istanbul ignore next */
