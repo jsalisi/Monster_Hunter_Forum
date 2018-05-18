@@ -1,8 +1,10 @@
 var quick_tab = document.getElementById('quick_tab')
-//var mon_logo = document.getElementById('logo')
+var mon_logo = document.getElementById('logo')
 var close_but = document.getElementById('close_but')
 var tab_but = document.getElementsByClassName('tab_but')
 var logout_but = document.getElementById('logout_but')
+var menu = document.getElementById('forum_home')
+var click_count = 0;
 // var loginBut = document.getElementById('loginBut')
 // var reg_but = document.getElementById('reg_but')
 
@@ -14,29 +16,42 @@ var logout_but = document.getElementById('logout_but')
 //     document.getElementById('reg_but').style.backgroundColor = 'darkslategrey';
 // }); aa
 
-quick_tab.addEventListener("mouseover", function () {
-    quick_tab.style.left = '-25px';
-});
-
-quick_tab.addEventListener("mouseout", function () {
-    quick_tab.style.left = '-165px';
-});
-
-//mon_logo.addEventListener("mouseover", function () {
-//    mon_logo.style.opacity = '0.6';
+//quick_tab.addEventListener("mouseover", function () {
+//    quick_tab.style.left = '-25px';
 //});
 
-//mon_logo.addEventListener("mouseout", function () {
-//    mon_logo.style.opacity = '1';
+//quick_tab.addEventListener("mouseout", function () {
+//    quick_tab.style.left = '-165px';
 //});
 
-document.getElementById('but_1').addEventListener("mouseover", function () {
-    document.getElementById('but_1').style.backgroundColor = 'slategrey';
+menu.addEventListener("click", function () {
+    if (click_count == 0) {
+        quick_tab.style.left = '10px';
+        click_count = 1;
+    }
+
+    else if (click_count == 1) {
+        quick_tab.style.left = '-300px';
+        click_count = 0;
+    }
+    
 });
 
-document.getElementById('but_1').addEventListener("mouseout", function () {
-    document.getElementById('but_1').style.backgroundColor = 'darkslategrey';
+mon_logo.addEventListener("mouseover", function () {
+    mon_logo.style.opacity = '0.6';
 });
+
+mon_logo.addEventListener("mouseout", function () {
+    mon_logo.style.opacity = '1';
+});
+
+//document.getElementById('but_1').addEventListener("mouseover", function () {
+//    document.getElementById('but_1').style.backgroundColor = 'slategrey';
+//});
+
+//document.getElementById('but_1').addEventListener("mouseout", function () {
+//    document.getElementById('but_1').style.backgroundColor = 'darkslategrey';
+//});
 
 document.getElementById('but_2').addEventListener("mouseover", function () {
     document.getElementById('but_2').style.backgroundColor = 'slategrey';
@@ -70,13 +85,13 @@ document.getElementById('but_5').addEventListener("mouseout", function () {
     document.getElementById('but_5').style.backgroundColor = 'darkslategrey';
 });
 
-document.getElementById('close_but').addEventListener("mouseover", function () {
-    document.getElementById('close_but').style.backgroundColor = 'slategrey';
-});
+//document.getElementById('close_but').addEventListener("mouseover", function () {
+//   document.getElementById('close_but').style.backgroundColor = 'slategrey';
+//});
 
-document.getElementById('close_but').addEventListener("mouseout", function () {
-    document.getElementById('close_but').style.backgroundColor = 'darkslategrey';
-});
+//document.getElementById('close_but').addEventListener("mouseout", function () {
+//    document.getElementById('close_but').style.backgroundColor = 'darkslategrey';
+//});
 
 for (var key in localStorage) {
     if ((key != 'length')&&( key != 'key') && (key != 'getItem') && (key != 'setItem') && (key != 'clear') && (key != 'removeItem')) {

@@ -130,6 +130,7 @@
   position: absolute;
   left: 33%;
   top: 5%;
+  cursor: pointer;
 }
 
 #reg_but {
@@ -259,12 +260,12 @@
 
 #quick_tab {
   height: 128px;
-  width: 180px;
-  left: -165px;
+  width: 150px;
+  left: -300px; 
   background-color: #D3D3D4;
   border-color: grey;
   border-style: solid;
-  top: 30vh;
+  top: 28vh;
   position: fixed;
   z-index: 10000;
   border-radius: 25px;
@@ -281,7 +282,7 @@
 }
 
 .tab_but {
-  left: 5px;
+  left: 0px;
   margin: 1%;
   width: 8vw;
   font-weight: bold;
