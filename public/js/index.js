@@ -95,6 +95,6 @@ document.getElementById('but_5').addEventListener("mouseout", function () {
 
 for (var key in localStorage) {
     if ((key != 'length')&&( key != 'key') && (key != 'getItem') && (key != 'setItem') && (key != 'clear') && (key != 'removeItem')) {
-        document.getElementById('welcomeMsg').innerHTML = `Welcome Back ${key}`
+        document.getElementById('welcomeMsg').innerHTML = `Welcome Back ${key}!`
     }
 }
