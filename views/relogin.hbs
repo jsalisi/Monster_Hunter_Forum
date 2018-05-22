@@ -1,91 +1,53 @@
 <!Doctype html>
 <html>
-    <head>
-        <title>Re-Login</title>
-        <link rel="icon" href="/img/Monster_Hunter_Logo.png">
-        <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
-        <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
-    </head>
 
-    <body>
-         {{> quick_tab}}
-        
-        <div id='bodybg'></div>
+<head>
+    <title>Re-Login</title>
+    <link rel="icon" href="/img/Monster_Hunter_Logo.png">
+    <link href='css/threadSelectStyle.css' rel='stylesheet' type='text/css' />
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet">
+</head>
 
-        <div id='bodyWrapper'>
-            {{> (getBanner)}}
+<body>
+    {{> quick_tab}}
 
-            <div id='discussSelect'>
-               <div id='monhun' class='topic'>
+    <div id='bodybg'></div>
 
-                   <div class='topicTitle'>
-                       <b>Login</b>
-                   </div>
+    <div id='bodyWrapper'>
+        {{> (getBanner)}}
 
-                   <form class="regContainer" action='/checkCred' method='POST'>
+        <div id='discussSelect'>
+            <div id='monhun' class='topic'>
 
-                       <br>
-                       <p id='loginerror' >Authentication not successful! Please re-enter Login information!</p>
-                       <br>
-
-                       <label>Username:</label>
-                       <input id='new_user' name='user' type="text">
-                       <br>
-
-                       <br>
-                       <label>Password:</label>
-                       <input id='new_pass' name='pass' type="password" onchange="get_var()">
-                       <br>
-
-                       <br>
-                       <input id="gogo" type="submit">
-                   </form>
-
+                <div class='topicTitle'>
+                    <b>Login</b>
                 </div>
+
+                <form class="regContainer" action='/checkCred' method='POST'>
+
+                    <br>
+                    <p id='loginerror'>Authentication not successful! Please re-enter Login information!</p>
+                    <br>
+
+                    <label>Username:</label>
+                    <input id='new_user' name='user' type="text">
+                    <br>
+
+                    <br>
+                    <label>Password:</label>
+                    <input id='new_pass' name='pass' type="password" onchange="get_var()">
+                    <br>
+
+                    <br>
+                    <input id="gogo" type="submit">
+                </form>
+
             </div>
-
         </div>
-        <script src='js/index.js'></script>
 
+    </div>
+    <script src='js/index.js'></script>
 
+</body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-    </body>
 </html>
