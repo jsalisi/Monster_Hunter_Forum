@@ -100,8 +100,6 @@ var createThread = (thread_title, cat_id) => {
       /* istanbul ignore next */
       pool.query(`INSERT INTO Threads (thread_title, views, category_id)
         VALUES('${thread_title}', 0, ${cat_id});`, (error, results, fields) => {
-          // And done with the connection.
-          connection.release();
           // Handle error after the release.
           if (error) reject(error);
           else resolve(true);
