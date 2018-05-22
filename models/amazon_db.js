@@ -198,7 +198,7 @@ var usernameExist = (username) => {
 }
 
 /**
- * @function - used to add this user to db
+ *  used to add this user to db
  * @param {string} username - param set for regirstration after exist check passes
  * @param {string} password - param set for regirstration password
  */
