@@ -26,12 +26,12 @@ var click_count = 0;
 
 menu.addEventListener("click", function () {
     if (click_count == 0) {
-        quick_tab.style.left = '10px';
+        quick_tab.style.left = '0vw';
         click_count = 1;
     }
 
     else if (click_count == 1) {
-        quick_tab.style.left = '-300px';
+        quick_tab.style.left = '-15vw';
         click_count = 0;
     }
     
